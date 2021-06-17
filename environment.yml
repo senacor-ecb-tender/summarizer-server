@@ -10,12 +10,15 @@ dependencies:
   - asgiref=3.3.4=pyhd8ed1ab_0
   - attrs=20.2.0=py_0
   - azure-cli=0.10.3=0
-  - ca-certificates=2020.10.14=0
-  - certifi=2020.6.20=py38_0
+  - ca-certificates=2021.5.25=h06a4308_1
+  - certifi=2021.5.30=py38h06a4308_0
   - click=8.0.1=py38h578d9bd_0
+  - coverage=5.3=py38h7b6447c_0
   - fastapi=0.65.2=pyhd8ed1ab_0
+  - flake8=3.9.2=pyhd3eb1b0_0
   - h11=0.12.0=pyhd8ed1ab_0
   - icu=68.1=h2531618_0
+  - importlib-metadata=3.10.0=py38h06a4308_0
   - iniconfig=1.1.1=py_0
   - ld_impl_linux-64=2.35.1=h7274673_9
   - libffi=3.3=he6710b0_2
@@ -23,15 +26,18 @@ dependencies:
   - libgomp=9.3.0=h5101ec6_17
   - libstdcxx-ng=9.3.0=hd4cf53a_17
   - libuv=1.40.0=h7b6447c_0
+  - mccabe=0.6.1=py38_1
   - more-itertools=8.5.0=py_0
   - ncurses=6.2=he6710b0_1
   - nodejs=14.8.0=hda19d22_0
-  - openssl=1.1.1k=h7f98852_0
+  - openssl=1.1.1k=h27cfd23_0
   - packaging=20.4=py_0
   - pip=21.1.2=py38h06a4308_0
   - pluggy=0.13.1=py38_0
   - py=1.9.0=py_0
+  - pycodestyle=2.7.0=pyhd3eb1b0_0
   - pydantic=1.8.2=py38h497a2fe_0
+  - pyflakes=2.3.1=pyhd3eb1b0_0
   - pyparsing=2.4.7=py_0
   - pytest=6.1.1=py38_0
   - python=3.8.10=h12debd9_8
@@ -48,5 +54,6 @@ dependencies:
   - uvicorn=0.14.0=py38h578d9bd_0
   - wheel=0.36.2=pyhd3eb1b0_0
   - xz=5.2.5=h7b6447c_0
+  - zipp=3.4.1=pyhd3eb1b0_0
   - zlib=1.2.11=h7b6447c_3
 prefix: /opt/anaconda3/envs/ecb
