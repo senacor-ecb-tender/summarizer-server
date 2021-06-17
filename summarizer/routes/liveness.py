@@ -5,7 +5,4 @@ liveness = APIRouter()
 
 @liveness.get("/probes/liveness")
 def get_liveness():
-    return { "hostname": gethostname()}
-
-
-
+    return {"hostname": gethostname()}

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: ${NAMESPACE}
+  name: ${SERVICE_NAME}-configmap
+  labels:
+    ecb.team: ${GPP_TEAM}
+    ecb.domain: ${GPP_DOMAIN}
+    app: ${SERVICE_NAME}
+    app.kubernetes.io/name: ${NAME}
+    app.kubernetes.io/version: ${VERSION}
+    app.kubernetes.io/part-of: ${SERVICE_NAME}
+    app.kubernetes.io/managed-by: kubectl
+data:
+  key: value
