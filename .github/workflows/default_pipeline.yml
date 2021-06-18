@@ -1,6 +1,12 @@
 name: ECB Summarizer Web Server
 
 on: [push]
+env:
+  REGISTRY_NAME: ecbpitch
+  CLUSTER_NAME: ecp-pitch-cluster
+  CLUSTER_RESOURCE_GROUP: dev
+  NAMESPACE: summarizer-server
+  APP_NAME: ECB-Pitch-App
 
 jobs:
   build:
@@ -64,4 +70,18 @@ jobs:
 
     # step 4: Push Docker to Azure Registry
     - name: Push Docker
-      run: docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+      run: |
+        docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+
+    # Create image pull secret for ACR
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ secrets.registry }}
+        container-registry-username: ${{ secrets.service_principal }}
+        container-registry-password: ${{ secrets.service_principal_password }}
+        secret-name: ${{ env.SECRET }}
+        namespace: ${{ env.NAMESPACE }}
+        arguments: --force true
