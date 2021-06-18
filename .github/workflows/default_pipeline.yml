@@ -78,4 +78,4 @@ jobs:
           ${{ env.IMAGE }}:${{ env.BUILD_VER }}
         push: true
         secrets: |
-          GIT_AUTH_TOKEN=${{ secrets.service_principal_password }}
+          GIT_AUTH_TOKEN=${{ secrets.git_access_token }}
