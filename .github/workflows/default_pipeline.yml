@@ -43,6 +43,8 @@ jobs:
         lint: 'hadolint'
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
+    - run: |
+        echo "${{ secrets.registry }}"
     - name: ACR build
       id: acr
       uses: ams0/acr-task-github-action@v2
