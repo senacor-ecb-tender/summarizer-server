@@ -72,6 +72,13 @@ jobs:
     - name: Push Docker
       run: |
         docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+    # Set the target Azure Kubernetes Service (AKS) cluster.
+    - name: Set the target cluster
+      uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
     # Create namespace if doesn't exist
     - run: |
         kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
