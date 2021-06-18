@@ -50,18 +50,18 @@ jobs:
       with:
         dockerfile: 'Dockerfile'
         lint: 'hadolint'
-      # step 2: Docker login
-      - name: 'Docker login'
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.registry}}
-          username: ${{ secrets.service_principal }}
-          password: ${{ secrets.service_principal_password }}
+    # step 2: Docker login
+    - name: 'Docker login'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.registry}}
+        username: ${{ secrets.service_principal }}
+        password: ${{ secrets.service_principal_password }}
 
-      # step 3: Build Docker Image
-      - name: Build Docker
-        run: docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER}}/myimage:${{ github.sha }}
+    # step 3: Build Docker Image
+    - name: Build Docker
+      run: docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER}}/myimage:${{ github.sha }}
 
-      # step 4: Push Docker to Azure Registry
-      - name: Push Docker
-        run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER}}/myimage:${{ github.sha }}
+    # step 4: Push Docker to Azure Registry
+    - name: Push Docker
+      run: docker push ${{ secrets.REGISTRY_LOGIN_SERVER}}/myimage:${{ github.sha }}
