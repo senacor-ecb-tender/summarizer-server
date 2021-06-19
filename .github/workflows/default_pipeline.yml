@@ -28,9 +28,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.x
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: 'manual deployment'
       run: |
         az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant ${{ secrets.tenant }}
