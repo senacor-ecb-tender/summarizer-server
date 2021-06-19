@@ -6,7 +6,7 @@ metadata:
     labels:
       gpp.team: senacor
       ecb.domain: ecb
-      ecb.kubernetes.io/name: ${NAME}
+      ecb.kubernetes.io/name: summarizer-server
       app.kubernetes.io/instance: summarizer-server
       app.kubernetes.io/version: 1.0.0
       app.kubernetes.io/part-of: summarizer-server
