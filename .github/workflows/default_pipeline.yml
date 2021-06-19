@@ -28,11 +28,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.x
-    - uses: azure/login@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-    - run: |
-        az webapp list --query "[?state=='Running']"
+    #- uses: azure/login@v1
+    #  with:
+    #    creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    #- run: |
+    #    az webapp list --query "[?state=='Running']"
     # Set the target Azure Kubernetes Service (AKS) cluster.
     - name: Set the target cluster
       uses: azure/aks-set-context@v1
