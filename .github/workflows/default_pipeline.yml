@@ -27,7 +27,7 @@ jobs:
     - name: 'test'
       run: |
         az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant 52497ec2-0945-4f55-8021-79766363dd96
-        az webapp list --query "[?state=='Running']"
+        az aks list
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
