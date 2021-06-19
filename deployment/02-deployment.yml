@@ -30,7 +30,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: main
-        image: ezbpitch.azurecr.io/summarizer-server:dab37a8a46c7b2de7751019fd38fa9a3da970534
+        image: ezbpitch.azurecr.io/summarizer-server:latest # TODO: replace with variable
         imagePullPolicy: IfNotPresent
         resources:
           requests:
