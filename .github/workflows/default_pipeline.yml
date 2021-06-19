@@ -34,7 +34,7 @@ jobs:
         python-version: 3.8.x
     - uses: azure/login@v1
       with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        creds: '${{ secrets.AZURE_CREDENTALS }}'
     - run: |
         az webapp list --query "[?state=='Running']"
     # Set the target Azure Kubernetes Service (AKS) cluster.
