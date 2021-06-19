@@ -67,12 +67,15 @@ jobs:
     # step 3: Build Docker Image
     - name: Build Docker
       #run: docker build . -t ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
-      run: docker build . -t ${{ secrets.registry}}/summarizer-server:latest
+      run: |
+        docker build . -t ${{ secrets.registry}}/summarizer-server:latest
 
     # step 4: Push Docker to Azure Registry
     - name: Push Docker
+      #run: |
+      #  docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
       run: |
-        docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+        docker push ${{ secrets.registry}}/summarizer-server:latest
     - name: 'manual deployment'
       run: |
         az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant ${{ secrets.tenant }}
