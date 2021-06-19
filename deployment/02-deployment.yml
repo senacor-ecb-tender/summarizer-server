@@ -1,36 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${SERVICE_NAME}
-  namespace: ${NAMESPACE}
+  name: summarizer-server
+  namespace: summarizer-server
   labels:
-    app: ${SERVICE_NAME}
-    ecb.team: ${GPP_TEAM}
-    ecb.domain: ${GPP_DOMAIN}
-    app.kubernetes.io/name: ${NAME}
-    app.kubernetes.io/version: ${VERSION}
+    app: summarizer-server
+    ecb.team: senacor
+    ecb.domain: ecb
+    app.kubernetes.io/name: summarizer-server
+    app.kubernetes.io/version: 1.0.0
     app.kubernetes.io/component: microservice
-    app.kubernetes.io/part-of: ${OWNING_APPLICATION}
+    app.kubernetes.io/part-of: ecb-pitch
     app.kubernetes.io/managed-by: kubectl
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: ${SERVICE_NAME}
+      app: summarizer-server
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
   template:
     metadata:
-      namespace: ${NAMESPACE}
+      namespace: summarizer-server
       labels:
-        app: ${SERVICE_NAME}
+        app: summarizer-server
     spec:
       automountServiceAccountToken: false
       containers:
       - name: main
-        image: ${FQ_IMAGE_NAME}
+        image: ezbpitch.azurecr.io/summarizer-server
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -39,12 +39,9 @@ spec:
           limits:
             cpu: 100m
             memory: 100M
-        envFrom:
-            - configMapRef:
-                name: ${SERVICE_NAME}-configmap
         ports:
         - name: http
-          containerPort: 3000
+          containerPort: 8000
           protocol: TCP
         securityContext:
             runAsUser: 1000
@@ -54,14 +51,14 @@ spec:
         livenessProbe:
             httpGet:
               path: "/probes/liveness"
-              port: 3000
+              port: 8000
             initialDelaySeconds: 3
             periodSeconds: 30
             failureThreshold: 3
         readinessProbe:
           httpGet:
             path: "/probes/readiness"
-            port: 3000
+            port: 8000
           initialDelaySeconds: 3
           periodSeconds: 30
           failureThreshold: 3
