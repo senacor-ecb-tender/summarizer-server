@@ -24,19 +24,14 @@ jobs:
         echo "BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
         echo "GIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
         echo "GIT_REF=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match)" >> $GITHUB_ENV
-    - name: 'test'
-      run: |
-        az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant ${{ secrets.tenant }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.x
-    # Set the target Azure Kubernetes Service (AKS) cluster.
-    - name: Set the target cluster
-      uses: azure/aks-set-context@v1
-      with:
-        cluster-name: ${{ env.CLUSTER_NAME }}
-        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    - name: 'test'
+      run: |
+        az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant ${{ secrets.tenant }}
+        az aks get-credentials --resource-group ${{ ENV.CLUSTER_RESOURCE_GROUP}} --name ${{ env.CLUSTER_NAME }} --admin
     # Create namespace if doesn't exist
     - run: |
         kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
