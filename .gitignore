@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea/
+
+azure-credentials.json
+*-credentials.json
