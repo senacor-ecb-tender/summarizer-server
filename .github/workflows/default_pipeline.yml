@@ -15,6 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    # TODO revise these steps here
     - name: Set Environment Variables
       run: |
         IMG=summarizer-server
