@@ -31,7 +31,7 @@ spec:
       containers:
       - name: main
         image: ezbpitch.azurecr.io/summarizer-server:${github.sha}
-        imagePullPolicy: always
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 10m
