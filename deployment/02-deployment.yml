@@ -30,7 +30,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: main
-        image: ezbpitch.azurecr.io/summarizer-server:${GIT_SHA}
+        image: ezbpitch.azurecr.io/summarizer-server:${GIT_SHA_LONG}
         imagePullPolicy: Always
         resources:
           requests:

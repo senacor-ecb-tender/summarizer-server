@@ -24,6 +24,7 @@ jobs:
         echo "IMAGE=ghcr.io/${{ github.repository_owner }}/${IMG}" >> $GITHUB_ENV
         echo "BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
         echo "GIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+        echo "GIT_SHA_LONG=$(echo ${{ github.sha }})" >> $GITHUB_ENV
         echo "GIT_REF=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match)" >> $GITHUB_ENV
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
