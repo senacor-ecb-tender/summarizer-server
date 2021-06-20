@@ -82,12 +82,16 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ env.CLUSTER_NAME }}
         resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    - name: Render Deployment Files
+      run: |
+        scripts/render_files.sh
+        less rendered/02-deployment.yml
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
-          deployment/02-deployment.yml
-          deployment/03-service.yml
+          rendered/02-deployment.yml
+          rendered/03-service.yml
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
         namespace: ${{ env.NAMESPACE }}
