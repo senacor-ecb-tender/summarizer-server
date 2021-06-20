@@ -10,14 +10,19 @@ dependencies:
   - asgiref=3.3.4=pyhd8ed1ab_0
   - attrs=20.2.0=py_0
   - azure-cli=0.10.3=0
-  - ca-certificates=2021.5.30=ha878542_0
-  - certifi=2021.5.30=py38h578d9bd_0
+  - brotlipy=0.7.0=py38h7b6447c_1000
+  - ca-certificates=2020.10.14=0
+  - certifi=2020.6.20=py38_0
+  - cffi=1.14.3=py38he30daa8_0
+  - chardet=3.0.4=py38_1003
   - click=8.0.1=py38h578d9bd_0
   - coverage=5.3=py38h7b6447c_0
+  - cryptography=3.1.1=py38h1ba5d50_0
   - fastapi=0.65.2=pyhd8ed1ab_0
   - flake8=3.9.2=pyhd3eb1b0_0
   - h11=0.12.0=pyhd8ed1ab_0
   - icu=68.1=h2531618_0
+  - idna=2.10=py_0
   - importlib-metadata=3.10.0=py38h06a4308_0
   - iniconfig=1.1.1=py_0
   - jinja2=3.0.0=pyhd3eb1b0_0
@@ -38,14 +43,18 @@ dependencies:
   - pluggy=0.13.1=py38_0
   - py=1.9.0=py_0
   - pycodestyle=2.7.0=pyhd3eb1b0_0
+  - pycparser=2.20=py_2
   - pydantic=1.8.2=py38h497a2fe_0
   - pyflakes=2.3.1=pyhd3eb1b0_0
+  - pyopenssl=19.1.0=py_1
   - pyparsing=2.4.7=py_0
+  - pysocks=1.7.1=py38_0
   - pytest=6.1.1=py38_0
   - python=3.8.10=h12debd9_8
   - python-multipart=0.0.5=py_0
   - python_abi=3.8=1_cp38
   - readline=8.1=h27cfd23_0
+  - requests=2.24.0=py_0
   - setuptools=52.0.0=py38h06a4308_0
   - six=1.15.0=py_0
   - sqlite=3.35.4=hdfb4753_0
@@ -54,6 +63,7 @@ dependencies:
   - toml=0.10.1=py_0
   - typing-extensions=3.10.0.0=hd8ed1ab_0
   - typing_extensions=3.10.0.0=pyha770c72_0
+  - urllib3=1.25.11=py_0
   - uvicorn=0.14.0=py38h578d9bd_0
   - wheel=0.36.2=pyhd3eb1b0_0
   - xz=5.2.5=h7b6447c_0
