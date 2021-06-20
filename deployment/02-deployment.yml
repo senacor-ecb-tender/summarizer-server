@@ -31,7 +31,7 @@ spec:
       containers:
       - name: main
         image: ezbpitch.azurecr.io/summarizer-server:latest # TODO: replace with variable
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: always
         resources:
           requests:
             cpu: 10m
