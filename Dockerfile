@@ -1,10 +1,11 @@
 FROM continuumio/miniconda3:4.9.2-alpine
 
-WORKDIR /app
+WORKDIR /
 
 COPY environment.yml .
 COPY summarizer .
-COPY templates .
+COPY templates /templates
+RUN ls
 
 RUN conda env create -f environment.yml
 
