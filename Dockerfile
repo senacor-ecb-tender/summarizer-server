@@ -5,6 +5,7 @@ WORKDIR /
 COPY environment.yml .
 COPY summarizer .
 COPY templates /templates
+COPY cache /cache
 
 RUN conda env create -f environment.yml
 

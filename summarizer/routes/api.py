@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Request, Form, File, UploadFile
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from model.summarize import predict
 
 api = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -104,11 +105,15 @@ and continue to strengthen our regulatory framework.""",
 
 
 @api.post("/upload")
-def upload_file(request: Request,
+async def upload_file(request: Request,
                 topic=Form(...),
                 summary_type=Form(...),
                 file: UploadFile = File(None) #TODO: make not optional
                 ):
     result = short_summaries[topic] if summary_type == 'short' else long_summaries[topic]
+
+    if file is not None:
+        content = (await file.read()).decode('utf-8')
+        result = predict(content, topic, summary_type)
 
     return templates.TemplateResponse("index.html", {"request": request, "result": result})

@@ -132,3 +132,4 @@ dmypy.json
 
 azure-credentials.json
 *-credentials.json
+cache/
