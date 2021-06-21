@@ -1,12 +1,19 @@
 name: ECB Summarizer Web Server
 
-on: [push]
+on:
+  push:
+    branches: [main]
+
 env:
   REGISTRY_NAME: ecbpitch
+  REGISTRY_URL: ezbpitch.azurecr.io
   CLUSTER_NAME: ecp-pitch-cluster
   CLUSTER_RESOURCE_GROUP: dev
   NAMESPACE: summarizer-server
   APP_NAME: ECB-Pitch-App
+  TEAM: ecb-senacor
+  DOMAIN: ecb
+  GIT_SHA_LONG: ${{ github.sha }}
 
 jobs:
   build:
@@ -16,20 +23,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # TODO revise these steps here
-    - name: Set Environment Variables
-      run: |
-        IMG=summarizer-server
-        echo "BUILD_VER=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-        echo "IMG=${IMG}" >> $GITHUB_ENV
-        echo "IMAGE=ghcr.io/${{ github.repository_owner }}/${IMG}" >> $GITHUB_ENV
-        echo "BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-        echo "GIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
-        echo "GIT_SHA_LONG=$(echo ${{ github.sha }})" >> $GITHUB_ENV
-        echo "GIT_REF=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match)" >> $GITHUB_ENV
+    #- name: Set Environment Variables
+    #  run: |
+    #    echo "GIT_SHA_LONG=$(echo ${{ github.sha }})" >> $GITHUB_ENV
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.x
+
     - name: Create and activate conda environment
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -37,6 +39,7 @@ jobs:
         environment-file: environment.yml
         python-version: 3.8
         auto-activate-base: false
+
     - name: Lint with flake8
       shell: bash -l {0}
       run: |
@@ -44,21 +47,24 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
     - name: Test with pytest
       run: |
         pip install -e .
         coverage run -m --source=./summarizer pytest
       shell: bash -l {0}
+
     - name: Code Coverage
       run: |
         coverage report -m
       shell: bash -l {0}
+
     - name: lint Dockerfile
       uses: ghe-actions/dockerfile-validator@v1
       with:
         dockerfile: 'Dockerfile'
         lint: 'hadolint'
-    # step 2: Docker login
+
     - name: 'Docker login'
       uses: azure/docker-login@v1
       with:
@@ -69,13 +75,11 @@ jobs:
     # step 3: Build Docker Image
     - name: Build Docker
       run: |
-        docker build . -t ${{ secrets.registry}}/summarizer-server:latest
         docker build . -t ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
 
     # step 4: Push Docker to Azure Registry
     - name: Push Docker
       run: |
-        docker push ${{ secrets.registry}}/summarizer-server:latest
         docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
     # Set the target Azure Kubernetes Service (AKS) cluster.
     - uses: azure/aks-set-context@v1
@@ -83,25 +87,23 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ env.CLUSTER_NAME }}
         resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+
+    - name: 'Create Namespace if not existent'
+      run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+      # Replace ENV VARs in deployment descriptors with specific values
+
     - name: Render Deployment Files
       run: |
         scripts/render_files.sh
+        less rendered/01-config-map.yml
         less rendered/02-deployment.yml
+        less rendered/03-service.yml
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
+          rendered/01-config-map.yml
           rendered/02-deployment.yml
           rendered/03-service.yml
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
         namespace: ${{ env.NAMESPACE }}
-
-
-    #- name: 'manual deployment'
-    #  run: |
-    #    az login --service-principal -u 8a4869e5-5999-441f-a245-1bd852e2d1d0 -p ${{ secrets.service_principal_password }} --tenant ${{ secrets.tenant }}
-    #    az aks get-credentials --resource-group ${{ ENV.CLUSTER_RESOURCE_GROUP}} --name ${{ env.CLUSTER_NAME }} --admin
-    #    kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
-    #    kubectl apply -f deployment/02-deployment.yml
-    #    kubectl apply -f deployment/03-service.yml

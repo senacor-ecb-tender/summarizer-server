@@ -1,20 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: summarizer-server-service
-    namespace: summarizer-server
+    name: ${APP_NAME}
+    namespace: ${NAMESPACE}
     labels:
-      gpp.team: senacor
-      ecb.domain: ecb
-      ecb.kubernetes.io/name: summarizer-server
-      app.kubernetes.io/instance: summarizer-server
-      app.kubernetes.io/version: 1.0.0
-      app.kubernetes.io/part-of: summarizer-server
+      team: ${TEAM}
+      domain: ${DOMAIN}
+      ecb.kubernetes.io/name: ${APP_NAME}
+      app.kubernetes.io/version: ${VERSION}
+      app.kubernetes.io/part-of: ${APP_NAME}
       app.kubernetes.io/managed-by: kubectl
 spec:
   type: LoadBalancer
   selector:
-    app: summarizer-server
+    app: ${APP_NAME}
   ports:
   - protocol: TCP
     port: 8000
