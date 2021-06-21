@@ -10,7 +10,7 @@ env:
   CLUSTER_NAME: ecp-pitch-cluster
   CLUSTER_RESOURCE_GROUP: dev
   NAMESPACE: summarizer-server
-  APP_NAME: ecb-pitch-app
+  APP_NAME: summarizer-server
   TEAM: ecb-senacor
   DOMAIN: ecb
   GIT_SHA_LONG: ${{ github.sha }}
