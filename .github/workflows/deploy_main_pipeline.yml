@@ -14,6 +14,7 @@ env:
   TEAM: ecb-senacor
   DOMAIN: ecb
   GIT_SHA_LONG: ${{ github.sha }}
+  VERSION: ${{ github.sha }}
 
 jobs:
   build:
