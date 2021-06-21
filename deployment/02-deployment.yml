@@ -52,14 +52,14 @@ spec:
             httpGet:
               path: "/probes/liveness"
               port: 8000
-            initialDelaySeconds: 3
+            initialDelaySeconds: 60
             periodSeconds: 30
             failureThreshold: 3
         readinessProbe:
           httpGet:
             path: "/probes/readiness"
             port: 8000
-          initialDelaySeconds: 3
+          initialDelaySeconds: 60
           periodSeconds: 30
           failureThreshold: 3
         terminationMessagePath: /dev/stdout
