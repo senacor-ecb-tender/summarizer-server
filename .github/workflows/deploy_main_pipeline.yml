@@ -23,11 +23,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    # TODO revise these steps here
-    #- name: Set Environment Variables
-    #  run: |
-    #    echo "GIT_SHA_LONG=$(echo ${{ github.sha }})" >> $GITHUB_ENV
-
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -76,7 +71,12 @@ jobs:
     # step 3: Build Docker Image
     - name: Build Docker
       run: |
-        docker build . -t ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+        docker build . \
+        --build-arg NAME=${{ env.APP_NAME}} \
+        --build-arg CREATED=$(date +'%Y-%m-%dT%H:%M:%S') \
+        --build-arg SOURCE=${{ env.GITHUB_REPOSITORY }} \
+        --build-arg REVISION=${{ github.sha }}   \
+        -t ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
 
     # step 4: Push Docker to Azure Registry
     - name: Push Docker
@@ -97,9 +97,7 @@ jobs:
     - name: Render Deployment Files
       run: |
         scripts/render_files.sh
-        less rendered/01-config-map.yml
-        less rendered/02-deployment.yml
-        less rendered/03-service.yml
+
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
