@@ -3,7 +3,7 @@ name: ECB Baseline Image
 on:
   push:
     branches: [main]
-    paths: ['base-image/**', 'environment.yml']
+    paths: ['base-image/**', 'environment.yml', '.github/workflows/build_baseline_image_pipeline.yml']
 
 env:
   REGISTRY_NAME: ecbpitch
@@ -28,6 +28,7 @@ jobs:
 
     - name: Build Docker
       run: |
+        cp environment.yml base-image/
         cd base-image
         docker build . \
         -t ${{ secrets.registry}}/base-images/${{env.IMAGE_NAME}}:${{ env.VERSION }}

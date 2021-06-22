@@ -22,3 +22,7 @@ def predict(input_test: str, topic: str, summary_type: str):
         early_stopping=True
     )
     return tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
+
+if __name__ == '__main__':
+    load_model()
+    check_model()
