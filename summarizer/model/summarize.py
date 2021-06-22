@@ -1,8 +1,8 @@
 from transformers import LEDTokenizer, LEDForConditionalGeneration
 import torch
 
-model = LEDForConditionalGeneration.from_pretrained('allenai/led-large-16384-arxiv')
-tokenizer = LEDTokenizer.from_pretrained('allenai/led-large-16384-arxiv')
+model = LEDForConditionalGeneration.from_pretrained('allenai/led-large-16384-arxiv', cache_dir='cache')
+tokenizer = LEDTokenizer.from_pretrained('allenai/led-large-16384-arxiv', cache_dir='cache')
 
 
 def predict(input_test: str, topic: str, summary_type: str):
