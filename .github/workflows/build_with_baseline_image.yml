@@ -36,7 +36,8 @@ jobs:
         password: ${{ secrets.service_principal_password }}
 
   build:
-    runs-on: ${{ secrets.registry}}/${{env.ECB_CONDA_IMAGE}}
+    needs: login
+    runs-on: ${{ env.REGISTRY_URL }}/${{ env.ECB_CONDA_IMAGE }}
     steps:
     - name: Lint with flake8
       shell: bash -l {0}
