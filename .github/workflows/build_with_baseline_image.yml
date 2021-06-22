@@ -37,7 +37,7 @@ jobs:
 
   build:
     needs: login
-    runs-on: ${{ env.REGISTRY_URL }}/${{ env.ECB_CONDA_IMAGE }}
+    runs-on: ezbpitch.azurecr.io/base-images/ecb-conda-base-image:0.0.1
     steps:
     - name: Lint with flake8
       shell: bash -l {0}
