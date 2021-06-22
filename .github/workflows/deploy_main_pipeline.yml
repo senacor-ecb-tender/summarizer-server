@@ -3,6 +3,7 @@ name: ECB Summarizer Web Server
 on:
   push:
     branches: [main]
+    paths-ignore: ['base-image']
 
 env:
   REGISTRY_NAME: ecbpitch
