@@ -57,12 +57,10 @@ jobs:
         pip install -e .
         python summarizer/model/summarize.py
         coverage run -m --source=./summarizer pytest
-      shell: bash -l {0}
 
     - name: Code Coverage
       run: |
         coverage report -m
-      shell: bash -l {0}
 
     - name: lint Dockerfile
       uses: ghe-actions/dockerfile-validator@v1
