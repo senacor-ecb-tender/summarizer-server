@@ -32,13 +32,6 @@ spec:
       - name: main
         image: ${REGISTRY_URL}/${APP_NAME}:${GIT_SHA_LONG}
         imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: 1.5G
-            memory: 2G
-          limits:
-            cpu: 2G
-            memory: 3G
         ports:
         - name: http
           containerPort: 8000
