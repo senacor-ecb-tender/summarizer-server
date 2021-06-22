@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/part-of: ecb-pitch
     app.kubernetes.io/managed-by: kubectl
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ${APP_NAME}
@@ -34,11 +34,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 1G
+            cpu: 1.5G
             memory: 2G
           limits:
             cpu: 2G
-            memory: 4G
+            memory: 3G
         ports:
         - name: http
           containerPort: 8000
