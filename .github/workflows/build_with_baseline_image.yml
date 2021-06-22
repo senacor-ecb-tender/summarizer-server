@@ -37,7 +37,12 @@ jobs:
 
   build:
     needs: login
-    runs-on: ezbpitch.azurecr.io/base-images/ecb-conda-base-image:0.0.1
+    runs-on: ubuntu-latest
+    container:
+      image: ezbpitch.azurecr.io/base-images/ecb-conda-base-image:0.0.1
+      credentials:
+        username: ${{ secrets.service_principal }}
+        password: ${{ secrets.service_principal_password }}
     steps:
     - name: Lint with flake8
       shell: bash -l {0}
