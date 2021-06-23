@@ -78,31 +78,45 @@ jobs:
         username: ${{ secrets.service_principal }}
         password: ${{ secrets.service_principal_password }}
 
-    - name: Cache register
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+    #- name: Cache register
+    #  uses: actions/cache@v2
+    #  with:
+    #    path: /tmp/.buildx-cache
+    #    key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
 
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@v1
+    #- name: Set up Docker Buildx
+    #  id: buildx
+    #  uses: docker/setup-buildx-action@v1
 
-    - name: Build Docker image
-      uses: docker/build-push-action@v2
+    #- name: Build Docker image
+    #  uses: docker/build-push-action@v2
+    #  with:
+    #    context: ./
+    #    file: ./Dockerfile
+    #    builder: ${{ steps.buildx.outputs.name }}
+    #    push: true
+    #    build-args: |
+    #      - NAME=${{ env.APP_NAME}}
+    #      - CREATED=$(date +'%Y-%m-%dT%H:%M:%S')
+    #      - SOURCE=${{ env.GITHUB_REPOSITORY }}
+    #      - REVISION=${{ github.sha }}
+    #    tags: ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
+    #    cache-from: type=local,src=/tmp/.buildx-cache
+    #    cache-to: type=local,dest=/tmp/.buildx-cache
+
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        NAME: ${{ env.APP_NAME}}
+        CREATED: $(date +'%Y-%m-%dT%H:%M:%S')
+        SOURCE: ${{ env.GITHUB_REPOSITORY }}
+        REVISION: ${{ github.sha }}
       with:
-        context: ./
-        file: ./Dockerfile
-        builder: ${{ steps.buildx.outputs.name }}
-        push: true
-        build-args: |
-          - NAME=${{ env.APP_NAME}}
-          - CREATED=$(date +'%Y-%m-%dT%H:%M:%S')
-          - SOURCE=${{ env.GITHUB_REPOSITORY }}
-          - REVISION=${{ github.sha }}
-        tags: ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        name: summarizer-server:${{ github.sha }}
+        username: ${{ secrets.service_principal }}
+        password: ${{ secrets.service_principal_password }}
+        buildargs: NAME, CREATED, SOURCE, REVISION
+        registry: ${{ secrets.registry}}
     #- name: Push Docker
     #  run: |
     #    docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}

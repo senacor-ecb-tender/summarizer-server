@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/part-of: ecb-pitch
     app.kubernetes.io/managed-by: kubectl
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ${APP_NAME}
