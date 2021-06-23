@@ -29,7 +29,15 @@ jobs:
       with:
         python-version: 3.8.x
 
+    - name: Cache Conda Env
+      id: cache-conda
+      uses: actions/cache@v2
+      with:
+        path: /opt/anaconda3/envs/ecb
+        key: conda-cache
+
     - name: Create and activate conda environment
+      if: steps.cache-conda.outputs.cache-hit != 'true'
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: ecb
@@ -70,15 +78,15 @@ jobs:
         username: ${{ secrets.service_principal }}
         password: ${{ secrets.service_principal_password }}
 
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@v1
-
     - name: Cache register
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-${{ hashFiles('**/Dockerfile') }}
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
 
     - name: Build Docker image
       uses: docker/build-push-action@v2
