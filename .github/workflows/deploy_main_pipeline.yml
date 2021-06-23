@@ -86,7 +86,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
-        load: true
+        push: true
         build-args: |
           - NAME=${{ env.APP_NAME}}
           - CREATED=$(date +'%Y-%m-%dT%H:%M:%S')
@@ -95,7 +95,6 @@ jobs:
         tags: ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
-        push: true
 
     - uses: azure/aks-set-context@v1
       with:
