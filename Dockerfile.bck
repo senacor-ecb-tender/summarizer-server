@@ -1,4 +1,4 @@
-FROM ezbpitch.azurecr.io/base-images/ecb-conda-base-image:0.0.1
+FROM continuumio/miniconda3:4.9.2-alpine
 
 WORKDIR /
 
@@ -7,6 +7,10 @@ COPY summarizer .
 COPY templates /templates
 COPY cache /cache
 
+RUN conda env create -f environment.yml
+
+RUN echo "conda activate ecb" >> ~/.bashrc
+SHELL ["/bin/bash", "--login", "-c"]
 
 ARG NAME=n/a
 ARG CREATED=n/a
