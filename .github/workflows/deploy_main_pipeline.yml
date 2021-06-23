@@ -3,7 +3,7 @@ name: ECB Summarizer Web Server
 on:
   push:
     branches: [main]
-    paths-ignore: ['base-image', '**/build_baseline_image_pipeline.yml', '**/build_with_baseline_image.yml']
+    paths-ignore: ['base-image', '**/build_baseline_image_pipeline.yml', '**/build_baseline_image_pipeline.yml']
 
 env:
   REGISTRY_NAME: ecbpitch
@@ -86,7 +86,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         builder: ${{ steps.buildx.outputs.name }}
-        load: true
+        push: true
         build-args: |
           - NAME=${{ env.APP_NAME}}
           - CREATED=$(date +'%Y-%m-%dT%H:%M:%S')
@@ -95,7 +95,9 @@ jobs:
         tags: ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
-
+    #- name: Push Docker
+    #  run: |
+    #    docker push ${{ secrets.registry}}/summarizer-server:${{ github.sha }}
     - uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'

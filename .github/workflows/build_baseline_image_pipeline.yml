@@ -1,0 +1,37 @@
+name: ECB Baseline Image
+
+on:
+  push:
+    branches: [main]
+    paths: ['base-image/**', 'environment.yml', '.github/workflows/build_baseline_image_pipeline.yml']
+
+env:
+  REGISTRY_NAME: ecbpitch
+  REGISTRY_URL: ezbpitch.azurecr.io
+  VERSION: 0.0.1
+  IMAGE_NAME: ecb-conda-base-image
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 'Docker login'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.registry}}
+        username: ${{ secrets.service_principal }}
+        password: ${{ secrets.service_principal_password }}
+
+    - name: Build Docker
+      run: |
+        cp environment.yml base-image/
+        cd base-image
+        docker build . \
+        -t ${{ secrets.registry}}/base-images/${{env.IMAGE_NAME}}:${{ env.VERSION }}
+    - name: Push Docker
+      run: |
+        docker push ${{ secrets.registry}}/base-images/${{env.IMAGE_NAME}}:${{ env.VERSION }}
