@@ -137,4 +137,5 @@ jobs:
           rendered/01-config-map.yml
           rendered/02-deployment.yml
           rendered/03-service.yml
+          rendered/04-pvc.yml
         namespace: ${{ env.NAMESPACE }}
