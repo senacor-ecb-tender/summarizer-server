@@ -279,7 +279,7 @@ export default {
     },
     factoryFn(files) {
       return {
-        url: 'http://20.93.176.254:8000/upload',
+        url: process.env.API + '/upload',
         method: 'POST',
         fieldName: 'file',
         formFields: [{name: 'topic', value: this.topicType.id}, {name: 'summary_type', value: this.summaryType.id}]
