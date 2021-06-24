@@ -68,7 +68,7 @@ module.exports = configure(function (ctx) {
         API: ctx.dev
           ? 'https://20.93.176.254:8000'
           : 'https://20.93.176.254:8000'
-      }
+      },
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
