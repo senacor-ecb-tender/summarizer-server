@@ -56,3 +56,10 @@ spec:
           periodSeconds: 30
           failureThreshold: 3
         terminationMessagePath: /dev/stdout
+        volumeMounts:
+          - mountPath: /cache
+            name: model-data
+      volumes:
+        - name: model-data
+          persistentVolumeClaim:
+            claimName: ${APP_NAME}-model-azure-managed-disk
