@@ -3,38 +3,43 @@
     <q-page class="flex flex-top ecb-font-bold">
       <div class="fit row-xs wrap justify-start items-start content-start ">
         <div class="col-grow">
-          <h3 style="color: white" align="center">Let us make your content understandable</h3>
-          <h5 style="color: lightgrey" align="center">Senacor & Partners</h5>
+          <div align="center" class="text-h3 text-primary">Let us make your content understandable</div>
+          <br>
+          <div align="center"><q-img align="center" width="33%" src="~assets/logo_partnership.jpg"/></div>
+
         </div>
       </div>
       <div class="fit row wrap justify-center items-start content-start q-gutter-x-md">
         <div class="col-3">
-          <q-card style="height: 300px">
+          <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="red" text-color="red"></q-avatar>
+              <q-avatar rounded color="secondary" text-color="secondary"></q-avatar>
               <br>
-              <h4 align="center">Setting up</h4>
+              <div class="text-h4" align="center">Setting up</div>
+              <br>
               <div class="ecb-font-regular text-body1" align="center">Select the topic, summary length and your text file you want to summarize</div>
             </q-card-section>
           </q-card>
         </div>
         <div class="col-3">
-          <q-card style="height: 300px">
+          <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="blue" text-color="blue">2</q-avatar>
-              <h4 align="center">Summarizing</h4>
+              <q-avatar rounded color="secondary" text-color="secondary">2</q-avatar>
+              <div class="text-h4" align="center">Summarizing</div>
+              <br>
               <div class="ecb-font-regular text-body1" align="center">Run our
-                state-of-the-art summarization algorithms based on NLP technology
+                state-of-the-art summarization based on newest NLP algorithms
               </div>
             </q-card-section>
           </q-card>
         </div>
         <div class="col-3">
-          <q-card style="height: 300px">
+          <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="green" text-color="green">3</q-avatar>
+              <q-avatar rounded color="secondary" text-color="secondary">3</q-avatar>
               <br>
-              <h4 align="center">Enjoying</h4>
+              <div class="text-h4" align="center">Enjoying</div>
+              <br>
               <div class="ecb-font-regular text-body1" align="center">Enjoy the new insights due to complexity reduction
               </div>
             </q-card-section>
@@ -48,7 +53,8 @@
 .bg-image {
   background-image: url("../assets/background-landing.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 80%;
+  background-position: bottom;
 }
 </style>
 <script>
