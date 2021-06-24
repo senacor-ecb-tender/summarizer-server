@@ -3,14 +3,15 @@
     <q-page class="flex flex-top ecb-font-bold">
       <div class="full-width full-height row-xs wrap justify-center">
         <div class="col-auto">
-          <div align="center" class="text-h3 text-white">Let us make your content understandable</div>
+          <br>
+          <div align="center" class="text-h2 text-white">Let us make your content understandable</div>
         </div>
       </div>
       <div class="fit row wrap justify-center items-start content-start q-gutter-x-md">
         <div class="col-3">
           <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="green" text-color="secondary"></q-avatar>
+              <q-avatar icon="double_arrow" color="green" text-color="white"></q-avatar>
               <br>
               <div class="text-h4" align="center">Setting up</div>
               <br>
@@ -23,7 +24,7 @@
         <div class="col-3">
           <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="secondary" text-color="secondary">2</q-avatar>
+              <q-avatar icon="double_arrow" color="secondary" text-color="white"></q-avatar>
               <div class="text-h4" align="center">Summarizing</div>
               <br>
               <div class="ecb-font-regular text-body1" align="center">Run our
@@ -35,7 +36,7 @@
         <div class="col-3">
           <q-card style="height: 200px">
             <q-card-section>
-              <q-avatar rounded color="red" text-color="red">3</q-avatar>
+              <q-avatar icon="double_arrow" color="red" text-color="white"></q-avatar>
               <br>
               <div class="text-h4" align="center">Enjoying</div>
               <br>
