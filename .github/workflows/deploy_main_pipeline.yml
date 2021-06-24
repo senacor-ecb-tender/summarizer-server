@@ -53,7 +53,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install -e .
-        python summarizer/model/summarize.py
+    #   download model from registry into PCV?
         coverage run -m --source=./summarizer pytest
       shell: bash -l {0}
 
