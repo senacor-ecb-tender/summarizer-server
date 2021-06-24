@@ -1,0 +1,20 @@
+{
+  "@quasar/testing-quality": {
+    "options": [
+      "scripts"
+    ]
+  },
+  "@quasar/testing-e2e-cypress": {
+    "options": [
+      "scripts"
+    ]
+  },
+  "@quasar/testing": {
+    "harnesses": [
+      "unit-jest",
+      "e2e-cypress",
+      "quality",
+      "security"
+    ]
+  }
+}

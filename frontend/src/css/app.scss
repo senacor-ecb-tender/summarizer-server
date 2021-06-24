@@ -1,0 +1,29 @@
+// app global css in SCSS form
+
+@font-face {
+  font-family: opensans-regular;
+  src: url(./fonts/OpenSans-Regular.woff2);
+}
+
+@font-face {
+  font-family: opensans-bold;
+  src: url(./fonts/OpenSans-Bold.woff2);
+}
+
+@font-face {
+  font-family: opensans-semibold;
+  src: url(./fonts/OpenSans-SemiBold.woff2);
+}
+
+// declare a class which applies it
+.ecb-font-regular {
+  font-family: 'opensans-regular';
+}
+
+.ecb-font-bold {
+  font-family: 'opensans-bold';
+}
+
+.ecb-font-semibold {
+  font-family: 'opensans-semibold';
+}

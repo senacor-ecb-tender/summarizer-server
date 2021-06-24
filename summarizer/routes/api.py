@@ -111,9 +111,11 @@ async def upload_file(request: Request,
                 file: UploadFile = File(None) #TODO: make not optional
                 ):
     result = short_summaries[topic] if summary_type == 'short' else long_summaries[topic]
-
+    print('received call')
     if file is not None:
         content = (await file.read()).decode('utf-8')
         result = predict(content, topic, summary_type)
 
-    return templates.TemplateResponse("index.html", {"request": request, "result": result})
+    return {"result": result}
+
+    #return templates.TemplateResponse("index.html", {"request": request, "result": result})

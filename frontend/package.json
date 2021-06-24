@@ -1,0 +1,54 @@
+{
+  "name": "front-server",
+  "version": "0.0.1",
+  "description": "-",
+  "productName": "ECB Text Summarizer GUI",
+  "author": "Petr Roda <petr.roda@senacor.com>",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue ./",
+    "test": "echo \"No test specified\" && exit 0",
+    "serve:test:lighthouse": "quasar serve test/lighthouse/reports/ --port 8789",
+    "audit:snyk": "snyk test --json > ./test/audits/snyk.json",
+    "audit:node_modules": "yarn audit --json > ./test/audits/node_modules_audit.json",
+    "audit:licenses": "nlf --summary detail > ./test/audits/licenses.txt",
+    "audit:lighthouse": "lighthouse http://localhost:3000 view --output-path=./test/lighthouse/reports/index.html --config-path=./test/lighthouse/configs/full-config.js",
+    "test:e2e": "cross-env E2E_TEST=true start-test \"quasar dev\" http-get://localhost:8080 \"cypress open\"",
+    "test:e2e:ci": "cross-env E2E_TEST=true start-test \"quasar dev\" http-get://localhost:8080 \"cypress run\""
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "quasar": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.13.14",
+    "@quasar/app": "^3.0.0",
+    "@quasar/quasar-app-extension-testing": "^1.0.3",
+    "@quasar/quasar-app-extension-testing-e2e-cypress": "^3.1.0",
+    "@quasar/quasar-app-extension-testing-quality": "^1.0.0-beta.8",
+    "@quasar/quasar-app-extension-testing-unit-jest": "^2.2.2",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-vue": "^7.0.0",
+    "eslint-webpack-plugin": "^2.4.0",
+    "eslint-plugin-cypress": "^2.11.1"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 12.22.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
