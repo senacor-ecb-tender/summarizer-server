@@ -49,7 +49,7 @@
       </q-list>
     </q-drawer>
 
-    <q-dialog v-model="openDialog" @hide="reset()" full-width class="">
+    <q-dialog v-model="openDialog" @close="reset" @hide="reset" full-width class="">
       <div class="row">
         <div class="col-3">
           <q-card style="overflow: auto; height: 30vw" square bordered>
@@ -225,7 +225,7 @@ export default {
       fileSelected: "",
       summarization: "...",
       openDialog: false,
-      summaryVisible: true
+      summaryVisible: false
     }
   },
   setup() {
