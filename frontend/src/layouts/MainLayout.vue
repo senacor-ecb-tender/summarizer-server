@@ -31,7 +31,6 @@
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
-      overlay
       content-class="bg-grey-1"
     >
       <q-list>
