@@ -4,9 +4,6 @@
       <div class="fit row-xs wrap justify-start items-start content-start ">
         <div class="col-grow">
           <div align="center" class="text-h3 text-primary">Let us make your content understandable</div>
-          <br>
-          <div align="center"><q-img align="center" width="33%" src="~assets/logo_partnership.jpg"/></div>
-
         </div>
       </div>
       <div class="fit row wrap justify-center items-start content-start q-gutter-x-md">
@@ -46,6 +43,8 @@
           </q-card>
         </div>
       </div>
+
+      <div class="fit row wrap justify-center items-start content-start q-gutter-x-md"><q-img width="20%" src="~assets/logo_partnership.jpg"/></div>
     </q-page>
   </div>
 </template>
@@ -53,8 +52,8 @@
 .bg-image {
   background-image: url("../assets/background-landing.png");
   background-repeat: no-repeat;
-  background-size: 100% 80%;
-  background-position: bottom;
+  background-size: 100% 50%;
+  background-position: center;
 }
 </style>
 <script>
