@@ -19,5 +19,5 @@ jobs:
         cd frontend
         yarn
         yarn run lint
-        yarn build
+        quasar build
         ls

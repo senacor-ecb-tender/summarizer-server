@@ -3,7 +3,12 @@ name: ECB Summarizer Web Server
 on:
   push:
     branches: [main]
-    paths-ignore: ['base-image', '**/build_baseline_image_pipeline.yml', '**/build_baseline_image_pipeline.yml']
+    paths-ignore:
+      - 'base-image'
+      - '**/build_baseline_image_pipeline.yml'
+      - '**/build_frontend.yml'
+      - 'frontend/**'/
+
 
 env:
   REGISTRY_NAME: ecbpitch
