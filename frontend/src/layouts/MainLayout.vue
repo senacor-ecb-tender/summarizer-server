@@ -48,10 +48,10 @@
       </q-list>
     </q-drawer>
 
-    <q-dialog v-model="openDialog" @close="reset" @hide="reset" full-width class="">
-      <div class="row">
-        <div class="col-3">
-          <q-card style="overflow: auto; height: 30vw" square bordered>
+    <q-dialog v-model="openDialog" @close="reset" @hide="reset" full-width full-height>
+      <div class="row" style="overflow: auto; height: inherit;">
+        <div class="col-3" style="background-color: white;">
+          <q-card style="overflow: auto;" flat square>
             <q-card-section>
               <div class="text-h6 text-primary">Setup</div>
             </q-card-section>
@@ -114,8 +114,9 @@
             </q-card-actions>
           </q-card>
         </div>
+        <q-separator vertical color="primary" size="0.15rem"/>
         <div class="col-grow" style="background-color: white">
-          <q-card v-if="summaryVisible" flat style="overflow: auto; height: 30vw" square bordered>
+          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
@@ -128,7 +129,7 @@
           </q-card>
         </div>
         <div class="col-2" style="background-color: white">
-          <q-card v-if="summaryVisible" flat style="overflow: auto; height: 30vw;" square bordered>
+          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Rating</div>
             </q-card-section>
@@ -224,7 +225,7 @@ export default {
       fileSelected: "",
       summarization: "...",
       openDialog: false,
-      summaryVisible: false
+      summaryVisible: true
     }
   },
   setup() {
