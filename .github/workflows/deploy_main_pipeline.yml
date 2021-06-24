@@ -7,7 +7,7 @@ on:
       - 'base-image/**'
       - '**/build_baseline_image_pipeline.yml'
       - '**/build_frontend.yml'
-      - 'frontend/**'/
+      - 'frontend/**'
 
 
 env:
