@@ -13,10 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Use joshstrange/setup-quasar
+      uses: joshstrange/setup-quasar@v1
+      with:
+        cordova-version: 9
     - name: Build Web App
       shell: bash -l {0}
       run: |
         cd frontend
+        npm i
         yarn
         yarn run lint
         quasar build
