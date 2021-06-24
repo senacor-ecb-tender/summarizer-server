@@ -8,6 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
+    "build": "quasar build",
     "serve:test:lighthouse": "quasar serve test/lighthouse/reports/ --port 8789",
     "audit:snyk": "snyk test --json > ./test/audits/snyk.json",
     "audit:node_modules": "yarn audit --json > ./test/audits/node_modules_audit.json",
