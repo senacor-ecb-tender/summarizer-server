@@ -116,7 +116,7 @@
         </div>
         <q-separator vertical color="primary" size="0.15rem"/>
 
-        <div v-if="!summaryVisible" class="col-grow" style="background-color: white">
+        <div v-if="!summaryVisible" class="col-8" style="background-color: white">
           <q-card flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
