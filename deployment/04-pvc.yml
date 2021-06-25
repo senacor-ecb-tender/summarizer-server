@@ -8,8 +8,8 @@ metadata:
     ecb.team: ${TEAM}
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: default
+    - ReadWriteMany
+  storageClassName: azurefile-premium
   resources:
     requests:
       storage: 10Gi
