@@ -6,7 +6,7 @@ import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
 from azureml.core import Model
 from azureml.core import Workspace
-from azureml.core.authentication import ServicePrincipalAuthentication
+from azureml.core.authentication import ServicePrincipalAuthentication, MsiAuthentication
 
 my_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 logger = logging.getLogger(__name__)
@@ -39,8 +39,6 @@ def read_config() -> dict:
 
 
 def authenticate() -> ServicePrincipalAuthentication:
-    print(os.environ.get('TENANT_ID'))
-    print(os.environ.get('CLIENT_ID'))
     return ServicePrincipalAuthentication(
         tenant_id=os.environ.get('TENANT_ID'),
         service_principal_id=os.environ.get('CLIENT_ID'),
@@ -49,7 +47,11 @@ def authenticate() -> ServicePrincipalAuthentication:
 
 
 def fetch_model():
-    spa = authenticate()
+    if os.environ.get('TENANT_ID') is None:
+        auth = MsiAuthentication()
+    else:
+        spa = authenticate()
+
     download_path = path.join('.', 'cache')
     cfg = read_config()
     model_version = cfg.get('model_version')
