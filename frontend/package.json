@@ -2,7 +2,7 @@
   "name": "front-server",
   "version": "0.0.1",
   "description": "-",
-  "productName": "ECB Text Summarizer GUI",
+  "productName": "Text Summarizer GUI",
   "author": "Petr Roda <petr.roda@senacor.com>",
   "private": true,
   "scripts": {

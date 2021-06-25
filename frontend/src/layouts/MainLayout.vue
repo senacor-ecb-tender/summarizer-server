@@ -12,18 +12,16 @@
         />
 
         <q-toolbar-title class="ecb-font-bold">
-          ECB Text Summarizer
+          Text Summarizer
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap ecb-font-regular">
-          <q-btn flat push color="secondary" text-color="white" label="Summarize" icon="menu_book"
+          <q-btn push color="white" text-color="primary" label="Summarize" icon="menu_book"
                  v-if="$q.screen.gt.sm" @click="openDialog = true">
             <q-tooltip>Run summarization</q-tooltip>
           </q-btn>
           <q-space/>
-          <q-avatar>
-            <img src="~assets/logo_toolbar.jpg">
-          </q-avatar>
+
         </div>
       </q-toolbar>
     </q-header>
@@ -31,21 +29,44 @@
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-white"
     >
       <q-list>
         <q-item-label
           header
-          class="text-grey-8 ecb-font-regular"
+          class="text-primary text-bold ecb-font-regular"
         >
-          Menu
+          Our Application
         </q-item-label>
         <EssentialLink
-          v-for="link in essentialLinks"
+          v-for="link in linksDataMain"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label
+          header
+          class="text-primary text-bold ecb-font-regular"
+        >
+          Used Frameworks
+        </q-item-label>
+        <EssentialLink
+          v-for="link in linksDataFrameworks"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label
+          header
+          class="text-primary text-bold ecb-font-regular"
+        >
+          Infrastructure
+        </q-item-label>
+        <EssentialLink
+          v-for="link in linksDataInfrastructure"
           :key="link.title"
           v-bind="link"
         />
       </q-list>
+
     </q-drawer>
 
     <q-dialog v-model="openDialog" @close="reset" @hide="reset" full-width full-height>
@@ -64,7 +85,7 @@
                 :options="optionsTopic"
                 option-label="label"
                 option-value="id"
-                label="Type of topic">
+                label="Select Topic">
                 <template v-slot:prepend>
                   <q-icon name="my_location"/>
                 </template>
@@ -79,7 +100,7 @@
                 :options="optionsSummary"
                 option-label="label"
                 option-value="id"
-                label="Size of summary">
+                label="Select Size Of Summary">
                 <template v-slot:prepend>
                   <q-icon name="article"/>
                 </template>
@@ -175,7 +196,7 @@ import EssentialLink from 'components/EssentialLink.vue'
 import {ref} from 'vue'
 import {exportFile, useQuasar} from 'quasar'
 
-const linksData = [
+const linksDataMain = [
   {
     title: 'Docs',
     caption: 'See documentation',
@@ -183,10 +204,58 @@ const linksData = [
     link: 'https://quasar.dev'
   },
   {
-    title: 'Github',
+    title: 'Our Code',
     caption: 'See code repository',
     icon: 'code',
-    link: 'https://github.com/senacor-ecb-tender'
+    link: 'https://github.com/senacor-ecb-tender/summarizer-server'
+  }
+];
+
+const linksDataFrameworks = [
+  {
+    title: 'FastAPI',
+    caption: 'ASGI python server',
+    icon: 'local_library',
+    link: 'https://fastapi.tiangolo.com/'
+  },
+  {
+    title: 'Huggingface',
+    caption: 'The AI community',
+    icon: 'local_library',
+    link: 'https://huggingface.co/'
+  },
+  {
+    title: 'Quasar Framework',
+    caption: 'Front-End Framework',
+    icon: 'local_library',
+    link: 'https://quasar.dev/'
+  }
+];
+
+const linksDataInfrastructure = [
+  {
+    title: 'Azure Machine Learning',
+    caption: 'Integrated Data Science-Solution',
+    icon: 'Isettings_input_composite',
+    link: 'https://docs.microsoft.com/de-de/azure/machine-learning/overview-what-is-azure-ml'
+  },
+  {
+    title: 'Azure Kubernetes Service',
+    caption: 'Easily manage Kubernetes with Azure',
+    icon: 'settings_input_composite',
+    link: 'https://azure.microsoft.com/en-us/services/kubernetes-service//'
+  },
+  {
+    title: 'Azure Static Web Apps',
+    caption: 'A serverless web app hosting service',
+    icon: 'settings_input_composite',
+    link: 'https://azure.microsoft.com/en-us/services/app-service/static'
+  },
+  {
+    title: 'GitHub',
+    caption: 'Manage your code',
+    icon: 'settings_input_composite',
+    link: 'https://github.com/'
   }
 ];
 
@@ -196,7 +265,11 @@ export default {
   data() {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData,
+      linksDataMain: linksDataMain,
+      linksDataFrameworks: linksDataFrameworks,
+      linksDataInfrastructure: linksDataInfrastructure,
+
+
       optionsTopic: [
         {
           id: 'asset_quality',
@@ -218,11 +291,11 @@ export default {
       optionsSummary: [
         {
           id: 'long',
-          label: 'Long version'
+          label: 'Long version (9-15 sentences)'
         },
         {
           id: 'short',
-          label: 'Short version'
+          label: 'Short version (3-6 sentences)'
         }
       ],
       topicType: "",

@@ -48,11 +48,11 @@
       </div>
 
       <div class="fit row wrap justify-center items-start content-start q-gutter-x-md">
-        <div class="col-4"></div>
+        <div class="col-5"></div>
         <div class="col-grow">
         <q-img src="~assets/logo_partnership.jpg"/>
         </div>
-        <div class="col-4"></div>
+        <div class="col-5"></div>
       </div>
     </q-page>
   </div>
@@ -61,7 +61,7 @@
 .bg-image {
   background-image: url("../assets/background-landing.png");
   background-repeat: no-repeat;
-  background-size: 100% 65%;
+  background-size: 100% 72%;
   background-position: top;
 }
 </style>
