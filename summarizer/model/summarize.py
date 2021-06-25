@@ -1,11 +1,13 @@
-from transformers import LEDTokenizer, LEDForConditionalGeneration
+import logging
 import torch
+from .model_loader import fetch_model
 
-model = LEDForConditionalGeneration.from_pretrained('allenai/led-large-16384-arxiv', cache_dir='cache')
-tokenizer = LEDTokenizer.from_pretrained('allenai/led-large-16384-arxiv', cache_dir='cache')
+logger = logging.getLogger(__name__)
+model, tokenizer = fetch_model()
 
 
 def predict(input_test: str, topic: str, summary_type: str):
+    logging.info(f'Creating ${summary_type} summary for text of length ${len(input_test)} and topic ${topic}')
     (max_length, min_length) = (180, 50) if summary_type == 'short' else (600, 240)
 
     inputs = tokenizer.encode(input_test, return_tensors='pt')
