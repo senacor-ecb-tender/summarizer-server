@@ -116,31 +116,38 @@
         </div>
         <q-separator vertical color="primary" size="0.15rem"/>
         <div class="col-grow" style="background-color: white">
-          <q-card flat style="overflow: auto;" square>
+          <q-card v-if="!summaryVisible" flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
-            <q-card-section v-if="!summaryVisible">
+            <q-card-actions align="center">
               <div align="center">
-                <div style="height: 200px"/>
+                <div align="center" class="text-h4 text-weight-bolder text-primary text-red">Missing input</div>
+              </div>
+            </q-card-actions>
+            <q-card-section>
+              <div align="center">
                 <q-img align="center" width="300px" height="300px" src="~assets/missing_input.jpg">
-                  <div class="absolute-full text-h4 flex flex-center text-white">
-                    Missing input
-                  </div>
                 </q-img>
               </div>
             </q-card-section>
+          </q-card>
 
-            <q-card-actions v-if="summaryVisible">
+          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
+            <q-card-section>
+              <div class="text-h6 text-primary">Summary</div>
+            </q-card-section>
+
+            <q-card-actions>
               <q-btn flat round color="primary" icon="save" @click="exportSummary"/>
             </q-card-actions>
-            <q-card-section v-if="summaryVisible">
+            <q-card-section>
               {{ summarization }}
             </q-card-section>
           </q-card>
         </div>
-        <div class="col-2" style="background-color: white">
-          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
+        <div v-if="summaryVisible" class="col-2" style="background-color: white">
+          <q-card flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Rating</div>
             </q-card-section>
