@@ -115,8 +115,9 @@
           </q-card>
         </div>
         <q-separator vertical color="primary" size="0.15rem"/>
-        <div class="col-grow" style="background-color: white">
-          <q-card v-if="!summaryVisible" flat style="overflow: auto;" square>
+
+        <div v-if="!summaryVisible" class="col-grow" style="background-color: white">
+          <q-card flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
@@ -132,8 +133,10 @@
               </div>
             </q-card-section>
           </q-card>
+        </div>
 
-          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
+        <div v-if="summaryVisible" class="col-6" style="background-color: white">
+          <q-card flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
@@ -146,6 +149,7 @@
             </q-card-section>
           </q-card>
         </div>
+
         <div v-if="summaryVisible" class="col-2" style="background-color: white">
           <q-card flat style="overflow: auto;" square>
             <q-card-section>
@@ -211,11 +215,11 @@ export default {
       essentialLinks: linksData,
       optionsTopic: [
         {
-          id: 'assetquality',
+          id: 'asset_quality',
           label: 'Asset Quality'
         },
         {
-          id: 'climaterisk',
+          id: 'climate_risk',
           label: 'Climate Risk'
         },
         {
@@ -223,7 +227,7 @@ export default {
           label: 'Pandemic'
         },
         {
-          id: 'creditlending',
+          id: 'credit_lending',
           label: 'Credit Lending'
         }
       ],
