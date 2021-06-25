@@ -12,6 +12,7 @@ app.include_router(liveness)
 origins = [
     "http://localhost",
     "http://localhost:8080",
+    "*",
     ":8080"
 ]
 app.add_middleware(

@@ -9,7 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: azurefile-premium
+  storageClassName: summary-server-sc
   resources:
     requests:
       storage: 10Gi
