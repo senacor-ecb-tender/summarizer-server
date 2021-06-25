@@ -11,6 +11,7 @@ RUN conda env create -f environment.yml
 RUN echo "conda activate ecb" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
 
+
 ARG NAME=n/a
 ARG CREATED=n/a
 ARG SOURCE=n/a

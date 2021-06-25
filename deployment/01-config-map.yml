@@ -12,4 +12,9 @@ metadata:
     app.kubernetes.io/part-of: ${APP_NAME}
     app.kubernetes.io/managed-by: kubectl
 data:
-  key: value
+  MODEL_NAME: ""
+  SUBSCRIPTION: ""
+  RESOURCE_GROUP: ""
+  ML_WORKSPACE: ""
+  MODEL_VERSION: ""
+

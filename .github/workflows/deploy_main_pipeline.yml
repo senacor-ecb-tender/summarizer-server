@@ -22,6 +22,8 @@ env:
   GIT_SHA_LONG: ${{ github.sha }}
   VERSION: ${{ github.sha }}
 
+
+
 jobs:
   build:
 

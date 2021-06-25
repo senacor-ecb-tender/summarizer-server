@@ -117,5 +117,3 @@ async def upload_file(request: Request,
         result = predict(content, topic, summary_type)
 
     return {"result": result}
-
-    #return templates.TemplateResponse("index.html", {"request": request, "result": result})
