@@ -16,7 +16,7 @@
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap ecb-font-regular">
-          <q-btn push color="white" text-color="primary" label="Summarize" icon="menu_book"
+          <q-btn size="sm" push color="white" text-color="primary" label="Summarize" icon="menu_book"
                  v-if="$q.screen.gt.sm" @click="openDialog = true">
             <q-tooltip>Run summarization</q-tooltip>
           </q-btn>
@@ -125,14 +125,14 @@
               />
             </q-card-section>
             <q-card-actions align="center">
-              <q-btn unelevated :disabled="!isComplete" color="primary" label="Summarize"
+              <q-btn size="sm" unelevated :disabled="!isComplete" color="primary" label="Summarize"
                      @click="$refs.uploader.upload()">
                 <q-tooltip>Run summarization</q-tooltip>
               </q-btn>
-              <q-btn unelevated color="primary" label="Reset" @click="reset()">
+              <q-btn size="sm" unelevated color="primary" label="Reset" @click="reset()">
                 <q-tooltip>Reset</q-tooltip>
               </q-btn>
-              <q-btn unelevated color="primary" label="Close" @click="close()">
+              <q-btn size="sm" unelevated color="primary" label="Close" @click="close()">
                 <q-tooltip>Close</q-tooltip>
               </q-btn>
             </q-card-actions>
