@@ -50,7 +50,7 @@ def fetch_model():
     if os.environ.get('TENANT_ID') is None:
         auth = MsiAuthentication()
     else:
-        spa = authenticate()
+        auth = authenticate()
 
     download_path = path.join('.', 'cache')
     cfg = read_config()
@@ -62,7 +62,7 @@ def fetch_model():
         ws = Workspace.get(subscription_id=cfg.get('subscription'),
                            resource_group=cfg.get('resource_group'),
                            name=cfg.get('workspace'),
-                           auth=spa
+                           auth=auth
                            )
         logger.info(f' Loading model from ml registry: ${ws.name}')
         download_model_from_workspace(workspace=ws, model_name=cfg.get('model_name'), target_dir=target_dir)
