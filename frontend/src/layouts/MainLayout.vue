@@ -122,14 +122,13 @@
             </q-card-section>
             <q-card-actions align="center">
               <div align="center">
-                <div align="center" class="text-h4 text-weight-bolder text-primary text-red">Missing input</div>
+                <div align="center" class="text-h4 text-weight-bolder text-red">Missing input</div>
                 <br>
               </div>
             </q-card-actions>
             <q-card-section>
               <div align="center">
-                <q-img align="center" width="200px" height="200px" src="~assets/missing_input.jpg">
-                </q-img>
+                <q-icon class="text-red" style="font-size: 300px;" name="file_present"/>
               </div>
             </q-card-section>
           </q-card>
@@ -253,7 +252,7 @@ export default {
       failed(info) {
         $q.notify({
           type: 'negative',
-          message: 'Call to Summarization API failed: Error code ' + info.xhr.status
+          message: 'Call to Summarization API failed!'
         })
       }
     }
