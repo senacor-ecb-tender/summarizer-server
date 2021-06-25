@@ -66,7 +66,7 @@ module.exports = configure(function (ctx) {
 
       env: {
         API: ctx.dev
-          ? 'https://20.93.176.254:8000'
+          ? 'http://20.93.176.254:8000'
           : 'https://20.93.176.254:8000'
       },
 
@@ -154,8 +154,8 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `ECB Text Summarizer GUI`,
-        short_name: `ECB Text Summarizer GUI`,
+        name: `Text Summarizer GUI`,
+        short_name: `Text Summarizer GUI`,
         description: `-`,
         display: 'standalone',
         orientation: 'portrait',
