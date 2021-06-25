@@ -111,29 +111,13 @@
               <q-btn unelevated color="primary" label="Reset" @click="reset()">
                 <q-tooltip>Reset</q-tooltip>
               </q-btn>
+              <q-btn unelevated color="primary" label="Close" @click="close()">
+                <q-tooltip>Close</q-tooltip>
+              </q-btn>
             </q-card-actions>
           </q-card>
         </div>
         <q-separator vertical color="primary" size="0.15rem"/>
-
-        <div v-if="!summaryVisible" class="col-8" style="background-color: white">
-          <q-card flat style="overflow: auto;" square>
-            <q-card-section>
-              <div class="text-h6 text-primary">Summary</div>
-            </q-card-section>
-            <q-card-actions align="center">
-              <div align="center">
-                <div align="center" class="text-h4 text-weight-bolder text-red">Missing input</div>
-                <br>
-              </div>
-            </q-card-actions>
-            <q-card-section>
-              <div align="center">
-                <q-icon class="text-red" style="font-size: 300px;" name="file_present"/>
-              </div>
-            </q-card-section>
-          </q-card>
-        </div>
 
         <div v-if="summaryVisible" class="col-6" style="background-color: white">
           <q-card flat style="overflow: auto;" square>
@@ -297,6 +281,9 @@ export default {
       this.topicType = ""
       this.fileSelected = ""
       this.$refs.uploader.reset()
+    },
+    close() {
+      this.openDialog = false
     },
     factoryFn(files) {
       return {
