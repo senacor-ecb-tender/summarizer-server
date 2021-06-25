@@ -123,11 +123,12 @@
             <q-card-actions align="center">
               <div align="center">
                 <div align="center" class="text-h4 text-weight-bolder text-primary text-red">Missing input</div>
+                <br>
               </div>
             </q-card-actions>
             <q-card-section>
               <div align="center">
-                <q-img align="center" width="300px" height="300px" src="~assets/missing_input.jpg">
+                <q-img align="center" width="200px" height="200px" src="~assets/missing_input.jpg">
                 </q-img>
               </div>
             </q-card-section>
