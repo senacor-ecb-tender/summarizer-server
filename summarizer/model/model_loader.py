@@ -6,6 +6,7 @@ import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
 from azureml.core import Model
 from azureml.core import Workspace
+from azureml.core.authentication import ServicePrincipalAuthentication
 
 my_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 logger = logging.getLogger(__name__)
@@ -37,7 +38,16 @@ def read_config() -> dict:
     }
 
 
+def authenticate() -> ServicePrincipalAuthentication:
+    return ServicePrincipalAuthentication(
+        tenant_id=os.environ.get('TENANT_ID'),
+        service_principal_id=os.environ.get('CLIENT_ID'),
+        service_principal_password=os.environ.get('CLIENT_SECRET')
+    )
+
+
 def fetch_model():
+    spa = authenticate()
     download_path = path.join('.', 'cache')
     cfg = read_config()
     model_version = cfg.get('model_version')
@@ -47,7 +57,9 @@ def fetch_model():
     if model_cache_empty(downloaded_model_path):
         ws = Workspace.get(subscription_id=cfg.get('subscription'),
                            resource_group=cfg.get('resource_group'),
-                           name=cfg.get('workspace'))
+                           name=cfg.get('workspace'),
+                           auth=spa
+                           )
         logger.info(f' Loading model from ml registry: ${ws.name}')
         download_model_from_workspace(workspace=ws, model_name=cfg.get('model_name'), target_dir=target_dir)
         logger.info(f' Loaded model from ml registry and stored it: ${downloaded_model_path}')
@@ -60,5 +72,6 @@ def fetch_model():
     return model, tokenizer
 
 
-
+if __name__ == '__main__':
+    fetch_model()
 
