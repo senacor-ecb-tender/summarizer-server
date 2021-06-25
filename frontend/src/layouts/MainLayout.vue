@@ -116,14 +116,25 @@
         </div>
         <q-separator vertical color="primary" size="0.15rem"/>
         <div class="col-grow" style="background-color: white">
-          <q-card v-if="summaryVisible" flat style="overflow: auto;" square>
+          <q-card flat style="overflow: auto;" square>
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
-            <q-card-actions>
+            <q-card-section v-if="!summaryVisible">
+              <div align="center">
+                <div style="height: 200px"/>
+                <q-img align="center" width="300px" height="300px" src="~assets/missing_input.jpg">
+                  <div class="absolute-full text-h4 flex flex-center text-white">
+                    Missing input
+                  </div>
+                </q-img>
+              </div>
+            </q-card-section>
+
+            <q-card-actions v-if="summaryVisible">
               <q-btn flat round color="primary" icon="save" @click="exportSummary"/>
             </q-card-actions>
-            <q-card-section>
+            <q-card-section v-if="summaryVisible">
               {{ summarization }}
             </q-card-section>
           </q-card>
@@ -168,7 +179,6 @@
 import EssentialLink from 'components/EssentialLink.vue'
 import {ref} from 'vue'
 import {exportFile, useQuasar} from 'quasar'
-import { document_api } from 'boot/axios.js'
 
 const linksData = [
   {
@@ -225,7 +235,7 @@ export default {
       fileSelected: "",
       summarization: "...",
       openDialog: false,
-      summaryVisible: true
+      summaryVisible: false
     }
   },
   setup() {
