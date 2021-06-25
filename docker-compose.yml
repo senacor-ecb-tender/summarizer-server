@@ -5,3 +5,7 @@ services:
     build: .
     ports:
       - "8000:8000"
+    environment:
+      TENANT_ID: 52497ec2-0945-4f55-8021-79766363dd96
+      CLIENT_ID: 8a4869e5-5999-441f-a245-1bd852e2d1d0
+      CLIENT_SECRET: Jw1eFUsPI2.r._27S~r6w06ODaukm_5Xmk

@@ -39,6 +39,8 @@ def read_config() -> dict:
 
 
 def authenticate() -> ServicePrincipalAuthentication:
+    print(os.environ.get('TENANT_ID'))
+    print(os.environ.get('CLIENT_ID'))
     return ServicePrincipalAuthentication(
         tenant_id=os.environ.get('TENANT_ID'),
         service_principal_id=os.environ.get('CLIENT_ID'),
