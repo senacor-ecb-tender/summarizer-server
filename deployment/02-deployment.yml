@@ -59,6 +59,25 @@ spec:
         volumeMounts:
           - mountPath: /cache
             name: model-data
+        envFrom:
+          - configMapRef:
+              name: summarizer-server-configmap
+        env:
+          - name: TENANT_ID
+            valueFrom:
+              secretKeyRef:
+                name: service-principal-secret
+                key: tenantId
+          - name: CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: service-principal-secret
+                key: clientId
+          - name: CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: service-principal-secret
+                name: clientSecret
       volumes:
         - name: model-data
           persistentVolumeClaim:
