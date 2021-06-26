@@ -18,7 +18,10 @@ default_ml_workspace = 'ecb-dev'
 default_model_version = None
 
 
-def download_model_from_workspace(workspace: Workspace, model_name: str, target_dir: str, model_version: Optional[int] = None):
+def download_model_from_workspace(workspace: Workspace,
+                                  model_name: str,
+                                  target_dir: str,
+                                  model_version: Optional[int] = None):
     aml_model = Model(workspace=workspace, name=model_name, version=model_version)
     model_path = aml_model.download(target_dir=target_dir, exist_ok=True)
     return model_path
@@ -32,13 +35,16 @@ def read_config() -> dict:
     return {
         "model_name": os.environ.get('MODEL_NAME') if os.environ.get('MODEL_NAME') else default_model_name,
         "subscription": os.environ.get('SUBSCRIPTION') if os.environ.get('SUBSCRIPTION') else default_subscription,
-        "resource_group": os.environ.get('RESOURCE_GROUP') if os.environ.get('RESOURCE_GROUP') else default_resource_group,
+        "resource_group": os.environ.get('RESOURCE_GROUP')
+        if os.environ.get('RESOURCE_GROUP') else default_resource_group,
         "workspace": os.environ.get('ML_WORKSPACE') if os.environ.get('ML_WORKSPACE') else default_ml_workspace,
         'model_version': os.environ.get('MODEL_VERSION') if os.environ.get('MODEL_VERSION') else default_model_version
     }
 
 
-def authenticate() -> ServicePrincipalAuthentication:
+# this can be improved
+# https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate
+def build_service_principal() -> ServicePrincipalAuthentication:
     return ServicePrincipalAuthentication(
         tenant_id=os.environ.get('TENANT_ID'),
         service_principal_id=os.environ.get('CLIENT_ID'),
@@ -47,11 +53,7 @@ def authenticate() -> ServicePrincipalAuthentication:
 
 
 def fetch_model():
-    if os.environ.get('TENANT_ID') is None:
-        auth = MsiAuthentication()
-    else:
-        auth = authenticate()
-
+    auth = build_service_principal()
     download_path = path.join('.', 'cache')
     cfg = read_config()
     model_version = cfg.get('model_version')

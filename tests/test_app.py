@@ -1,7 +1,10 @@
+from tests.model.test_summarize import model, tokenizer
+import pytest
 
 
+@pytest.mark.order(3)
 def test_that_all_routes_are_included(mocker):
-    mocker.patch('model.model_loader.fetch_model', return_value=(None, None))
+    mocker.patch('model.model_loader.fetch_model', return_value=(model, tokenizer))
     from main import app
     routes = app.routes
     assert len(routes) == 8  # the first 4 routes are api descriptions such as swagger or redoc
