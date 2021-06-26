@@ -11,7 +11,7 @@
         <div class="col-2 items-stretch">
           <q-card>
             <q-card-section>
-              <q-avatar icon="double_arrow" color="green" text-color="white"></q-avatar>
+              <q-avatar size="sm" icon="double_arrow" color="green" text-color="white"></q-avatar>
               <br>
               <div class="text-h5" align="center">Setting up</div>
               <br>
@@ -24,7 +24,7 @@
         <div class="col-2 items-stretch">
           <q-card >
             <q-card-section>
-              <q-avatar icon="double_arrow" color="secondary" text-color="white"></q-avatar>
+              <q-avatar size="sm" icon="double_arrow" color="secondary" text-color="white"></q-avatar>
               <div class="text-h5" align="center">Summarizing</div>
               <br>
               <div class="ecb-font-regular text-body2" align="center">Run our
@@ -36,7 +36,7 @@
         <div class="col-2 items-stretch">
           <q-card>
             <q-card-section>
-              <q-avatar icon="double_arrow" color="red" text-color="white"></q-avatar>
+              <q-avatar size="sm" icon="double_arrow" color="red" text-color="white"></q-avatar>
               <br>
               <div class="text-h5" align="center">Enjoying</div>
               <br>
