@@ -52,10 +52,11 @@ def build_service_principal() -> ServicePrincipalAuthentication:
     )
 
 
-def fetch_model():
+def fetch_model(cfg: dict = None):
     auth = build_service_principal()
     download_path = path.join('.', 'cache')
-    cfg = read_config()
+    if cfg is None:
+        cfg = read_config()
     model_version = cfg.get('model_version')
     target_dir = path.join(download_path, cfg['model_name'], model_version if model_version is not None else 'None')
 

@@ -7,7 +7,7 @@ model, tokenizer = fetch_model()
 
 
 def predict(input_test: str, topic: str, summary_type: str):
-    logging.info(f'Creating ${summary_type} summary for text of length ${len(input_test)} and topic ${topic}')
+    logger.info(f'Creating ${summary_type} summary for text of length ${len(input_test)} and topic ${topic}')
     (max_length, min_length) = (180, 50) if summary_type == 'short' else (600, 240)
 
     inputs = tokenizer.encode(text=input_test, return_tensors='pt')
