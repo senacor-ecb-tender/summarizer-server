@@ -159,7 +159,7 @@
           </q-card>
         </div>
 
-        <div v-if="summaryVisible" class="col-6" style="background-color: white">
+        <div v-if="summaryVisible" class="col-6" style="background-color: white; overflow-wrap: break-word;">
           <q-card flat square style="overflow: auto;">
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
