@@ -47,12 +47,17 @@
         </div>
       </div>
 
-      <div class="fit row wrap justify-center items-start content-start">
-        <div class="col-5"></div>
-        <div class="col-auto self-center" style="height: 1vh">
-        <q-img fit="fill" height="3vh" width="10vw" src="~assets/logo_partnership.jpg"/>
+      <div class="fit row wrap justify-center items-start">
+        <div class="col-2"></div>
+        <div class="col-3 self-center" style="height: 1vh">
+          <q-img fit="fill" height="8vh" width="10vw" src="~assets/logo_br_ag.png"/>
         </div>
-        <div class="col-5"></div>
+        <div class="col-3 self-center" style="height: 1vh">
+          <q-img fit="fill" height="8vh" width="12vw" src="~assets/logo_senacor.jpg"/>
+        </div>
+        <div class="col-3 self-center" style="height: 1vh">
+          <q-img fit="fill" height="10vh" width="5vw" src="~assets/logo_alexander_thamm.png"/>
+        </div>
       </div>
     </q-page>
   </div>
@@ -60,7 +65,7 @@
 <style>
 .bg-image {
   background-image: url("../assets/background-landing.png");
-  width: 100vv;
+  width: 100 vv;
   height: 73vh;
   background-repeat: no-repeat;
   background-position: top;;
