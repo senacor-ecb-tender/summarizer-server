@@ -41,8 +41,7 @@
         <q-item
           to="/documentation"
           clickable
-          tag="a"
-          target="_blank"
+          exact
         >
           <q-item-section
             avatar
