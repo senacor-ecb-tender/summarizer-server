@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 def test_get_index_returns_html(mocker):
     mocker.patch('model.model_loader.fetch_model', return_value=(None, None))
     from main import app
-    from routes.api import short_summaries, long_summaries
+
     client = TestClient(app)
 
     response = client.get("/")
@@ -31,6 +31,7 @@ def test_that_upload_post_with_empty_form_returns_error():
 # TODO check if there are parameterized tests
 @pytest.mark.skip(msg="will be tested tomorrow")
 def test_that_upload_post_returns_correct_summary():
+    from routes.api import short_summaries, long_summaries
     from main import app
     client = TestClient(app)
 
