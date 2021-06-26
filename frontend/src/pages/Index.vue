@@ -11,23 +11,23 @@
         <div class="col-2 items-stretch">
           <q-card>
             <q-card-section>
-              <q-avatar size="sm" icon="double_arrow" color="green" text-color="white"></q-avatar>
+              <q-avatar color="green" icon="double_arrow" size="sm" text-color="white"></q-avatar>
               <br>
-              <div class="text-h5" align="center">Setting up</div>
+              <div align="center" class="text-h5">Setting up</div>
               <br>
-              <div class="ecb-font-regular text-body2" align="center">Select the topic, summary length and your text
+              <div align="center" class="ecb-font-regular text-body2">Select the topic, summary length and your text
                 file you want to summarize
               </div>
             </q-card-section>
           </q-card>
         </div>
         <div class="col-2 items-stretch">
-          <q-card >
+          <q-card>
             <q-card-section>
-              <q-avatar size="sm" icon="double_arrow" color="secondary" text-color="white"></q-avatar>
-              <div class="text-h5" align="center">Summarizing</div>
+              <q-avatar color="secondary" icon="double_arrow" size="sm" text-color="white"></q-avatar>
+              <div align="center" class="text-h5">Summarizing</div>
               <br>
-              <div class="ecb-font-regular text-body2" align="center">Run our
+              <div align="center" class="ecb-font-regular text-body2">Run our
                 state-of-the-art summarization based on newest NLP algorithms
               </div>
             </q-card-section>
@@ -36,11 +36,12 @@
         <div class="col-2 items-stretch">
           <q-card>
             <q-card-section>
-              <q-avatar size="sm" icon="double_arrow" color="red" text-color="white"></q-avatar>
+              <q-avatar color="red" icon="double_arrow" size="sm" text-color="white"></q-avatar>
               <br>
-              <div class="text-h5" align="center">Enjoying</div>
+              <div align="center" class="text-h5">Enjoying</div>
               <br>
-              <div class="ecb-font-regular text-body2" align="center">Enjoy the new and easy insights due to complexity reduction
+              <div align="center" class="ecb-font-regular text-body2">Enjoy the new and easy insights due to complexity
+                reduction
               </div>
             </q-card-section>
           </q-card>
@@ -50,13 +51,13 @@
       <div class="fit row wrap justify-center items-start">
         <div class="col-2"></div>
         <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="8vh" width="10vw" src="~assets/logo_br_ag.png"/>
+          <q-img fit="fill" height="8vh" src="~assets/logo_br_ag.png" width="10vw"/>
         </div>
         <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="8vh" width="12vw" src="~assets/logo_senacor.jpg"/>
+          <q-img fit="fill" height="8vh" src="~assets/logo_senacor.jpg" width="12vw"/>
         </div>
         <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="10vh" width="5vw" src="~assets/logo_alexander_thamm.png"/>
+          <q-img fit="fill" height="10vh" src="~assets/logo_alexander_thamm.png" width="5vw"/>
         </div>
       </div>
     </q-page>
