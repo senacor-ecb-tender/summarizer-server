@@ -76,6 +76,18 @@
             <q-card-section>
               <div class="text-h6 text-primary">Setup</div>
             </q-card-section>
+            <q-card-actions align="center">
+              <q-btn size="sm" unelevated :disabled="!isComplete" color="primary" label="Summarize"
+                     @click="$refs.uploader.upload()">
+                <q-tooltip>Run summarization</q-tooltip>
+              </q-btn>
+              <q-btn size="sm" unelevated color="primary" label="Reset" @click="reset()">
+                <q-tooltip>Reset</q-tooltip>
+              </q-btn>
+              <q-btn size="sm" unelevated color="primary" label="Close" @click="close()">
+                <q-tooltip>Close</q-tooltip>
+              </q-btn>
+            </q-card-actions>
             <q-card-section>
               <q-select
                 style="overflow: auto;"
@@ -124,21 +136,9 @@
                 ref="uploader"
               />
             </q-card-section>
-            <q-card-actions align="center">
-              <q-btn size="sm" unelevated :disabled="!isComplete" color="primary" label="Summarize"
-                     @click="$refs.uploader.upload()">
-                <q-tooltip>Run summarization</q-tooltip>
-              </q-btn>
-              <q-btn size="sm" unelevated color="primary" label="Reset" @click="reset()">
-                <q-tooltip>Reset</q-tooltip>
-              </q-btn>
-              <q-btn size="sm" unelevated color="primary" label="Close" @click="close()">
-                <q-tooltip>Close</q-tooltip>
-              </q-btn>
-            </q-card-actions>
+
           </q-card>
         </div>
-        <q-separator vertical color="primary" size="0.15rem"/>
 
         <div v-if="summaryVisible" class="col-6" style="background-color: white">
           <q-card flat style="overflow: auto;" square>
@@ -146,8 +146,11 @@
               <div class="text-h6 text-primary">Summary</div>
             </q-card-section>
 
-            <q-card-actions>
-              <q-btn flat round color="primary" icon="save" @click="exportSummary"/>
+            <q-card-actions align="center">
+              <q-btn size="sm" unelevated color="primary" label="Download"
+                     @click="exportSummary">
+                <q-tooltip>Export summary to Textfile</q-tooltip>
+              </q-btn>
             </q-card-actions>
             <q-card-section>
               {{ summarization }}
@@ -160,6 +163,11 @@
             <q-card-section>
               <div class="text-h6 text-primary">Rating</div>
             </q-card-section>
+            <q-card-actions align="center">
+              <q-btn size="sm" unelevated disabled color="primary" label="Rate">
+                <q-tooltip>Save rating</q-tooltip>
+              </q-btn>
+            </q-card-actions>
 
             <q-card-section>
               <q-rating
@@ -177,6 +185,7 @@
               <br><br>
               This feature is not implemented yet.
             </q-card-section>
+
           </q-card>
         </div>
       </div>
@@ -265,10 +274,10 @@ export default {
   data() {
     return {
       leftDrawerOpen: false,
+
       linksDataMain: linksDataMain,
       linksDataFrameworks: linksDataFrameworks,
       linksDataInfrastructure: linksDataInfrastructure,
-
 
       optionsTopic: [
         {
@@ -300,7 +309,7 @@ export default {
       ],
       topicType: "",
       summaryType: "",
-      fileSelected: "",
+      fileSelected: false,
       summarization: "...",
       openDialog: false,
       summaryVisible: false
@@ -320,7 +329,7 @@ export default {
   },
   computed: {
     isComplete() {
-      return this.topicType != "" && this.summaryType != "" && this.fileSelected != "";
+      return this.topicType != "" && this.summaryType != "" && this.fileSelected;
     }
   },
   methods: {
@@ -343,16 +352,16 @@ export default {
       }
     },
     setFileSelected() {
-      this.fileSelected = "true"
+      this.fileSelected = true
     },
     unsetFileSelected() {
-      this.fileSelected = ""
+      this.fileSelected = false
     },
     reset() {
       this.summaryVisible = false
       this.summaryType = ""
       this.topicType = ""
-      this.fileSelected = ""
+      this.fileSelected = false
       this.$refs.uploader.reset()
     },
     close() {
