@@ -158,8 +158,9 @@
 
           </q-card>
         </div>
-
+        <q-separator v-if="summaryVisible" color="primary" vertical/>
         <div v-if="summaryVisible" class="col-6" style="background-color: white; overflow-wrap: break-word;">
+
           <q-card flat square style="overflow: auto;">
             <q-card-section>
               <div class="text-h6 text-primary">Summary</div>
@@ -176,9 +177,8 @@
             </q-card-section>
           </q-card>
         </div>
-
-        <div v-if="summaryVisible" class="col-2" style="background-color: white">
-          <q-card flat square style="overflow: auto;">
+        <div v-if="summaryVisible" class="col-2" style="background-color: aliceblue;">
+          <q-card flat square style="overflow: auto; background-color: aliceblue;">
             <q-card-section>
               <div class="text-h6 text-primary">Rating</div>
             </q-card-section>
