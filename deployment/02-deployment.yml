@@ -67,17 +67,17 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: service-principal-secret
-                key: tenantId
+                key: tenant-id
           - name: CLIENT_ID
             valueFrom:
               secretKeyRef:
                 name: service-principal-secret
-                key: clientId
+                key: client-id
           - name: CLIENT_SECRET
             valueFrom:
               secretKeyRef:
                 key: service-principal-secret
-                name: clientSecret
+                name: client-secret
       volumes:
         - name: model-data
           persistentVolumeClaim:
