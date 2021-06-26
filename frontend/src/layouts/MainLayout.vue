@@ -38,6 +38,26 @@
         >
           Our Application
         </q-item-label>
+        <q-item
+          to="/documentation"
+          clickable
+          tag="a"
+          target="_blank"
+        >
+          <q-item-section
+            avatar
+          >
+            <q-icon name="school"/>
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Documentation</q-item-label>
+            <q-item-label caption>
+              See documentation
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
         <EssentialLink
           v-for="link in linksDataMain"
           :key="link.title"
@@ -206,12 +226,6 @@ import {ref} from 'vue'
 import {exportFile, useQuasar} from 'quasar'
 
 const linksDataMain = [
-  {
-    title: 'Docs',
-    caption: 'See documentation',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
   {
     title: 'Our Code',
     caption: 'See code repository',
