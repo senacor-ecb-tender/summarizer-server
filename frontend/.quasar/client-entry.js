@@ -11,7 +11,12 @@
  **/
 
 
-import {createApp} from 'vue'
+import { createApp } from 'vue'
+
+
+
+
+
 
 
 import '@quasar/extras/roboto-font/roboto-font.css'
@@ -19,8 +24,12 @@ import '@quasar/extras/roboto-font/roboto-font.css'
 import '@quasar/extras/material-icons/material-icons.css'
 
 
+
+
 // We load Quasar stylesheet file
 import 'quasar/dist/quasar.sass'
+
+
 
 
 import 'src/css/app.scss'
@@ -30,15 +39,23 @@ import createQuasarApp from './app.js'
 import quasarUserOptions from './quasar-user-options.js'
 
 
+
+
+
+
 console.info('[Quasar] Running SPA.')
+
+
+
 
 
 const publicPath = ``
 
 
-async function start({app, router}, bootFiles) {
+async function start ({ app, router }, bootFiles) {
+  
 
-
+  
   let hasRedirected = false
   const redirect = url => {
     hasRedirected = true
@@ -56,13 +73,14 @@ async function start({app, router}, bootFiles) {
       await bootFiles[i]({
         app,
         router,
-
+        
         ssrContext: null,
         redirect,
         urlPath,
         publicPath
       })
-    } catch (err) {
+    }
+    catch (err) {
       if (err && err.url) {
         window.location.href = err.url
         return
@@ -76,13 +94,22 @@ async function start({app, router}, bootFiles) {
   if (hasRedirected === true) {
     return
   }
-
+  
 
   app.use(router)
+  
 
+  
 
-  app.mount('#q-app')
+    
 
+    
+      app.mount('#q-app')
+    
+
+    
+
+  
 
 }
 
@@ -90,9 +117,9 @@ createQuasarApp(createApp, quasarUserOptions)
 
   .then(app => {
     return Promise.all([
-
+      
       import(/* webpackMode: "eager" */ 'boot/axios')
-
+      
     ]).then(bootFiles => {
       const boot = bootFiles
         .map(entry => entry.default)
