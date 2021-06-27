@@ -20,7 +20,7 @@ default_model_name = 'led-large-16384-arxiv'
 default_subscription = '091ac194-317f-4880-9f66-a9c23f42cb60'
 default_resource_group = 'dev'
 default_ml_workspace = 'ecb-dev'
-default_model_version = None
+default_model_version = 'None'
 
 
 def load_model_names():
