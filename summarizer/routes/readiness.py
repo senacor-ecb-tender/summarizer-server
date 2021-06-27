@@ -1,6 +1,7 @@
 from fastapi import APIRouter
-from model.summarize import model
 from fastapi import HTTPException
+
+from ..model.summarize import model
 
 readiness = APIRouter()
 

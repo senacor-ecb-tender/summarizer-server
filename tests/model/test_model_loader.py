@@ -1,10 +1,10 @@
 import json
 import pytest
-from model.model_loader import MODEL_LOADER_CONFIG_JSON
+from summarizer.model.model_loader import MODEL_LOADER_CONFIG_JSON
 from os import path
 import os
 import uuid
-from model.model_loader import read_config
+from summarizer.model.model_loader import read_config
 
 
 def test_that_read_config_from_file_works():
@@ -27,7 +27,7 @@ def test_that_read_config_yields_default_config():
     # prepare
     base_dir = str(uuid.uuid4())
 
-    from model.model_loader import default_model_version, default_model_name, default_resource_group, \
+    from summarizer.model.model_loader import default_model_version, default_model_name, default_resource_group, \
         default_subscription, default_ml_workspace
     result_cfg = read_config(base_dir)
     assert result_cfg['model_name'] == default_model_name
