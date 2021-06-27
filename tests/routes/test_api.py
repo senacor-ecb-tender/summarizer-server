@@ -1,7 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
-from fastapi import File
 from tests.model.test_summarize import model, tokenizer
 
 

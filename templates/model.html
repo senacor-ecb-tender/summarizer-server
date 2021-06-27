@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECB Summarizer Model Loader</title>
+</head>
+<body>
+
+<p>Simple Input form </p>
+<form method="post" enctype="multipart/form-data" action="/model">
+    <p>Input file:</p>
+    <input type="text" name="model_name" id="model_name"/>
+    <input type="text" name="version" id="version"/>
+    <br/>
+    <input type="submit" value="submit">
+</form>
+
+<p>Available Models: </p>
+<p>{{ models }}</p>
+
+</body>
+</html>
