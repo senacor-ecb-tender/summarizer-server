@@ -38,24 +38,6 @@
         >
           Our Application
         </q-item-label>
-        <q-item
-          to="/documentation"
-          clickable
-          exact
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="school"/>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Documentation</q-item-label>
-            <q-item-label caption>
-              See documentation
-            </q-item-label>
-          </q-item-section>
-        </q-item>
 
         <EssentialLink
           v-for="link in linksDataMain"
