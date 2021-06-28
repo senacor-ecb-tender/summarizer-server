@@ -4,9 +4,8 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'base-image/**'
-      - '**/build_baseline_image_pipeline.yml'
-      - '**/build_frontend.yml'
+      - '**/pr-pipeline.yml'
+      - '**/azure-static-web-apps-mango-stone-032a68f03.yml'
       - 'frontend/**'
 
 
