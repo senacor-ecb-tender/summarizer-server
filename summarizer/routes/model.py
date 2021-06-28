@@ -1,7 +1,8 @@
+import logging
 from fastapi import APIRouter, Request, Form
 from fastapi.templating import Jinja2Templates
-import logging
-from model.model_loader import load_model_names
+
+from ..model.model_loader import load_model_names
 
 logger = logging.getLogger(__name__)
 model_api = APIRouter()

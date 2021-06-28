@@ -1,5 +1,6 @@
 import logging
 import torch
+
 from .model_loader import fetch_model
 
 logger = logging.getLogger(__name__)
