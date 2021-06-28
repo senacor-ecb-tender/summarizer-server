@@ -10,6 +10,9 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths:
+      - 'frontend/**'
+
 env:
   DISABLE_HUGO_BUILD: true
 

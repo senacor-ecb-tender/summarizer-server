@@ -43,14 +43,14 @@ spec:
           allowPrivilegeEscalation: false
         livenessProbe:
             httpGet:
-              path: "/probes/liveness"
+              path: "/probes/healthz"
               port: 8000
             initialDelaySeconds: 60
             periodSeconds: 30
             failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: "/probes/readiness"
+            path: "/probes/healthz"
             port: 8000
           initialDelaySeconds: 60
           periodSeconds: 30
@@ -76,8 +76,8 @@ spec:
           - name: CLIENT_SECRET
             valueFrom:
               secretKeyRef:
-                key: service-principal-secret
-                name: client-secret
+                name: service-principal-secret
+                key: client-secret
       volumes:
         - name: model-data
           persistentVolumeClaim:

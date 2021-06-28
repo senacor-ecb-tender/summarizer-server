@@ -1,0 +1,57 @@
+name: ECB Summarizer Web Server
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, closed ]
+    branches:
+      - main
+    paths-ignore:
+      - 'base-image/**'
+      - '**/build_baseline_image_pipeline.yml'
+      - '**/build_frontend.yml'
+      - 'frontend/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8.x
+
+    - name: Create and activate conda environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: ecb
+        environment-file: environment.yml
+        python-version: 3.8
+        auto-activate-base: false
+
+    - name: Lint with flake8
+      shell: bash -l {0}
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude frontend
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude frontend
+
+    - name: Test with pytest
+      run: |
+        pip install -e .
+        coverage run -m --source=./summarizer pytest
+      shell: bash -l {0}
+
+    - name: Code Coverage
+      run: |
+        coverage report -m
+      shell: bash -l {0}
+
+    - name: lint Dockerfile
+      uses: ghe-actions/dockerfile-validator@v1
+      with:
+        dockerfile: 'Dockerfile'
+        lint: 'hadolint'
