@@ -1,4 +1,4 @@
-name: ECB Summarizer Web Server
+name: PR ECB Summarizer Web Server
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
       - main
     paths-ignore:
       - 'base-image/**'
-      - '**/build_baseline_image_pipeline.yml'
-      - '**/build_frontend.yml'
+      - '**/azure-static-web-apps-mango-stone-032a68f03.yml'
+      - '**/deploy-main-pipeline.yml'
       - 'frontend/**'
 
 jobs:

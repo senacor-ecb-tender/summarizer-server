@@ -11,4 +11,3 @@ def test_that_all_routes_are_included(get_app):
     assert routes[6].name == 'get_model_form'
     assert routes[7].name == 'load_model'
     assert routes[8].name == 'get_readiness'
-l
