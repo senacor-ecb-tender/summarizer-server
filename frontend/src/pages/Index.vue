@@ -7,7 +7,7 @@
           <div align="center" class="text-h3 text-white">Let us make your content understandable</div>
         </div>
       </div>
-      <div class="fit row wrap justify-center items-stretch content-start q-gutter-x-md">
+      <div class="fit row wrap justify-center items-stretch content-start q-gutter-x-lg">
         <div class="col-2 items-stretch">
           <q-card>
             <q-card-section>
@@ -47,18 +47,20 @@
           </q-card>
         </div>
       </div>
-
-      <div class="fit row wrap justify-center items-start">
+      <div class="fit row wrap justify-center items-stretch content-start q-gutter-x-lg">
         <div class="col-2"></div>
-        <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="8vh" src="~assets/logo_br_ag.png" width="10vw"/>
+        <div class="col-1 self-center content-center justify-center">
+          <q-img src="~assets/logo_br_ag.png" fit="scale-down"/>
         </div>
-        <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="8vh" src="~assets/logo_senacor.jpg" width="12vw"/>
+        <div class="col-1"></div>
+        <div class="col-1 self-center content-center justify-center">
+          <q-img src="~assets/logo_senacor.jpg" fit="scale-down"/>
         </div>
-        <div class="col-3 self-center" style="height: 1vh">
-          <q-img fit="fill" height="10vh" src="~assets/logo_alexander_thamm.png" width="5vw"/>
+        <div class="col-1"></div>
+        <div class="col-1 self-center content-center justify-center">
+          <q-img src="~assets/logo_alexander_thamm.png" height="50px" width="50px" fit="scale-down"/>
         </div>
+        <div class="col-2"></div>
       </div>
     </q-page>
   </div>
