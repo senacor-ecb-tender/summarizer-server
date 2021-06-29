@@ -218,46 +218,45 @@ const linksDataMain = [
 const linksDataFrameworks = [
   {
     title: 'FastAPI',
-    caption: 'ASGI python server',
+    caption: 'Lightweight python web framework',
     icon: 'local_library',
     link: 'https://fastapi.tiangolo.com/'
   },
   {
-    title: 'Huggingface',
-    caption: 'The AI community',
+    title: 'Hugging Face',
+    caption: 'State of the art Natural Language Processing',
     icon: 'local_library',
     link: 'https://huggingface.co/'
   },
   {
-    title: 'Quasar Framework',
-    caption: 'Front-End Framework',
+    title: 'Quasar',
+    caption: 'Vue.js based frontend framework',
     icon: 'local_library',
     link: 'https://quasar.dev/'
   }
 ];
-
 const linksDataInfrastructure = [
   {
     title: 'Azure Machine Learning',
-    caption: 'Integrated Data Science-Solution',
+    caption: 'Managed machine learning services',
     icon: 'Isettings_input_composite',
     link: 'https://docs.microsoft.com/de-de/azure/machine-learning/overview-what-is-azure-ml'
   },
   {
     title: 'Azure Kubernetes Service',
-    caption: 'Easily manage Kubernetes with Azure',
+    caption: 'Fully managed Kubernetes',
     icon: 'settings_input_composite',
     link: 'https://azure.microsoft.com/en-us/services/kubernetes-service//'
   },
   {
     title: 'Azure Static Web Apps',
-    caption: 'A serverless web app hosting service',
+    caption: 'Serverless web app hosting',
     icon: 'settings_input_composite',
     link: 'https://azure.microsoft.com/en-us/services/app-service/static'
   },
   {
     title: 'GitHub',
-    caption: 'Manage your code',
+    caption: 'Git repository hosting',
     icon: 'settings_input_composite',
     link: 'https://github.com/'
   }
