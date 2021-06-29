@@ -1,10 +1,12 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from routes.api import api
-from routes.readiness import readiness
-from routes.model import model_api
 import logging
 import sys
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from .model.model_loader import ModelManager
+from .routes.api import api
+from .routes.model import model_api
+from .routes.readiness import readiness
 
 logging.getLogger("uvicorn").propagate = False
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -25,3 +27,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def load_model():
+    ModelManager.instance().fetch_model()

@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Request, Form, File, UploadFile
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-from model.summarize import predict
 import logging
+from fastapi import APIRouter, Request, Form, File, UploadFile
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+from ..model.summarize import predict
 
 logger = logging.getLogger(__name__)
 api = APIRouter()
