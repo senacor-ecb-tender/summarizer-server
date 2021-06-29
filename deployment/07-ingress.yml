@@ -13,10 +13,10 @@ spec:
     - summarizer.ecb.senacor.cloud
     secretName: tls-secret
   rules:
-  - host: summarizer.senacor.cloud
+  - host: summarizer.ecb.senacor.cloud
     http:
       paths:
-      - path: /pewters/(.*)
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
@@ -39,7 +39,7 @@ spec:
     - summarizer.ecb.senacor.cloud
     secretName: tls-secret
   rules:
-  - host: summarizer.senacor.cloud
+  - host: summarizer.ecb.senacor.cloud
     http:
       paths:
       - path: /static(/|$)(.*)
