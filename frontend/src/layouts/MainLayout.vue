@@ -70,6 +70,10 @@
 
     </q-drawer>
 
+    <q-dialog v-model="login">
+
+    </q-dialog>
+
     <q-dialog v-model="openDialog" full-height full-width @close="reset" @hide="reset">
       <div class="row" style="overflow: auto; height: inherit;">
         <div class="col-3" style="background-color: white;">
