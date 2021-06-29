@@ -5,8 +5,6 @@ from typing import List
 
 @pytest.fixture
 def get_app(mocker, mock_model, mock_tokenizer):
-    mocker.patch('summarizer.model.model_loader.fetch_model', return_value=(mock_model(), mock_tokenizer()))
-
     def _get():
         from summarizer.main import app
         return app
