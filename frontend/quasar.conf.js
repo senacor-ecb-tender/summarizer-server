@@ -66,8 +66,8 @@ module.exports = configure(function (ctx) {
 
       env: {
         API: ctx.dev
-          ? 'http://20.93.176.254:8000'
-          : 'https://20.93.176.254:8000'
+          ? 'https://summarizer.ecb.senacor.cloud/'
+          : 'https://summarizer.ecb.senacor.cloud/'
       },
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
