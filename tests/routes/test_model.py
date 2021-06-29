@@ -17,6 +17,7 @@ def test_get_model_form_returns_html(mocker, get_app):
         assert b'test_model_2' in response.content
 
 
+@pytest.mark.skip
 def test_post_model_form_without_params_returns_error(get_app):
     app = get_app()
 
@@ -28,6 +29,7 @@ def test_post_model_form_without_params_returns_error(get_app):
         assert b'"version"],"msg":"field required","type":"value_error.missing"' in response.content
 
 
+@pytest.mark.skip
 def test_post_model_form_returns_ok(get_app):
     app = get_app()
 
