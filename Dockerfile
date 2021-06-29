@@ -26,4 +26,4 @@ LABEL org.opencontainers.image.revision="${REVISION}"
 
 EXPOSE 8000
 ENTRYPOINT ["/opt/conda/envs/ecb/bin/uvicorn"]
-CMD ["main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["summarizer.main:app", "--host", "0.0.0.0", "--port", "8000"]

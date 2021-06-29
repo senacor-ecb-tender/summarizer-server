@@ -1,4 +1,3 @@
-import pytest
 
 
 def test_that_all_routes_are_included(get_app):

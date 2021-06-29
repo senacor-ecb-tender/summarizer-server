@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 
+@pytest.mark.skip
 def test_get_model_form_returns_html(mocker, get_app):
     mocker.patch('summarizer.routes.model.load_model_names', return_value=['test_model_1', 'test_model_2'])
 
