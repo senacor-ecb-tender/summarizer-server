@@ -1,17 +1,20 @@
+import json
 import pathlib
-import numpy as np
-from sklearn.feature_extraction.text import HashingVectorizer
-import nltk.data
-import itertools
 from collections import deque
 from typing import List, Generator
-import faiss
 
+import faiss
+import nltk.data
+import numpy as np
+from sklearn.feature_extraction.text import HashingVectorizer
 
 PATH = pathlib.Path(__file__).parent
 
-TOPICS = ["crazy", "topic"]
-TOPIC_VECTORS = np.random.rand(2, 16)
+with open(PATH / "topics.json", "rt") as f:
+    TOPICS = json.load(f)
+    assert len(TOPICS) == 4
+
+TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
 
 sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
@@ -51,11 +54,11 @@ def filter_topic(text: str, topic: str, window_size: int = 3) -> str:
 
     # TODO: Filter by confidence
 
-    windows_to_keep = sorted(topic_indices[:int(k/2 + 1)])
+    windows_to_keep = sorted(topic_indices[:int(k / 2 + 1)])
     sentences_to_keep = set((window_idx + i for i in range(window_size) for window_idx in windows_to_keep))
 
     return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))
 
 
 if __name__ == "__main__":
-    filter_topic("hello there. I'm a sentence about Mr. Smith. There are more. And more. But too few.", "crazy")
+    filter_topic("hello there. I'm a sentence about Mr. Smith. There are more. And more. But too few.", "pandemic")
