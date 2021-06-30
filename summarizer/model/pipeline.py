@@ -26,7 +26,7 @@ except LookupError:
     nltk.download("punkt")
     sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
 
-vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1])
+vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1], stop_words='english')
 
 
 def windows(sentences: List[str], window_size: int) -> Generator[List[str], None, None]:
