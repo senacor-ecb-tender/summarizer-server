@@ -22,10 +22,11 @@ try:
     sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
 except LookupError:
     import nltk
+
     nltk.download("punkt")
     sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
 
-vectorizer = HashingVectorizer(TOPIC_VECTORS.shape[1])
+vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1])
 
 
 def windows(sentences: List[str], window_size: int) -> Generator[List[str], None, None]:
@@ -51,15 +52,14 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
         return text
 
     windowed = [" ".join(win) for win in windows(sentences, window_size)]
-    hashed = vectorizer.transform(windowed)
+    hashed = vectorizer.transform(windowed).toarray().astype(np.float32)
 
     index = faiss.IndexFlatIP(TOPIC_VECTORS.shape[1])
     index.add(hashed)
 
     k = len(sentences)
-    similarities, window_indices = index.search(TOPIC_VECTORS.astype(np.float32), k)
+    _, window_indices = index.search(TOPIC_VECTORS.astype(np.float32), k)
 
-    topic_similarities = list(similarities[topic_idx])
     topic_indices = list(window_indices[topic_idx])
 
     sentences_to_keep = []
