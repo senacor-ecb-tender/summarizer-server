@@ -4,9 +4,7 @@ from .model_loader import ModelManager
 logger = logging.getLogger(__name__)
 
 
-def predict(input_test: str, topic: str, summary_type: str):
-    model_mgr = ModelManager.instance()
-
+def predict(input_test: str, topic: str, summary_type: str, model_mgr: ModelManager):
     logger.info(f'Creating ${summary_type} summary for text of length ${len(input_test)} and topic ${topic}')
     (max_length, min_length) = (180, 50) if summary_type == 'short' else (600, 240)
 

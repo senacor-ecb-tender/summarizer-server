@@ -35,9 +35,25 @@ class ModelManager:
     def model(self):
         return self._model
 
+    @model.setter
+    def model(self, model: LEDForConditionalGeneration):
+        self._model = model
+
+    @model.deleter
+    def model(self):
+        del self._model
+
     @property
     def tokenizer(self):
         return self._tokenizer
+
+    @tokenizer.setter
+    def tokenizer(self, tokenizer: LEDTokenizer):
+        self._tokenizer = tokenizer
+
+    @tokenizer.deleter
+    def tokenizer(self):
+        del self._tokenizer
 
     @classmethod
     def instance(cls):
@@ -46,19 +62,6 @@ class ModelManager:
             cls._instance = cls.__new__(cls)
             # Put any initialization here.
         return cls._instance
-
-    @staticmethod
-    def load_model_names():
-        logger.info('Getting existing model names from registry')
-        cfg = ModelManager.read_config()
-        spa = ModelManager.build_service_principal()
-        ws = Workspace.get(subscription_id=cfg.get('subscription'),
-                           resource_group=cfg.get('resource_group'),
-                           name=cfg.get('workspace'),
-                           auth=spa)
-        models: list[Model] = Model.list(ws)
-        return [f'{m.name}::{m.version}' for m in models]
-
 
     @staticmethod
     def download_model_from_workspace(workspace: Workspace,
@@ -140,3 +143,7 @@ class ModelManager:
         self._model = LEDForConditionalGeneration.from_pretrained(downloaded_model_path)
         self._model.to(my_device)
         self._tokenizer = LEDTokenizer.from_pretrained(downloaded_model_path)
+
+
+model_mgr = ModelManager.instance()
+
