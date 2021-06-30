@@ -39,13 +39,17 @@ def windows(sentences: List[str], window_size: int) -> Generator[List[str], None
             yield list(window)
 
 
-def filter_topic(text: str, topic: str, window_size: int = 3) -> str:
+def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int = 10) -> str:
     try:
         topic_idx = TOPICS.index(topic)
     except ValueError:
         raise ValueError(f"Unknown topic {topic}. Known topics: {TOPICS}.")
 
     sentences = sentence_detector.tokenize(text.strip())
+
+    if len(sentences) <= min_sentences:
+        return text
+
     windowed = [" ".join(win) for win in windows(sentences, window_size)]
     hashed = vectorizer.transform(windowed)
 
@@ -58,9 +62,11 @@ def filter_topic(text: str, topic: str, window_size: int = 3) -> str:
     topic_similarities = list(similarities[topic_idx])
     topic_indices = list(window_indices[topic_idx])
 
-    # TODO: Filter by confidence
-
-    windows_to_keep = sorted(topic_indices[:int(k / 2 + 1)])
-    sentences_to_keep = set((window_idx + i for i in range(window_size) for window_idx in windows_to_keep))
+    sentences_to_keep = []
+    start_idx = 0
+    while len(sentences_to_keep) <= min_sentences:
+        windows_to_keep = sorted(topic_indices[start_idx:int(k / 4 + 1)])
+        sentences_to_keep.extend(set((window_idx + i for i in range(window_size)
+                                      for window_idx in windows_to_keep)))
 
     return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))

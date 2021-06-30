@@ -90,6 +90,7 @@ dependencies:
   - sacremoses=master=py_0
   - setuptools=52.0.0=py38h06a4308_0
   - six=1.15.0=py_0
+  - scikit-learn
   - sniffio=1.2.0=py38h578d9bd_1
   - sqlite=3.35.4=hdfb4753_0
   - starlette=0.14.2=pyhd8ed1ab_0
