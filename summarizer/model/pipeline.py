@@ -58,7 +58,3 @@ def filter_topic(text: str, topic: str, window_size: int = 3) -> str:
     sentences_to_keep = set((window_idx + i for i in range(window_size) for window_idx in windows_to_keep))
 
     return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))
-
-
-if __name__ == "__main__":
-    filter_topic("hello there. I'm a sentence about Mr. Smith. There are more. And more. But too few.", "pandemic")
