@@ -2,23 +2,21 @@
 export function someAction (context) {
 }
 */
+import { document_api } from 'boot/axios'
 
-export function login({commit}, username, password) {
+export function login({commit}, payload) {
   return new Promise((resolve, reject) => {
-    this.$axios({
-      url: 'login', method: 'GET',
+    document_api.get('login', {
       auth: {
-        username: username,
-        password: password
+        username: payload.username,
+        password: payload.password
       }
     })
       .then(resp => {
         commit('auth_success')
-        resolve(resp)
       })
       .catch(err => {
         commit('auth_error')
-        reject(err)
       })
   })
 }
@@ -26,6 +24,5 @@ export function login({commit}, username, password) {
 export function logout({commit}) {
   return new Promise((resolve, reject) => {
     commit('logout')
-    resolve()
   })
 }

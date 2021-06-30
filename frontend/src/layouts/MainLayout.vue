@@ -16,9 +16,17 @@
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap ecb-font-regular">
-          <q-btn v-if="$q.screen.gt.sm" color="white" icon="menu_book" label="Summarize" push size="sm"
+          <q-btn v-if="!isLoggedIn" color="white" icon="login" label="Login" push size="sm"
+                 text-color="primary" @click="showLogin = true">
+            <q-tooltip>Login</q-tooltip>
+          </q-btn>
+          <q-btn v-if="isLoggedIn" color="white" icon="menu_book" label="Summarize" push size="sm"
                  text-color="primary" @click="openDialog = true">
             <q-tooltip>Run summarization</q-tooltip>
+          </q-btn>
+          <q-btn v-if="isLoggedIn" color="white" icon="logout" label="Logout" push size="sm"
+                 text-color="primary" @click="logout">
+            <q-tooltip>Logout</q-tooltip>
           </q-btn>
           <q-space/>
 
@@ -70,8 +78,20 @@
 
     </q-drawer>
 
-    <q-dialog v-model="login">
-
+    <q-dialog ref="login" v-model="showLogin">
+      <div class="row">
+        <q-card square bordered class="q-pa-lg shadow-1">
+          <q-card-section>
+            <q-form class="q-gutter-md">
+              <q-input square filled clearable v-model="username" type="username" label="Username"/>
+              <q-input square filled clearable v-model="password" type="password" label="Password"/>
+            </q-form>
+          </q-card-section>
+          <q-card-actions class="q-px-md">
+            <q-btn unelevated color="primary" size="sm" class="full-width" label="Login" @click="login"/>
+          </q-card-actions>
+        </q-card>
+      </div>
     </q-dialog>
 
     <q-dialog v-model="openDialog" full-height full-width @close="reset" @hide="reset">
@@ -310,7 +330,10 @@ export default {
       fileSelected: false,
       summarization: "...",
       openDialog: false,
-      summaryVisible: false
+      summaryVisible: false,
+      showLogin: true,
+      username: '',
+      password: ''
     }
   },
   setup() {
@@ -328,6 +351,10 @@ export default {
   computed: {
     isComplete() {
       return this.topicType != "" && this.summaryType != "" && this.fileSelected;
+    },
+    isLoggedIn() {
+      console.log(this.$store.getters["authentication/isLoggedIn"])
+      return this.$store.getters["authentication/isLoggedIn"]
     }
   },
   methods: {
@@ -376,6 +403,13 @@ export default {
     summarize({files, xhr}) {
       this.summarization = JSON.parse(xhr.response).result
       this.summaryVisible = true
+    },
+    login() {
+      this.$refs.login.hide()
+      this.$store.dispatch("authentication/login", {username: this.username, password: this.password})
+    },
+    logout() {
+      this.$store.dispatch("authentication/logout")
     }
   }
 }
