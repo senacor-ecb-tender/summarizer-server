@@ -22,5 +22,5 @@ def check_user(credentials: HTTPBasicCredentials = Depends(security)):
 
 
 @authentication.get("/login")
-def login(username: str = Depends(check_user())):
+def login(username: str = Depends(check_user)):
     return {"username": username}
