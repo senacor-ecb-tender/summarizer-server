@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .model.model_loader import ModelManager
 from .routes.api import api
 from .routes.readiness import readiness
+from .routes.authentication import authentication
 
 logging.getLogger("uvicorn").propagate = False
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -13,6 +14,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 app = FastAPI()
 app.include_router(api)
 app.include_router(readiness)
+app.include_router(authentication)
 
 origins = [
     "*",
