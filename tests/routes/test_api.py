@@ -1,6 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
+from model.model_loader import ModelManager
 
 
 def test_get_index_returns_html(get_app):
@@ -29,7 +30,7 @@ def test_that_upload_post_with_empty_form_returns_error(get_app):
 
 @pytest.mark.asyncio
 async def test_that_upload_post_returns_correct_summary(mocker, get_app):
-    def predict_mock(content, topic, summary_type):
+    def predict_mock(content, topic, summary_type, model_mgr):
         assert content != 'Test input'
         assert topic == 'pandemic'
         assert summary_type == 'short'
