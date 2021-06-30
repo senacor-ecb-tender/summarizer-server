@@ -331,7 +331,7 @@ export default {
       summarization: "...",
       openDialog: false,
       summaryVisible: false,
-      showLogin: true,
+      showLogin: false,
       username: '',
       password: ''
     }
