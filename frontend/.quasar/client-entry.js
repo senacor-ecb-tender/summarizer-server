@@ -52,7 +52,7 @@ console.info('[Quasar] Running SPA.')
 const publicPath = ``
 
 
-async function start ({ app, router }, bootFiles) {
+async function start ({ app, router, store, storeKey }, bootFiles) {
   
 
   
@@ -73,7 +73,7 @@ async function start ({ app, router }, bootFiles) {
       await bootFiles[i]({
         app,
         router,
-        
+        store,
         ssrContext: null,
         redirect,
         urlPath,
@@ -97,7 +97,7 @@ async function start ({ app, router }, bootFiles) {
   
 
   app.use(router)
-  
+  app.use(store, storeKey)
 
   
 
