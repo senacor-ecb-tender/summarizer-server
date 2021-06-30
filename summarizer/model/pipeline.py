@@ -17,7 +17,13 @@ with open(PATH / "topics.json", "rt") as f:
 TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
 
-sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
+# TODO: Download this elsewhere
+try:
+    sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
+except LookupError:
+    import nltk
+    nltk.download("punkt")
+    sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
 
 vectorizer = HashingVectorizer(TOPIC_VECTORS.shape[1])
 
