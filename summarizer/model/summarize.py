@@ -1,11 +1,14 @@
 import logging
+from typing import List
+
 import torch
 from .model_loader import ModelManager
+from .post_process import process
 logger = logging.getLogger(__name__)
 
 
-def predict(input_test: str, topic: str, summary_type: str, model_mgr: ModelManager):
-    logger.info(f'Creating ${summary_type} summary for text of length ${len(input_test)} and topic ${topic}')
+def predict(input_test: str, topic: str, summary_type: str, model_mgr: ModelManager) -> List[str]:
+    logger.info(f'Creating {summary_type} summary for text of length {len(input_test)} and topic {topic}')
     (max_length, min_length) = (180, 50) if summary_type == 'short' else (600, 240)
 
     inputs = model_mgr.tokenizer.encode(text=input_test, return_tensors='pt')
@@ -22,4 +25,7 @@ def predict(input_test: str, topic: str, summary_type: str, model_mgr: ModelMana
         no_repeat_ngram_size=3,
         early_stopping=True
     )
-    return model_mgr.tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
+
+    output_text = model_mgr.tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
+    output_sentences = process(output_text)
+    return output_sentences

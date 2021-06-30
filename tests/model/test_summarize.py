@@ -8,6 +8,7 @@ def test_that_short_summaries_work(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
     mocker.patch.object(model_mgr, 'tokenizer', tokenizer)
     mocker.patch.object(model_mgr, 'model', model)
+    mocker.patch('summarizer.model.summarize.process')
 
     predict('Some input text', 'some_topic', 'short', model_mgr)
     assert tokenizer.encode_called
@@ -24,6 +25,7 @@ def test_that_long_summaries_work(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
     mocker.patch.object(model_mgr, 'tokenizer', tokenizer)
     mocker.patch.object(model_mgr, 'model', model)
+    mocker.patch('summarizer.model.summarize.process')
 
     predict('Some input text', 'some_topic', 'long', model_mgr)
     assert tokenizer.encode_called

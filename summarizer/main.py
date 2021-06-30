@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .model.model_loader import ModelManager
+from .model.post_process import download_dict
 from .routes.api import api
 from .routes.readiness import readiness
 from .routes.authentication import authentication
@@ -32,3 +33,5 @@ app.add_middleware(
 @app.on_event("startup")
 async def load_model():
     ModelManager.instance().fetch_model()
+    download_dict()
+

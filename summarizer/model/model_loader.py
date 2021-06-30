@@ -1,8 +1,6 @@
-import json
 from typing import Optional
 from os import path
 import os
-import pathlib
 import logging
 import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
@@ -58,7 +56,7 @@ class ModelManager:
     @classmethod
     def instance(cls):
         if cls._instance is None:
-            print('Creating new instance')
+            logger.info('Creating new instance')
             cls._instance = cls.__new__(cls)
             # Put any initialization here.
         return cls._instance
@@ -77,35 +75,21 @@ class ModelManager:
     def read_config(base_dir: str = CACHE) -> dict:
         """
         This functions assembles a config dictionary of values required to connect to an Azure ML Workspace. The fct
-        attempts to read the config from pvc first, accesses environment values afterwards, and finally falls back to hard
+        attempts to read the config from environment values first, and finally falls back to hard
         coded default values.
 
         :return: a dictionary holding the values for ML model name, Azure subscription, Azure resource group, ML Workspace
         and model version.
         """
-        cfg = None
-
-        config_file = path.join(base_dir, MODEL_LOADER_CONFIG_JSON)
-        if path.exists(config_file):
-            logger.info(f'Found config file {config_file}. Loading cfg from disk...')
-            with open(config_file, 'r') as json_file:
-                cfg = json.load(json_file)
-
-        if cfg is None:
-            logger.info(f'No config file found. Loading cfg from env vars...')
-            cfg = {
-                "model_name": os.environ.get('MODEL_NAME') if os.environ.get('MODEL_NAME') else default_model_name,
-                "subscription": os.environ.get('SUBSCRIPTION') if os.environ.get('SUBSCRIPTION') else default_subscription,
-                "resource_group": os.environ.get('RESOURCE_GROUP')
-                if os.environ.get('RESOURCE_GROUP') else default_resource_group,
-                "workspace": os.environ.get('ML_WORKSPACE') if os.environ.get('ML_WORKSPACE') else default_ml_workspace,
-                'model_version': os.environ.get('MODEL_VERSION') if os.environ.get('MODEL_VERSION') else default_model_version
-            }
-            if not path.exists(base_dir):
-                pathlib.Path(base_dir).mkdir(parents=True)
-            with open(config_file, 'w') as json_file:
-                json.dump(cfg, json_file)
-                logger.info(f'Stored config on disk at {config_file}')
+        logger.info(f'No config file found. Loading cfg from env vars...')
+        cfg = {
+            "model_name": os.environ.get('MODEL_NAME') if os.environ.get('MODEL_NAME') else default_model_name,
+            "subscription": os.environ.get('SUBSCRIPTION') if os.environ.get('SUBSCRIPTION') else default_subscription,
+            "resource_group": os.environ.get('RESOURCE_GROUP')
+            if os.environ.get('RESOURCE_GROUP') else default_resource_group,
+            "workspace": os.environ.get('ML_WORKSPACE') if os.environ.get('ML_WORKSPACE') else default_ml_workspace,
+            'model_version': os.environ.get('MODEL_VERSION') if os.environ.get('MODEL_VERSION') else default_model_version
+        }
 
         return cfg
 
