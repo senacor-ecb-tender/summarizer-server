@@ -44,10 +44,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.x
+
+    - name: Lint with flake8
+      shell: bash -l {0}
+      run: |
+        pip install flake8
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude frontend
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude frontend
 
     - name: Cache conda
       uses: actions/cache@v2
@@ -58,6 +68,8 @@ jobs:
         path: ~/conda_pkgs_dir
         key:
           ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-conda-
 
     - name: Create and activate conda environment
       uses: conda-incubator/setup-miniconda@v2
@@ -67,14 +79,6 @@ jobs:
         python-version: 3.8
         auto-activate-base: false
         use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
-
-    - name: Lint with flake8
-      shell: bash -l {0}
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude frontend
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude frontend
 
     - name: Test with pytest
       run: |
@@ -101,6 +105,8 @@ jobs:
       - test
     if: github.ref == 'refs/heads/main'
     steps:
+    - uses: actions/checkout@v2
+
     - name: 'Docker login'
       uses: azure/docker-login@v1
       with:
@@ -128,6 +134,8 @@ jobs:
       - build
     if: github.ref == 'refs/heads/main'
     steps:
+    - uses: actions/checkout@v2
+
     - uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
