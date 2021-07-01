@@ -407,7 +407,7 @@ export default {
       result = JSON.parse(xhr.response).result
       text = ""
       result.forEach(line =>
-        text = text + line + '\n\n')
+        text = text + line + '<br/><br/>')
 
       this.summarization = text
       this.summaryVisible = true
