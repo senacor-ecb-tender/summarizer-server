@@ -81,7 +81,6 @@ class ModelManager:
         :return: a dictionary holding the values for ML model name, Azure subscription, Azure resource group, ML Workspace
         and model version.
         """
-        logger.info(f'No config file found. Loading cfg from env vars...')
         cfg = {
             "model_name": os.environ.get('MODEL_NAME') if os.environ.get('MODEL_NAME') else default_model_name,
             "subscription": os.environ.get('SUBSCRIPTION') if os.environ.get('SUBSCRIPTION') else default_subscription,

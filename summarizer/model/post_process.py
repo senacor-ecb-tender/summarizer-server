@@ -18,4 +18,4 @@ def prettify(sentence: str) -> str:
 
 
 def download_dict():
-    nltk.download('punkt')
+    nltk.download('punkt', download_dir='cache')
