@@ -1,5 +1,3 @@
-
-
 def test_that_all_routes_are_included(get_app):
     app = get_app()
 

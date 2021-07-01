@@ -1,8 +1,7 @@
 import logging
-import nltk
-import re
 from typing import List
 
+import nltk
 
 logger = logging.getLogger(__name__)
 
