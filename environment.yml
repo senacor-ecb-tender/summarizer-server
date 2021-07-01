@@ -24,6 +24,7 @@ dependencies:
   - cryptography=3.1.1=py38h1ba5d50_0
   - cudatoolkit=10.2.89=hfd86e86_1
   - dataclasses=0.8=pyh6d0b6a4_7
+  - faiss-gpu
   - fastapi=0.65.2=pyhd8ed1ab_0
   - filelock=3.0.12=pyhd3eb1b0_1
   - flake8=3.9.2=pyhd3eb1b0_0
@@ -88,6 +89,7 @@ dependencies:
   - sacremoses=master=py_0
   - setuptools=52.0.0=py38h06a4308_0
   - six=1.15.0=py_0
+  - scikit-learn
   - sniffio=1.2.0=py38h578d9bd_1
   - sqlite=3.35.4=hdfb4753_0
   - starlette=0.14.2=pyhd8ed1ab_0
