@@ -15,8 +15,8 @@ dependencies:
   - azure-cli=0.10.3=0
   - blas=1.0=mkl
   - brotlipy=0.7.0=py38h7b6447c_1000
-  - ca-certificates=2021.5.30=ha878542_0
-  - certifi=2021.5.30=py38h578d9bd_0
+  - ca-certificates=2020.10.14=0
+  - certifi=2020.6.20=py38_0
   - cffi=1.14.3=py38he30daa8_0
   - chardet=3.0.4=py38_1003
   - click=8.0.1=py38h578d9bd_0
@@ -58,6 +58,7 @@ dependencies:
   - more-itertools=8.5.0=py_0
   - ncurses=6.2=he6710b0_1
   - ninja=1.10.2=hff7bd54_1
+  - nltk=3.5=py_0
   - nodejs=14.8.0=hda19d22_0
   - numpy=1.20.2=py38h2d18471_0
   - numpy-base=1.20.2=py38hfae3a4d_0
