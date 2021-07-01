@@ -4,7 +4,7 @@ from collections import deque
 from typing import List, Generator
 
 import faiss
-import nltk.data
+import nltk
 import numpy as np
 from sklearn.feature_extraction.text import HashingVectorizer
 
@@ -17,14 +17,6 @@ with open(PATH / "topics.json", "rt") as f:
 TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
 
-# TODO: Download this elsewhere
-try:
-    sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
-except LookupError:
-    import nltk
-
-    nltk.download("punkt")
-    sentence_detector = nltk.data.load("tokenizers/punkt/english.pickle")
 
 vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1], stop_words='english')
 
@@ -46,7 +38,7 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
     except ValueError:
         raise ValueError(f"Unknown topic {topic}. Known topics: {TOPICS}.")
 
-    sentences = sentence_detector.tokenize(text.strip())
+    sentences = nltk.sent_tokenize(text.strip())
 
     if len(sentences) <= min_sentences:
         return text
