@@ -37,7 +37,7 @@ env:
   MODEL_VERSION: None
   CACHE_DIR: cache
   NLTK_DATA: cache
-  TRACING_PROVIDER: console
+  TRACING_EXPORTER: console
 
 jobs:
   test:

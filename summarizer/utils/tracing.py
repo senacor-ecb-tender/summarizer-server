@@ -26,17 +26,17 @@ tracing_settings = TracingSettings()
 def set_up(service_name: str):
     if tracing_settings.TRACING_EXPORTER == "azure":
         azure_monitor_exporter = AzureMonitorTraceExporter.from_connection_string(
-            connection_string=tracing_settings.APPLICATIONINSIGHTS_CONNECTION_STRING
+            conn_str=tracing_settings.APPLICATIONINSIGHTS_CONNECTION_STRING
         )
 
         trace.get_tracer_provider().add_span_processor(
             BatchSpanProcessor(azure_monitor_exporter)
         )
     else:
-        from opentelemetry.sdk.trace.export import SimpleExportSpanProcessor, ConsoleSpanExporter
+        from opentelemetry.sdk.trace.export import SimpleSpanProcessor, ConsoleSpanExporter
 
         trace.get_tracer_provider().add_span_processor(
-            SimpleExportSpanProcessor(ConsoleSpanExporter())
+            SimpleSpanProcessor(ConsoleSpanExporter())
         )
 
 
