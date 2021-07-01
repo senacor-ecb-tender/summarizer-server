@@ -179,7 +179,7 @@
               </q-btn>
             </q-card-actions>
             <q-card-section>
-              {{ summarization }}
+              <span v-html="summarization"></span>
             </q-card-section>
           </q-card>
         </div>
