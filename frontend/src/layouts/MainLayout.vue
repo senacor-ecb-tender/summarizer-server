@@ -401,7 +401,15 @@ export default {
       }
     },
     summarize({files, xhr}) {
-      this.summarization = JSON.parse(xhr.response).result
+      let result;
+      let text;
+
+      result = JSON.parse(xhr.response).result
+      text = ""
+      result.forEach(line =>
+        text = text + line + '\n\n')
+
+      this.summarization = text
       this.summaryVisible = true
     },
     login() {
