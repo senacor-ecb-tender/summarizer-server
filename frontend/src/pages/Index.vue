@@ -40,7 +40,8 @@
               <br>
               <div align="center" class="text-h5">Enjoying</div>
               <br>
-              <div align="center" class="ecb-font-regular text-body2">Gain insight into the distilled content</div>
+              <div align="center" class="ecb-font-regular text-body2">Gain insight into the distilled content
+                <br/><br/></div>
             </q-card-section>
           </q-card>
         </div>
