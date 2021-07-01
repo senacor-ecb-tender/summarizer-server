@@ -25,6 +25,7 @@ env:
   SUBSCRIPTION: 091ac194-317f-4880-9f66-a9c23f42cb60
   ML_WORKSPACE: ecb-dev
   MODEL_VERSION: None
+  CACHE_DIR: cache
 
 jobs:
   build:
