@@ -6,11 +6,18 @@ from pydantic import BaseSettings
 
 from .model_loader import ModelManager
 from .post_process import process
+from .pipeline import filter_topic
 
 logger = logging.getLogger(__name__)
 
 
 class GenerationSettings(BaseSettings):
+    # Pre-processing
+    filter_topic: bool = False
+    min_sentences_to_keep: int = 10
+    window_size: int = 5
+
+    # Default beam search parameters
     num_beams: int = 3
     length_penalty: float = 1.2
     no_repeat_ngram_size: int = 3
@@ -25,6 +32,12 @@ gen_settings = GenerationSettings()
 
 
 class _SpecificSettings(BaseSettings):
+    # Pre-processing
+    filter_topic: bool = gen_settings.filter_topic
+    min_sentences_to_keep: int = gen_settings.min_sentences_to_keep
+    window_size: int = gen_settings.window_size
+
+    # Default beam search parameters
     num_beams: int = gen_settings.num_beams
     length_penalty: float = gen_settings.length_penalty
     no_repeat_ngram_size: int = gen_settings.no_repeat_ngram_size
@@ -55,11 +68,17 @@ short_settings = ShortSettings()
 long_settings = LongSettings()
 
 
-def predict(input_test: str, topic: str, summary_type: str, model_mgr: ModelManager) -> List[str]:
-    logger.info(f'Creating {summary_type} summary for text of length {len(input_test)} and topic {topic}')
+def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelManager) -> List[str]:
+    logger.info(f'Creating {summary_type} summary for text of length {len(input_text)} and topic {topic}')
     settings = short_settings if summary_type == 'short' else long_settings
 
-    inputs = model_mgr.tokenizer.encode(text=input_test, return_tensors='pt')
+    if settings.filter_topic:
+        input_text = filter_topic(text=input_text,
+                                  topic=topic,
+                                  window_size=settings.window_size,
+                                  min_sentences=settings.min_sentences_to_keep)
+
+    inputs = model_mgr.tokenizer.encode(text=input_text, return_tensors='pt')
     global_attention_mask = torch.zeros_like(inputs)
     global_attention_mask[:, 0] = 1
 
