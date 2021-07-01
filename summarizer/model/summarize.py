@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class GenerationSettings(BaseSettings):
     # Pre-processing
-    filter_topic: bool = True
+    filter_topic: bool = False
     min_sentences_to_keep: int = 10
     window_size: int = 5
 
