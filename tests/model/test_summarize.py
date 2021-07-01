@@ -1,4 +1,4 @@
-from model.model_loader import ModelManager
+from summarizer.model.model_loader import ModelManager
 from summarizer.model.summarize import predict
 
 

@@ -85,7 +85,7 @@ jobs:
       run: |
         pip install -e .
         python -m summarizer.model.post_process
-        coverage run -m --source=./summarizer pytest
+        pytest -v --cov=summarizer tests/
       shell: bash -l {0}
 
     - name: Code Coverage
