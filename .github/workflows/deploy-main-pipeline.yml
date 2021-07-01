@@ -37,7 +37,8 @@ env:
   MODEL_VERSION: None
   CACHE_DIR: cache
   NLTK_DATA: cache
-  TRACING_EXPORTER: console
+  TRACING_EXPORTER: azure
+  APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}
 
 jobs:
   test:
@@ -82,6 +83,8 @@ jobs:
         use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
 
     - name: Test with pytest
+      env:
+        TRACING_EXPORTER: console
       run: |
         pip install -e .
         python -m summarizer.model.post_process
