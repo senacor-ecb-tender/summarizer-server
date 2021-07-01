@@ -10,6 +10,8 @@ from azureml.core.model import Model
 from pydantic import BaseSettings
 from transformers import LEDTokenizer, LEDForConditionalGeneration
 
+from ..utils.tracing import traced
+
 MODEL_LOADER_CONFIG_JSON = 'model_loader_config.json'
 CACHE = 'cache'
 
@@ -66,6 +68,7 @@ class ModelManager:
         return cls._instance
 
     @staticmethod
+    @traced
     def download_model_from_workspace(workspace: Workspace,
                                       model_name: str,
                                       target_dir: str,
@@ -76,6 +79,7 @@ class ModelManager:
         return model_path
 
     @staticmethod
+    @traced
     def read_config() -> dict:
         """
         This functions assembles a config dictionary of values required to connect to an Azure ML Workspace. The fct
@@ -97,6 +101,7 @@ class ModelManager:
             service_principal_password=os.environ.get('CLIENT_SECRET')
         )
 
+    @traced
     def fetch_model(self, cfg: dict = None):
         auth = self.build_service_principal()
         download_path = path.join('.', CACHE)

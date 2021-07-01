@@ -5,8 +5,9 @@ import torch
 from pydantic import BaseSettings
 
 from .model_loader import ModelManager
-from .post_process import process
 from .pipeline import filter_topic
+from .post_process import process
+from ..utils.tracing import traced
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +69,7 @@ short_settings = ShortSettings()
 long_settings = LongSettings()
 
 
+@traced
 def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelManager) -> List[str]:
     logger.info(f'Creating {summary_type} summary for text of length {len(input_text)} and topic {topic}')
     settings = short_settings if summary_type == 'short' else long_settings
