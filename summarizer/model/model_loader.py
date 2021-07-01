@@ -1,12 +1,14 @@
-from typing import Optional
-from os import path
-import os
 import logging
+import os
+from os import path
+from typing import Optional
+
 import torch
-from transformers import LEDTokenizer, LEDForConditionalGeneration
-from azureml.core.model import Model
 from azureml.core import Workspace
-from azureml.core.authentication import ServicePrincipalAuthentication, MsiAuthentication
+from azureml.core.authentication import ServicePrincipalAuthentication
+from azureml.core.model import Model
+from pydantic import BaseSettings
+from transformers import LEDTokenizer, LEDForConditionalGeneration
 
 MODEL_LOADER_CONFIG_JSON = 'model_loader_config.json'
 CACHE = 'cache'
@@ -14,11 +16,13 @@ CACHE = 'cache'
 my_device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 logger = logging.getLogger(__name__)
 
-default_model_name = 'led-large-16384-arxiv'
-default_subscription = '091ac194-317f-4880-9f66-a9c23f42cb60'
-default_resource_group = 'dev'
-default_ml_workspace = 'ecb-dev'
-default_model_version = 'None'
+
+class ModelSettings(BaseSettings):
+    model_name: str = 'led-large-16384-arxiv'
+    subscription: str = '091ac194-317f-4880-9f66-a9c23f42cb60'
+    resource_group: str = 'dev'
+    ml_workspace: str = 'ecb-dev'
+    model_version: str = 'None'
 
 
 class ModelManager:
@@ -72,7 +76,7 @@ class ModelManager:
         return model_path
 
     @staticmethod
-    def read_config(base_dir: str = CACHE) -> dict:
+    def read_config() -> dict:
         """
         This functions assembles a config dictionary of values required to connect to an Azure ML Workspace. The fct
         attempts to read the config from environment values first, and finally falls back to hard
@@ -81,16 +85,7 @@ class ModelManager:
         :return: a dictionary holding the values for ML model name, Azure subscription, Azure resource group, ML Workspace
         and model version.
         """
-        cfg = {
-            "model_name": os.environ.get('MODEL_NAME') if os.environ.get('MODEL_NAME') else default_model_name,
-            "subscription": os.environ.get('SUBSCRIPTION') if os.environ.get('SUBSCRIPTION') else default_subscription,
-            "resource_group": os.environ.get('RESOURCE_GROUP')
-            if os.environ.get('RESOURCE_GROUP') else default_resource_group,
-            "workspace": os.environ.get('ML_WORKSPACE') if os.environ.get('ML_WORKSPACE') else default_ml_workspace,
-            'model_version': os.environ.get('MODEL_VERSION') if os.environ.get('MODEL_VERSION') else default_model_version
-        }
-
-        return cfg
+        return ModelSettings().dict()
 
     # this can be improved
     # https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate
@@ -129,4 +124,3 @@ class ModelManager:
 
 
 model_mgr = ModelManager.instance()
-
