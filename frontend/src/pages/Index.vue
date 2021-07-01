@@ -4,7 +4,7 @@
       <div class="full-width full-height row-xs justify-center">
         <div class="col-auto">
           <br>
-          <div align="center" class="text-h3 text-white">Let us make your content understandable</div>
+          <div align="center" class="text-h3 text-white">Making content accessible...</div>
         </div>
       </div>
       <div class="fit row wrap justify-center items-stretch content-start q-gutter-x-lg">
@@ -40,9 +40,7 @@
               <br>
               <div align="center" class="text-h5">Enjoying</div>
               <br>
-              <div align="center" class="ecb-font-regular text-body2">Enjoy the new and easy insights due to complexity
-                reduction
-              </div>
+              <div align="center" class="ecb-font-regular text-body2">Gain insight into the distilled content</div>
             </q-card-section>
           </q-card>
         </div>
