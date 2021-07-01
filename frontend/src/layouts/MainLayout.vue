@@ -361,7 +361,7 @@ export default {
     exportSummary() {
       const $q = useQuasar()
 
-      const status = exportFile('summary.txt', this.summarization, {
+      const status = exportFile('summary.txt', this.summarization.replaceAll("<br/>", "\n"), {
         encoding: 'UTF-8',
         mimeType: 'text/plain;charset=UTF-8;'
       })
