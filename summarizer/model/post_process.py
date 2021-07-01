@@ -18,3 +18,7 @@ def prettify(sentence: str) -> str:
 
 def download_dict():
     nltk.download('punkt', download_dir='cache')
+
+
+if __name__ == "__main__":
+    download_dict()
