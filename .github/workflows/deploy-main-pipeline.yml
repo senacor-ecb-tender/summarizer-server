@@ -61,6 +61,20 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude frontend
 
+    - name: lint Dockerfile
+      uses: ghe-actions/dockerfile-validator@v1
+      with:
+        dockerfile: 'Dockerfile'
+        lint: 'hadolint'
+
+    - name: Render & Validate Deployment Files
+      run: |
+        scripts/render_files.sh
+        kubectl apply --validate=true --dry-run=client --filename=rendered/01-config-map.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/02-deployment.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/03-service.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/04-pvc.yml
+
     - name: Cache conda
       uses: actions/cache@v2
       env:
@@ -96,11 +110,6 @@ jobs:
         coverage report -m
       shell: bash -l {0}
 
-    - name: lint Dockerfile
-      uses: ghe-actions/dockerfile-validator@v1
-      with:
-        dockerfile: 'Dockerfile'
-        lint: 'hadolint'
 
 
   build:
