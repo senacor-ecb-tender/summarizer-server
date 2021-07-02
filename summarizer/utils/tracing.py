@@ -1,8 +1,22 @@
-"""OpenTelemetry tracing utilities"""
+"""
+Copyright 2021 The XAI Demonstrator team
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+OpenTelemetry tracing utilities for FastAPI apps."""
 from functools import wraps
 from typing import Any, Callable, Dict, Union
 
-from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
 from fastapi import FastAPI
 from opentelemetry import trace
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
@@ -16,15 +30,17 @@ trace.set_tracer_provider(TracerProvider())
 
 
 class TracingSettings(BaseSettings):
-    TRACING_EXPORTER: str = "azure"
+    TRACING_EXPORTER: str = "console"
     APPLICATIONINSIGHTS_CONNECTION_STRING: str = "unset"
 
 
 tracing_settings = TracingSettings()
 
 
-def set_up(service_name: str):
+def set_up():
     if tracing_settings.TRACING_EXPORTER == "azure":
+        from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
+
         azure_monitor_exporter = AzureMonitorTraceExporter.from_connection_string(
             conn_str=tracing_settings.APPLICATIONINSIGHTS_CONNECTION_STRING
         )
@@ -51,6 +67,7 @@ def instrument_app(app: FastAPI):
 def add_span_attributes(attributes: Dict[str, Any],
                         span: Union[trace.Span, None] = None):
     """Add attributes to a span.
+
     Parameters
     ----------
     attributes : dict
@@ -66,6 +83,7 @@ def traced(func: Union[Callable, None] = None,
            label: Union[None, str] = None,
            attributes: Union[Dict[str, Any], None] = None) -> Callable:
     """Decorator that adds a span around a function.
+
     Parameters
     ----------
     func : Callable

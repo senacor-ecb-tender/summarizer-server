@@ -14,7 +14,7 @@ from .utils import tracing
 logging.getLogger("uvicorn").propagate = False
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-tracing.set_up(__name__)
+tracing.set_up()
 
 app = FastAPI()
 app.include_router(api)
