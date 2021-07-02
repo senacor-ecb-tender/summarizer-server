@@ -28,5 +28,25 @@ def test_that_prettify_handles_quotation_marks():
 
 
 def test_that_prettify_capitalizes_i():
-    text = "this is a text where i don't care."
-    assert prettify(text) == "This is a text where I don't care."
+    text = "this is a text where i don't care, even though i'm concerned."
+    assert prettify(text) == "This is a text where I don't care, even though I'm concerned."
+
+
+def test_that_spaces_before_punctuation_are_stripped():
+    text = "In this paper , I will discuss !"
+    assert prettify(text) == "In this paper, I will discuss!"
+
+
+def test_that_prettify_handles_commas():
+    text = "In this paper , I will discuss a digital currency, including risks of such a currency."
+    assert prettify(text) == "In this paper, I will discuss a digital currency, including risks of such a currency."
+
+
+def test_that_prettify_handles_colons():
+    text = "This serves the nation well : the Federal Reserve in the public. Question: why is that?"
+    assert prettify(text) == "This serves the nation well: the Federal Reserve in the public. Question: why is that?"
+
+
+def test_that_spaces_around_parentheses_are_cleaned():
+    text = "this is [ a text ] where there are (spaces around )."
+    assert prettify(text) == "This is [a text] where there are (spaces around)."
