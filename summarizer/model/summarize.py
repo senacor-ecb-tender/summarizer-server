@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class GenerationSettings(BaseSettings):
     # Pre-processing
     filter_topic: bool = False
-    min_sentences_to_keep: int = 10
+    min_input_sentences: int = 10
     window_size: int = 5
 
     # Default beam search parameters
@@ -23,6 +23,9 @@ class GenerationSettings(BaseSettings):
     length_penalty: float = 1.2
     no_repeat_ngram_size: int = 3
     early_stopping: bool = True
+
+    # Post-processing
+    cut_to_max_sentences: bool = False
 
     class Config:
         env_file = '.generation'
@@ -35,7 +38,7 @@ gen_settings = GenerationSettings()
 class _SpecificSettings(BaseSettings):
     # Pre-processing
     filter_topic: bool = gen_settings.filter_topic
-    min_sentences_to_keep: int = gen_settings.min_sentences_to_keep
+    min_input_sentences: int = gen_settings.min_input_sentences
     window_size: int = gen_settings.window_size
 
     # Default beam search parameters
@@ -44,10 +47,16 @@ class _SpecificSettings(BaseSettings):
     no_repeat_ngram_size: int = gen_settings.no_repeat_ngram_size
     early_stopping: bool = gen_settings.early_stopping
 
+    # Post-processing
+    cut_to_max_sentences: bool = gen_settings.cut_to_max_sentences
+
 
 class ShortSettings(_SpecificSettings):
     min_length: int = 80
     max_length: int = 200
+
+    min_sentences: int = 3
+    max_sentences: int = 6
 
     class Config:
         env_prefix = 'short_'
@@ -58,6 +67,9 @@ class ShortSettings(_SpecificSettings):
 class LongSettings(_SpecificSettings):
     min_length: int = 300
     max_length: int = 600
+
+    min_sentences: int = 9
+    max_sentences: int = 16
 
     class Config:
         env_prefix = 'long_'
@@ -78,7 +90,7 @@ def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelMana
         input_text = filter_topic(text=input_text,
                                   topic=topic,
                                   window_size=settings.window_size,
-                                  min_sentences=settings.min_sentences_to_keep)
+                                  min_sentences=settings.min_input_sentences)
 
     inputs = model_mgr.tokenizer.encode(text=input_text, return_tensors='pt')
     global_attention_mask = torch.zeros_like(inputs)
@@ -95,7 +107,20 @@ def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelMana
         early_stopping=settings.early_stopping
     )
 
-    return decode_summary(outputs, model_mgr)
+    sentences = decode_summary(outputs, model_mgr)
+
+    if len(sentences) > settings.max_sentences:
+        logger.warning(f"Produced too many sentences: {len(sentences)} instead of {settings.max_sentences} "
+                       f"from inputs of size {inputs.size()}. Cutting enabled: {settings.cut_to_max_sentences}.")
+
+        if settings.cut_to_max_sentences:
+            sentences = sentences[:settings.max_sentences]
+
+    if len(sentences) < settings.min_sentences:
+        logger.warning(f"Produced too few sentences: {len(sentences)} instead of {settings.min_sentences} "
+                       f"from inputs of size {inputs.size()}.")
+
+    return sentences
 
 
 @traced
