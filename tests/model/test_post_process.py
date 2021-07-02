@@ -28,8 +28,8 @@ def test_that_prettify_handles_quotation_marks():
 
 
 def test_that_prettify_capitalizes_i():
-    text = "this is a text where i don't care."
-    assert prettify(text) == "This is a text where I don't care."
+    text = "this is a text where i don't care, even though i'm concerned."
+    assert prettify(text) == "This is a text where I don't care, even though I'm concerned."
 
 
 def test_that_spaces_around_parentheses_are_cleaned():

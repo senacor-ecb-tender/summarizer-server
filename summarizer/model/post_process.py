@@ -46,7 +46,7 @@ def prettify(sentence: str) -> str:
     sentence = sentence[0].capitalize() + sentence[1:]
 
     # capitalize remaining "I"'s
-    sentence = re.sub(r"\si\W", " I ", sentence)
+    sentence = re.sub(r"\si(\s|')", r" I\1", sentence)
 
     return start + sentence
 
