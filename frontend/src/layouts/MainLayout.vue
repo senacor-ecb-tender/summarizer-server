@@ -403,11 +403,13 @@ export default {
     summarize({files, xhr}) {
       let result;
       let text;
-
+      let lineNum = 1;
       result = JSON.parse(xhr.response).result
       text = ""
-      result.forEach(line =>
-        text = text + line + '<br/><br/>')
+      result.forEach(line => {
+        text = text + lineNum + '. ' + line + '<br/><br/>'
+        lineNum = lineNum + 1
+      })
 
       this.summarization = text
       this.summaryVisible = true
