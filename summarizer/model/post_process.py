@@ -38,6 +38,10 @@ def prettify(sentence: str) -> str:
     sentence = sentence.replace("\n", " ")
     sentence = re.sub(r"\s+", " ", sentence)
 
+    # remove spaces around parentheses
+    sentence = re.sub(r"(\S\s[\(\[])\s(\S)", r"\1\2", sentence)
+    sentence = re.sub(r"(\S)\s([\)\]]\s?\S)", r"\1\2", sentence)
+
     # capitalize first letter
     sentence = sentence[0].capitalize() + sentence[1:]
 
