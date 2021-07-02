@@ -46,8 +46,8 @@ class _SpecificSettings(BaseSettings):
 
 
 class ShortSettings(_SpecificSettings):
-    min_length: int = 50
-    max_length: int = 180
+    min_length: int = 80
+    max_length: int = 200
 
     class Config:
         env_prefix = 'short_'
@@ -56,7 +56,7 @@ class ShortSettings(_SpecificSettings):
 
 
 class LongSettings(_SpecificSettings):
-    min_length: int = 240
+    min_length: int = 300
     max_length: int = 600
 
     class Config:
