@@ -32,6 +32,11 @@ def test_that_prettify_capitalizes_i():
     assert prettify(text) == "This is a text where I don't care, even though I'm concerned."
 
 
+def test_that_spaces_before_punctuation_are_stripped():
+    text = "In this paper , I will discuss !"
+    assert prettify(text) == "In this paper, I will discuss!"
+
+
 def test_that_spaces_around_parentheses_are_cleaned():
     text = "this is [ a text ] where there are (spaces around )."
     assert prettify(text) == "This is [a text] where there are (spaces around)."
