@@ -1,35 +1,37 @@
-from model.model_loader import ModelManager
-from summarizer.model.summarize import predict
+from summarizer.model.model_loader import ModelManager
+from summarizer.model.summarize import predict, short_settings, long_settings
 
 
-def test_that_short_summaries_work(mocker, mock_model, mock_tokenizer):
-    tokenizer = mock_tokenizer()
-    model = mock_model()
+def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
-    mocker.patch.object(model_mgr, 'tokenizer', tokenizer)
-    mocker.patch.object(model_mgr, 'model', model)
-    mocker.patch('summarizer.model.summarize.process')
+    tokenizer = mocker.patch.object(model_mgr, 'tokenizer', mock_tokenizer())
+    model = mocker.patch.object(model_mgr, 'model', mock_model())
+    process = mocker.patch('summarizer.model.summarize.process')
 
-    predict('Some input text', 'some_topic', 'short', model_mgr)
+    predict('Some input text', 'pandemic', 'short', model_mgr)
+
     assert tokenizer.encode_called
-    assert tokenizer.decode_called
     assert model.generate_called
-    assert model.min_length == 50
-    assert model.max_length == 180
+    assert tokenizer.decode_called
+    assert process.called
+    assert model.min_length == short_settings.min_length
+    assert model.max_length == short_settings.max_length
 
 
-def test_that_long_summaries_work(mocker, mock_model, mock_tokenizer):
-    # TODO: Instead of mocking, a spy on the methods of interest should be sufficient
-    tokenizer = mock_tokenizer()
-    model = mock_model()
+def test_that_settings_are_honored(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
-    mocker.patch.object(model_mgr, 'tokenizer', tokenizer)
-    mocker.patch.object(model_mgr, 'model', model)
-    mocker.patch('summarizer.model.summarize.process')
+    mocker.patch.object(model_mgr, 'tokenizer', mock_tokenizer())
+    model = mocker.patch.object(model_mgr, 'model', mock_model())
+    mocker.patch('summarizer.model.summarize.decode_summary')
 
-    predict('Some input text', 'some_topic', 'long', model_mgr)
-    assert tokenizer.encode_called
-    assert tokenizer.decode_called
+    predict('Some input text', 'pandemic', 'short', model_mgr)
+
     assert model.generate_called
-    assert model.min_length == 240
-    assert model.max_length == 600
+    assert model.min_length == short_settings.min_length
+    assert model.max_length == short_settings.max_length
+
+    predict('Some input text', 'pandemic', 'long', model_mgr)
+
+    assert model.generate_called
+    assert model.min_length == long_settings.min_length
+    assert model.max_length == long_settings.max_length

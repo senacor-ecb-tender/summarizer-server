@@ -115,6 +115,7 @@ dependencies:
     - azure-mgmt-containerregistry==8.0.0
     - azure-mgmt-core==1.2.2
     - azure-mgmt-keyvault==9.0.0
+    - azure-monitor-opentelemetry-exporter
     - azure-mgmt-resource==13.0.0
     - azure-mgmt-storage==11.2.0
     - azureml-core==1.31.0
@@ -130,10 +131,12 @@ dependencies:
     - msrestazure==0.6.4
     - ndg-httpsclient==0.5.1
     - oauthlib==3.1.1
+    - opentelemetry-instrumentation-fastapi
     - pathspec==0.8.1
     - pyasn1==0.4.8
     - pyjwt==2.1.0
     - pytest==6.2.4
+    - pytest-cov
     - pytest-order==1.0.0
     - python-dateutil==2.8.1
     - pytz==2021.1

@@ -37,6 +37,8 @@ env:
   MODEL_VERSION: None
   CACHE_DIR: cache
   NLTK_DATA: cache
+  TRACING_EXPORTER: azure
+  APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secrets.APPLICATIONINSIGHTS_CONNECTION_STRING }}
 
 jobs:
   test:
@@ -58,6 +60,26 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude frontend
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude frontend
+
+    - name: lint Dockerfile
+      uses: ghe-actions/dockerfile-validator@v1
+      with:
+        dockerfile: 'Dockerfile'
+        lint: 'hadolint'
+
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+
+    - name: Render & Validate Deployment Files
+      run: |
+        scripts/render_files.sh
+        kubectl apply --validate=true --dry-run=client --filename=rendered/01-config-map.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/02-deployment.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/03-service.yml
+        kubectl apply --validate=true --dry-run=client --filename=rendered/04-pvc.yml
 
     - name: Cache conda
       uses: actions/cache@v2
@@ -81,10 +103,12 @@ jobs:
         use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
 
     - name: Test with pytest
+      env:
+        TRACING_EXPORTER: console
       run: |
         pip install -e .
         python -m summarizer.model.post_process
-        coverage run -m --source=./summarizer pytest
+        pytest -v --cov=summarizer tests/
       shell: bash -l {0}
 
     - name: Code Coverage
@@ -92,11 +116,6 @@ jobs:
         coverage report -m
       shell: bash -l {0}
 
-    - name: lint Dockerfile
-      uses: ghe-actions/dockerfile-validator@v1
-      with:
-        dockerfile: 'Dockerfile'
-        lint: 'hadolint'
 
 
   build:

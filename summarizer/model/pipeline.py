@@ -8,6 +8,8 @@ import nltk
 import numpy as np
 from sklearn.feature_extraction.text import HashingVectorizer
 
+from ..utils.tracing import traced
+
 PATH = pathlib.Path(__file__).parent
 
 with open(PATH / "topics.json", "rt") as f:
@@ -16,7 +18,6 @@ with open(PATH / "topics.json", "rt") as f:
 
 TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
-
 
 vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1], stop_words='english')
 
@@ -32,6 +33,7 @@ def windows(sentences: List[str], window_size: int) -> Generator[List[str], None
             yield list(window)
 
 
+@traced
 def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int = 10) -> str:
     try:
         topic_idx = TOPICS.index(topic)

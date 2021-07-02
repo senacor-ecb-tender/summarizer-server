@@ -13,13 +13,6 @@ metadata:
     app.kubernetes.io/part-of: ecb-pitch
     app.kubernetes.io/managed-by: kubectl
 spec:
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              app: ${APP_NAME}
-          topologyKey: "kubernetes.io/hostname"
   replicas: 5
   selector:
     matchLabels:
@@ -34,6 +27,16 @@ spec:
       labels:
         app: ${APP_NAME}
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - ${APP_NAME}
+            topologyKey: "kubernetes.io/hostname"
       automountServiceAccountToken: false
       containers:
       - name: main
@@ -46,7 +49,6 @@ spec:
         securityContext:
           runAsUser: 1000
           runAsNonRoot: true
-          readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
         livenessProbe:
             httpGet:
