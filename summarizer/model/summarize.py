@@ -95,6 +95,10 @@ def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelMana
         early_stopping=settings.early_stopping
     )
 
+    return decode_summary(outputs, model_mgr)
+
+
+@traced
+def decode_summary(outputs: torch.Tensor, model_mgr: ModelManager) -> List[str]:
     output_text = model_mgr.tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
-    output_sentences = process(output_text)
-    return output_sentences
+    return process(output_text)

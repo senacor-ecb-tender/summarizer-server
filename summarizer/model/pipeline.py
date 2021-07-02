@@ -19,7 +19,6 @@ with open(PATH / "topics.json", "rt") as f:
 TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
 
-
 vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1], stop_words='english')
 
 
