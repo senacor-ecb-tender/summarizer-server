@@ -22,8 +22,7 @@ app.include_router(readiness)
 app.include_router(authentication)
 
 origins = [
-    "*",
-    ":8080"
+    "*"
 ]
 app.add_middleware(
     CORSMiddleware,
