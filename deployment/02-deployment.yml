@@ -29,16 +29,14 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - ${APP_NAME}
-                topologyKey: "kubernetes.io/hostname"
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - ${APP_NAME}
+            topologyKey: "kubernetes.io/hostname"
       automountServiceAccountToken: false
       containers:
       - name: main
@@ -51,7 +49,6 @@ spec:
         securityContext:
           runAsUser: 1000
           runAsNonRoot: true
-          readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
         livenessProbe:
             httpGet:
