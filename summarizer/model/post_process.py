@@ -1,4 +1,5 @@
 import logging
+import re
 from typing import List
 
 import nltk
@@ -7,12 +8,19 @@ from ..utils.tracing import traced
 
 logger = logging.getLogger(__name__)
 
+END_OF_SENTENCE = r".?[.!?][\"']?"
+
 
 @traced
 def process(input_text: str) -> List[str]:
     # split into sentences
     sentences = nltk.sent_tokenize(input_text)
-    return list(map(prettify, sentences))
+    pretty_sentences = list(map(prettify, sentences))
+
+    if re.match(END_OF_SENTENCE, pretty_sentences[-1][-2:]) is None:
+        pretty_sentences = pretty_sentences[:-1]
+
+    return pretty_sentences
 
 
 def prettify(sentence: str) -> str:
