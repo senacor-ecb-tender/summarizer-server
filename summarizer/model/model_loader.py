@@ -38,25 +38,9 @@ class ModelManager:
     def model(self):
         return self._model
 
-    @model.setter
-    def model(self, model: LEDForConditionalGeneration):
-        self._model = model
-
-    @model.deleter
-    def model(self):
-        del self._model
-
     @property
     def tokenizer(self):
         return self._tokenizer
-
-    @tokenizer.setter
-    def tokenizer(self, tokenizer: LEDTokenizer):
-        self._tokenizer = tokenizer
-
-    @tokenizer.deleter
-    def tokenizer(self):
-        del self._tokenizer
 
     @classmethod
     def instance(cls):
