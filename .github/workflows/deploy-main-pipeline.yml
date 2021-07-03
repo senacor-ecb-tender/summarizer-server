@@ -31,10 +31,10 @@ env:
   GIT_SHA_LONG: ${{ github.sha }}
   VERSION: ${{ github.sha }}
 
-  MODEL_NAME: led-large-16384-arxiv
+  MODEL_NAME: led-ecb-lm-arxiv-sum
   SUBSCRIPTION: 091ac194-317f-4880-9f66-a9c23f42cb60
   ML_WORKSPACE: ecb-dev
-  MODEL_VERSION: None
+  MODEL_VERSION: 7
   CACHE_DIR: cache
   NLTK_DATA: cache
   TRACING_EXPORTER: azure
