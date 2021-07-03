@@ -28,19 +28,12 @@ class ModelSettings(BaseSettings):
 
 class ModelManager:
     _instance = None
-    _model: LEDForConditionalGeneration = None
-    _tokenizer: LEDTokenizer = None
+
+    model: LEDForConditionalGeneration = None
+    tokenizer: LEDTokenizer = None
 
     def __init__(self):
         raise RuntimeError('Call instance() instead')
-
-    @property
-    def model(self):
-        return self._model
-
-    @property
-    def tokenizer(self):
-        return self._tokenizer
 
     @classmethod
     def instance(cls):
@@ -91,9 +84,9 @@ class ModelManager:
         else:
             logger.info('Loading model from local cache')
 
-        self._model = LEDForConditionalGeneration.from_pretrained(downloaded_model_path)
-        self._model.to(my_device)
-        self._tokenizer = LEDTokenizer.from_pretrained(downloaded_model_path)
+        self.model = LEDForConditionalGeneration.from_pretrained(downloaded_model_path)
+        self.model.to(my_device)
+        self.tokenizer = LEDTokenizer.from_pretrained(downloaded_model_path)
 
     @traced
     def _fetch_from_azureml_registry(self, target_dir: pathlib.Path, cfg):

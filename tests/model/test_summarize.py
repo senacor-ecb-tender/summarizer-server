@@ -4,8 +4,8 @@ from summarizer.model.summarize import predict, short_settings, long_settings
 
 def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
-    tokenizer = mocker.patch.object(model_mgr, '_tokenizer', mock_tokenizer())
-    model = mocker.patch.object(model_mgr, '_model', mock_model())
+    tokenizer = mocker.patch.object(model_mgr, 'tokenizer', mock_tokenizer())
+    model = mocker.patch.object(model_mgr, 'model', mock_model())
     process = mocker.patch('summarizer.model.summarize.process')
 
     predict('Some input text', 'pandemic', 'short', model_mgr)
@@ -20,8 +20,8 @@ def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):
 
 def test_that_settings_are_honored(mocker, mock_model, mock_tokenizer):
     model_mgr = ModelManager.instance()
-    mocker.patch.object(model_mgr, '_tokenizer', mock_tokenizer())
-    model = mocker.patch.object(model_mgr, '_model', mock_model())
+    mocker.patch.object(model_mgr, 'tokenizer', mock_tokenizer())
+    model = mocker.patch.object(model_mgr, 'model', mock_model())
     mocker.patch('summarizer.model.summarize.decode_summary')
 
     predict('Some input text', 'pandemic', 'short', model_mgr)
