@@ -114,7 +114,7 @@ class ModelManager:
         if not path.exists(downloaded_model_path):
             ws = Workspace.get(subscription_id=cfg.get('subscription'),
                                resource_group=cfg.get('resource_group'),
-                               name=cfg.get('workspace'),
+                               name=cfg.get('ml_workspace'),
                                auth=auth
                                )
             logger.info(f' Loading model from ml registry: {ws.name}')
