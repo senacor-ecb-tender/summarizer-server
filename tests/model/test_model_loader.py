@@ -4,11 +4,9 @@ import pathlib
 
 
 def test_that_read_config_yields_default_config():
-
-
     default_settings = ModelSettings().dict()
 
-    result_cfg = ModelManager.read_config()
+    result_cfg = ModelManager.read_config().dict()
     for k, v in result_cfg.items():
         assert default_settings[k] == v
 
