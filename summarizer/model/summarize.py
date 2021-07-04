@@ -71,7 +71,7 @@ class ShortSettings(_SpecificSettings):
 
 
 class LongSettings(_SpecificSettings):
-    min_length: int = 300
+    min_length: int = 350
     max_length: int = 600
 
     min_sentences: int = 9
