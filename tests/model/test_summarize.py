@@ -1,7 +1,8 @@
 from unittest.mock import PropertyMock
 
 from summarizer.model.model_loader import ModelManager
-from summarizer.model.summarize import predict, short_settings, long_settings
+from summarizer.model import summarize
+from summarizer.model.summarize import predict, short_settings, long_settings, filter_topic
 
 
 def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):
@@ -45,7 +46,7 @@ def test_summarization_with_pre_filtering(mocker, mock_model, mock_tokenizer):
     model = mocker.patch.object(model_mgr, 'model', mock_model())
     mocker.patch('summarizer.model.summarize.decode_summary')
 
-    spy_on_filter = mocker.spy('summarizer.model.summarize.filter_topic')
+    spy_on_filter = mocker.spy(summarize, 'filter_topic')
 
     mocker.patch.object(short_settings, 'filter_topic',
                         new_callable=PropertyMock(return_value=True))
@@ -54,11 +55,14 @@ def test_summarization_with_pre_filtering(mocker, mock_model, mock_tokenizer):
     mocker.patch.object(short_settings, 'window_size',
                         new_callable=PropertyMock(return_value=3))
 
-    predict("Some input text. With multiple sentences. And another one. "
-            "And more context. And more text. And much more. So boring!",
+    text = "Some input text. With multiple sentences. And another one. \
+            And more context. And more text. And much more. So boring!"
+    predict(text,
             "pandemic", "short", model_mgr)
 
     assert model.generate_called
-    spy_on_filter.assert_called_once()
+    spy_on_filter.assert_called_once_with(text=text, topic="pandemic",
+                                          window_size=3, min_sentences=2)
+
 
 
