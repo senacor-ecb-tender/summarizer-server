@@ -1,4 +1,4 @@
-from summarizer.model import pipeline
+from summarizer.model import pre_process
 
 
 def test_that_pipeline_is_functional():
@@ -29,7 +29,7 @@ overall rating)   Sources: ECB Digitalisation Survey and ECB calculations.Note: 
 two questions: “Which digital technologies has your company adopted, including those you are in the process of 
 adopting?” and “What are the main obstacles your company faced in relation to the adoption of digital technologies?”"""
 
-    filtered_text = pipeline.filter_topic(TEXT, "pandemic", 3)
+    filtered_text = pre_process.filter_topic(TEXT, "pandemic", 3)
 
     assert len(filtered_text) < len(TEXT)
 
