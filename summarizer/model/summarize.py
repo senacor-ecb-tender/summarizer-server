@@ -5,7 +5,7 @@ import torch
 from pydantic import BaseSettings
 
 from .model_loader import ModelManager
-from .pipeline import filter_topic
+from .pre_process import filter_topic
 from .post_process import process
 from ..utils.tracing import traced
 
