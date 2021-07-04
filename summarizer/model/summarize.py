@@ -50,6 +50,12 @@ class _SpecificSettings(BaseSettings):
     # Post-processing
     cut_to_max_sentences: bool = gen_settings.cut_to_max_sentences
 
+    # Length-specific settings
+    min_length: int
+    max_length: int
+    min_sentences: int
+    max_sentences: int
+
 
 class ShortSettings(_SpecificSettings):
     min_length: int = 80
@@ -107,23 +113,22 @@ def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelMana
         early_stopping=settings.early_stopping
     )
 
-    sentences = decode_summary(outputs, model_mgr)
+    return decode_summary(outputs, model_mgr, settings)
+
+
+@traced
+def decode_summary(outputs: torch.Tensor, model_mgr: ModelManager, settings: _SpecificSettings) -> List[str]:
+    output_text = model_mgr.tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
+    sentences = process(output_text)
 
     if len(sentences) > settings.max_sentences:
         logger.warning(f"Produced too many sentences: {len(sentences)} instead of {settings.max_sentences} "
-                       f"from inputs of size {inputs.size()}. Cutting enabled: {settings.cut_to_max_sentences}.")
+                       f"from {outputs[0].size()} tokens. Cutting enabled: {settings.cut_to_max_sentences}.")
 
         if settings.cut_to_max_sentences:
             sentences = sentences[:settings.max_sentences]
 
     if len(sentences) < settings.min_sentences:
         logger.warning(f"Produced too few sentences: {len(sentences)} instead of {settings.min_sentences} "
-                       f"from inputs of size {inputs.size()}.")
-
+                       f"from {outputs[0].size()} tokens.")
     return sentences
-
-
-@traced
-def decode_summary(outputs: torch.Tensor, model_mgr: ModelManager) -> List[str]:
-    output_text = model_mgr.tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
-    return process(output_text)
