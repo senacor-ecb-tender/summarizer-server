@@ -37,5 +37,6 @@ tracing.instrument_app(app)
 
 @app.on_event("startup")
 async def load_model():
+    """ Load ml model and download dictionaries at startup. """
     ModelManager.instance().fetch_model()
     download_dict()
