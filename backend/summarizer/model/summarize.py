@@ -80,7 +80,7 @@ class LongSettings(_SpecificSettings):
     max_length: int = 600
 
     min_sentences: int = 9
-    max_sentences: int = 16
+    max_sentences: int = 15
 
     class Config:
         env_prefix = 'long_'
