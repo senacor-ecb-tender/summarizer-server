@@ -16,6 +16,10 @@ with open(PATH / "topics.json", "rt") as f:
     TOPICS = json.load(f)
     assert len(TOPICS) == 4
 
+with open(PATH / "keywords.json", "rt") as f:
+    KEYWORDS = json.load(f)
+    assert len(KEYWORDS) == 4
+
 TOPIC_VECTORS = np.loadtxt(str(PATH / "topic-vectors.txt"))
 assert len(TOPICS) == TOPIC_VECTORS.shape[0]
 
@@ -63,4 +67,7 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
         sentences_to_keep.extend(set((window_idx + i for i in range(window_size)
                                       for window_idx in windows_to_keep)))
 
-    return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))
+    sentences_to_keep += [i for i, sentence in enumerate(sentences)
+                          if any(filter(lambda x: x in sentence.lower(), KEYWORDS))]
+
+    return " ".join((sentences[sentence_idx] for sentence_idx in sorted(sentences_to_keep)))
