@@ -33,3 +33,16 @@ adopting?” and “What are the main obstacles your company faced in relation t
 
     assert len(filtered_text) < len(TEXT)
 
+
+def test_that_sentences_with_keywords_are_kept():
+    keywords = ["keyword", "relevant"]
+
+    sentences = ["This sentence contains a Keyword.",
+                 "This snippet of text does not.",
+                 "Sometimes, multiple relevant keywords follow each other."]
+
+    result = pre_process._extract_sentences_with_keywords(sentences, keywords)
+
+    assert 0 in result
+    assert 1 not in result
+    assert 2 in result
