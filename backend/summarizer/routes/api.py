@@ -1,10 +1,15 @@
 import logging
+
 from fastapi import APIRouter, Request, Form, File, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
+from ..model.model_loader import ModelManager, ModelSettings
+from ..model.summarize import GenerationSettings, gen_settings
+from ..model.summarize import LongSettings, long_settings, ShortSettings, short_settings
 from ..model.summarize import predict
-from ..model.model_loader import ModelManager
+from ..utils.tracing import TracingSettings, tracing_settings
 
 logger = logging.getLogger(__name__)
 api = APIRouter()
@@ -37,3 +42,21 @@ async def upload_file(topic=Form(...), summary_type=Form(...), file: UploadFile 
     content = (await file.read()).decode('utf-8')
     result = predict(content, topic, summary_type, ModelManager.instance())
     return {'result': result}
+
+
+class ConfigResponse(BaseModel):
+    model_settings: ModelSettings
+    generation_settings: GenerationSettings
+    short_settings: ShortSettings
+    long_settings: LongSettings
+    tracing_settings: TracingSettings
+
+
+@api.get("/config")
+def get_config() -> ConfigResponse:
+    """Get the current service configuration."""
+    return ConfigResponse(model_settings=ModelManager().instance().read_config(),
+                          generation_settings=gen_settings,
+                          short_settings=short_settings,
+                          long_settings=long_settings,
+                          tracing_settings=tracing_settings)
