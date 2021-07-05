@@ -1,8 +1,8 @@
 from unittest.mock import PropertyMock
 
-from model import summarize
-from model.model_loader import ModelManager
-from model.summarize import predict, short_settings, long_settings
+from summarizer.model import summarize
+from summarizer.model.model_loader import ModelManager
+from summarizer.model.summarize import predict, short_settings, long_settings
 
 
 def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):

@@ -1,4 +1,4 @@
-from model import pre_process
+from summarizer.model import pre_process
 
 
 def test_that_pipeline_is_functional():

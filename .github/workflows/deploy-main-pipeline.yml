@@ -108,7 +108,6 @@ jobs:
         TRACING_EXPORTER: console
       run: |
         cd backend
-        pip install -e .
         python -m summarizer.model.post_process
         pytest -v --cov=summarizer tests/
       shell: bash -l {0}
