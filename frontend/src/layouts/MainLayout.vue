@@ -128,7 +128,7 @@
                 <template v-slot:avatar>
                   <q-icon name="warning" color="warning" />
                 </template>
-                Please note that the uploaded text file has to be encoded in UTF-8.
+                Please note that the uploaded text file has to be in English and UTF-8.
               </q-banner>
             </q-card-section>
             <q-card-section>
