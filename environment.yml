@@ -16,7 +16,7 @@ dependencies:
   - blas=1.0=mkl
   - brotlipy=0.7.0=py38h7b6447c_1000
   - ca-certificates=2020.10.14=0
-  - certifi=2020.6.20=py38_0
+  - certifi
   - cffi=1.14.3=py38he30daa8_0
   - chardet=3.0.4=py38_1003
   - click=8.0.1=py38h578d9bd_0
