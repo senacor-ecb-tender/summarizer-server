@@ -41,13 +41,17 @@ def windows(sentences: List[str], window_size: int) -> Generator[List[str], None
 
 
 @traced
-def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int = 10) -> str:
+def filter_topic(text: str, topic: str, window_size: int = 5,
+                 min_sentences: int = 10, fraction_to_keep: float = .25) -> str:
     """Extract sentences from the `text´ that match the `topic`.
 
     :param text: The text to filter.
     :param topic: The topic to extract from the text. Must be one of the pre-defined topics.
     :param window_size: The size of the sliding window. See `func:.windows`.
     :param min_sentences: The minimum number of sentences to return.
+    :param fraction_to_keep: Fraction of windows to keep. If the resulting number of sentences is lower
+                             than the specified `min_sentences`, another `fraction_to_keep` windows is added
+                             until that threshold is reached.
     :return:
     """
     try:
@@ -60,14 +64,23 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
     if len(sentences) <= min_sentences:
         return text
 
-    sentences_to_keep = _extract_similar_sentences(sentences, topic_idx, window_size, min_sentences)
+    sentences_to_keep = _extract_similar_sentences(sentences=sentences,
+                                                   topic_idx=topic_idx,
+                                                   window_size=window_size,
+                                                   min_sentences=min_sentences,
+                                                   fraction_to_keep=fraction_to_keep)
+
     sentences_to_keep += _extract_sentences_with_keywords(sentences, KEYWORDS[topic])
     sentences_to_keep = sorted(list(set(sentences_to_keep)))
 
     return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))
 
 
-def _extract_similar_sentences(sentences: List[str], topic_idx: int, window_size: int, min_sentences: int) -> List[int]:
+def _extract_similar_sentences(sentences: List[str],
+                               topic_idx: int,
+                               window_size: int,
+                               min_sentences: int,
+                               fraction_to_keep: float) -> List[int]:
     windowed = [" ".join(win) for win in windows(sentences, window_size)]
     hashed = vectorizer.transform(windowed).toarray().astype(np.float32)
 
@@ -82,12 +95,13 @@ def _extract_similar_sentences(sentences: List[str], topic_idx: int, window_size
     sentences_to_keep = []
     start_idx = 0
     while len(sentences_to_keep) <= min_sentences:
-        windows_to_keep = sorted(topic_indices[start_idx:int(k / 4 + 1)])
+        windows_to_keep = sorted(topic_indices[start_idx:int(k * fraction_to_keep + 1)])
         sentences_to_keep.extend(set((window_idx + i for i in range(window_size)
                                       for window_idx in windows_to_keep)))
+
     return sentences_to_keep
 
 
 def _extract_sentences_with_keywords(sentences: List[str], keywords: List[str]) -> List[int]:
     return [i for i, sentence in enumerate(sentences)
-            if any(filter(lambda x: x in sentence.lower(), keywords))]
+            if any(filter(lambda x: x in sentence.lower() or x in sentence, keywords))]
