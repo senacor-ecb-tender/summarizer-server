@@ -1,15 +1,18 @@
 import logging
+import pathlib
 from typing import List
 
 import torch
 from pydantic import BaseSettings
 
 from .model_loader import ModelManager
-from .pre_process import filter_topic
 from .post_process import process
+from .pre_process import filter_topic
 from ..utils.tracing import traced
 
 logger = logging.getLogger(__name__)
+
+ENV_FILE = str(pathlib.Path(__file__).parent / '.generation')
 
 
 class GenerationSettings(BaseSettings):
@@ -20,7 +23,7 @@ class GenerationSettings(BaseSettings):
 
     # Default beam search parameters
     num_beams: int = 3
-    length_penalty: float = 1.2
+    length_penalty: float = 2.0
     no_repeat_ngram_size: int = 3
     early_stopping: bool = True
 
@@ -28,7 +31,7 @@ class GenerationSettings(BaseSettings):
     cut_to_max_sentences: bool = False
 
     class Config:
-        env_file = '.generation'
+        env_file = ENV_FILE
         env_file_encoding = 'utf-8'
 
 
@@ -66,7 +69,7 @@ class ShortSettings(_SpecificSettings):
 
     class Config:
         env_prefix = 'short_'
-        env_file = '.generation'
+        env_file = ENV_FILE
         env_file_encoding = 'utf-8'
 
 
@@ -79,7 +82,7 @@ class LongSettings(_SpecificSettings):
 
     class Config:
         env_prefix = 'long_'
-        env_file = '.generation'
+        env_file = ENV_FILE
         env_file_encoding = 'utf-8'
 
 

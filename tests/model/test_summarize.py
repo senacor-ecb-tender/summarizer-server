@@ -1,8 +1,8 @@
 from unittest.mock import PropertyMock
 
-from summarizer.model.model_loader import ModelManager
 from summarizer.model import summarize
-from summarizer.model.summarize import predict, short_settings, long_settings, logger
+from summarizer.model.model_loader import ModelManager
+from summarizer.model.summarize import predict, short_settings, long_settings
 
 
 def test_that_summary_generation_works(mocker, mock_model, mock_tokenizer):
@@ -63,4 +63,3 @@ def test_summarization_with_pre_filtering(mocker, mock_model, mock_tokenizer):
     assert model.generate_called
     spy_on_filter.assert_called_once_with(text=text, topic="pandemic",
                                           window_size=3, min_sentences=2)
-

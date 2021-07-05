@@ -35,7 +35,6 @@ env:
   ML_WORKSPACE: ecb-dev
   MODEL_NAME: led-ecb-lm-arxiv-sum
   MODEL_VERSION: "10"
-  FILTER_TOPIC: "0"
   CACHE_DIR: cache
   NLTK_DATA: cache
   TRACING_EXPORTER: azure
