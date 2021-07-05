@@ -47,3 +47,12 @@ async def test_that_upload_post_returns_correct_summary(mocker, get_app):
                                      files={'file': ("input_file.txt", f, "text/txt")})
         assert response.status_code == 200
         assert response.json() == {'result': 'summary'}
+
+
+def test_that_config_is_returned(get_app):
+    app = get_app()
+    client = TestClient(app)
+
+    response = client.get("/config")
+
+    assert response.status_code == 200
