@@ -39,7 +39,7 @@ async def upload_file(topic=Form(...), summary_type=Form(...), file: UploadFile 
     :return: A JSON with one element 'result', that holds an array of summary sentences.
     """
     logger.info(f'Received upload for {topic}, {summary_type} and filename {file.filename}')
-    content = (await file.read()).decode('utf-8')
+    content = (await file.read()).decode('utf-8', 'ignore')
     result = predict(content, topic, summary_type, ModelManager.instance())
     return {'result': result}
 
