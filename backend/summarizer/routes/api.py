@@ -55,7 +55,7 @@ class ConfigResponse(BaseModel):
 @api.get("/config")
 def get_config() -> ConfigResponse:
     """Get the current service configuration."""
-    return ConfigResponse(model_settings=ModelManager().instance().read_config(),
+    return ConfigResponse(model_settings=ModelManager.instance().read_config(),
                           generation_settings=gen_settings,
                           short_settings=short_settings,
                           long_settings=long_settings,
