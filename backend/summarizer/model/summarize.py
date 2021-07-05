@@ -24,7 +24,7 @@ class GenerationSettings(BaseSettings):
 
     # Default beam search parameters
     num_beams: int = 3
-    length_penalty: float = 2.0
+    length_penalty: float = 1.0
     no_repeat_ngram_size: int = 3
     early_stopping: bool = True
 
