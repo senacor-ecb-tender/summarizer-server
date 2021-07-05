@@ -19,7 +19,8 @@ class GenerationSettings(BaseSettings):
     # Pre-processing
     filter_topic: bool = False
     min_input_sentences: int = 20
-    window_size: int = 5
+    window_size: int = 7
+    fraction_to_keep: float = 0.33
 
     # Default beam search parameters
     num_beams: int = 3
@@ -43,6 +44,7 @@ class _SpecificSettings(BaseSettings):
     filter_topic: bool = gen_settings.filter_topic
     min_input_sentences: int = gen_settings.min_input_sentences
     window_size: int = gen_settings.window_size
+    fraction_to_keep: float = gen_settings.fraction_to_keep
 
     # Default beam search parameters
     num_beams: int = gen_settings.num_beams
@@ -99,7 +101,8 @@ def predict(input_text: str, topic: str, summary_type: str, model_mgr: ModelMana
         input_text = filter_topic(text=input_text,
                                   topic=topic,
                                   window_size=settings.window_size,
-                                  min_sentences=settings.min_input_sentences)
+                                  min_sentences=settings.min_input_sentences,
+                                  fraction_to_keep=settings.fraction_to_keep)
 
     inputs = model_mgr.tokenizer.encode(text=input_text, return_tensors='pt')
     global_attention_mask = torch.zeros_like(inputs)
