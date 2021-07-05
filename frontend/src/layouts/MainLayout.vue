@@ -124,6 +124,12 @@
                 </template>
               Creating the summarisation will typically take 10-20 minutes and can take up to 60 minutes.
               </q-banner>
+              <q-banner dense>
+                <template v-slot:avatar>
+                  <q-icon name="warning" color="warning" />
+                </template>
+                Please note that the uploaded text file has to be encoded in UTF-8.
+              </q-banner>
             </q-card-section>
             <q-card-section>
               <q-select
