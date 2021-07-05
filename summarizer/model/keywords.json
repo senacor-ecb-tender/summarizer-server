@@ -1,6 +1,6 @@
 {
   "climate_risk": ["climate"],
-  "asset_quality": ["asset quality", "npl", "liquidity", "non-performing", "asset management"],
+  "asset_quality": ["asset quality", "NPL", "liquidity", "non-performing", "asset management"],
   "pandemic":  ["covid", "pandemic"],
   "credit_lending": ["credit", "loan", "lending", "underwriting"]
 }

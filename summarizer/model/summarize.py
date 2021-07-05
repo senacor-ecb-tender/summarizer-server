@@ -18,7 +18,7 @@ ENV_FILE = str(pathlib.Path(__file__).parent / '.generation')
 class GenerationSettings(BaseSettings):
     # Pre-processing
     filter_topic: bool = False
-    min_input_sentences: int = 10
+    min_input_sentences: int = 20
     window_size: int = 5
 
     # Default beam search parameters
