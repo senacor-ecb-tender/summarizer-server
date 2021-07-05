@@ -54,6 +54,8 @@ def test_summarization_with_pre_filtering(mocker, mock_model, mock_tokenizer):
                         new_callable=PropertyMock(return_value=2))
     mocker.patch.object(short_settings, 'window_size',
                         new_callable=PropertyMock(return_value=3))
+    mocker.patch.object(short_settings, 'fraction_to_keep',
+                        new_callable=PropertyMock(return_value=.65))
 
     text = "Some input text. With multiple sentences. And another one. \
             And more context. And more text. And much more. So boring!"
@@ -62,4 +64,4 @@ def test_summarization_with_pre_filtering(mocker, mock_model, mock_tokenizer):
 
     assert model.generate_called
     spy_on_filter.assert_called_once_with(text=text, topic="pandemic",
-                                          window_size=3, min_sentences=2)
+                                          window_size=3, min_sentences=2, fraction_to_keep=.65)
