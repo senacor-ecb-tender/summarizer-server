@@ -27,7 +27,10 @@ vectorizer = HashingVectorizer(n_features=TOPIC_VECTORS.shape[1], stop_words='en
 
 
 def windows(sentences: List[str], window_size: int) -> Generator[List[str], None, None]:
-    """This implementation is borrowed from `more_itertools`."""
+    """Iterate over `sentences` in windows of size `window_size`.
+
+    This implementation is borrowed from `more_itertools`.
+    """
     window = deque(maxlen=window_size)
     i = window_size
     for _ in map(window.append, sentences):
@@ -39,6 +42,14 @@ def windows(sentences: List[str], window_size: int) -> Generator[List[str], None
 
 @traced
 def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int = 10) -> str:
+    """Extract sentences from the `text´ that match the `topic`.
+
+    :param text: The text to filter.
+    :param topic: The topic to extract from the text. Must be one of the pre-defined topics.
+    :param window_size: The size of the sliding window. See `func:.windows`.
+    :param min_sentences: The minimum number of sentences to return.
+    :return:
+    """
     try:
         topic_idx = TOPICS.index(topic)
     except ValueError:
