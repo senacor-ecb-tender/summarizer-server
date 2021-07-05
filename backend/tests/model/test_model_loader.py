@@ -1,5 +1,5 @@
-from summarizer.model.model_loader import ModelManager
-from summarizer.model.model_loader import ModelSettings
+from model.model_loader import ModelManager
+from model.model_loader import ModelSettings
 import pathlib
 
 

@@ -3,8 +3,8 @@ FROM continuumio/miniconda3:4.9.2-alpine
 WORKDIR /
 
 COPY environment.yml .
-COPY summarizer /summarizer
-COPY templates /templates
+COPY backend/summarizer /summarizer
+COPY backend/templates /templates
 
 RUN conda env create -f environment.yml
 

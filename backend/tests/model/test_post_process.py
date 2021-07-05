@@ -1,6 +1,6 @@
 import pytest
 
-from summarizer.model.post_process import prettify, process
+from model.post_process import prettify, process
 
 
 @pytest.mark.parametrize('ugly,pretty', [

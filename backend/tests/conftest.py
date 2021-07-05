@@ -6,7 +6,7 @@ from typing import List
 @pytest.fixture
 def get_app(mocker, mock_model, mock_tokenizer):
     def _get():
-        from summarizer.main import app
+        from main import app
         return app
 
     return _get

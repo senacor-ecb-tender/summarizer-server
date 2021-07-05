@@ -1,5 +1,5 @@
 import pytest
-from summarizer.routes import readiness
+from routes import readiness
 from fastapi import HTTPException
 
 

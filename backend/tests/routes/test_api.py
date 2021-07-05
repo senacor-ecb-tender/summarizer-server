@@ -1,7 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
-from summarizer.model.model_loader import ModelManager
 
 
 def test_get_index_returns_html(get_app):
