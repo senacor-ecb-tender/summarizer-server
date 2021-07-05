@@ -15,6 +15,7 @@ templates = Jinja2Templates(directory="templates")
 def index_html(request: Request):
     """  Delivers a debug ui in form of a static index html (not used in production)
 
+    \f
     :param request: FastAPI request object.
     :return:  TemplateResponse holding the index html and the request object.
     """
@@ -26,7 +27,7 @@ def index_html(request: Request):
 async def upload_file(topic=Form(...), summary_type=Form(...), file: UploadFile = File(...)):
     """ Post route for uploading text files to be summarized
 
-
+    \f
     :param topic: String holding a value of one of the topics ('climate_risk', 'asset_quality', 'credit_lending', 'pandemic')
     :param summary_type: String holding one value of ('short', 'long')
     :param file: A text file with the input to be summarized.
