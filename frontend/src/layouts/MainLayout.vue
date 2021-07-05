@@ -13,7 +13,7 @@
         />
 
         <q-toolbar-title class="ecb-font-bold">
-          Text summariser
+          Text Summariser
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap ecb-font-regular">
