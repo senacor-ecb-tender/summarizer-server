@@ -58,6 +58,7 @@ def set_up():
 
 def instrument_app(app: FastAPI):
     """Add OpenTelemetry middleware to a FastAPI app.
+
     Following available documentation and examples,
     this should be called after all routes have been added.
     """

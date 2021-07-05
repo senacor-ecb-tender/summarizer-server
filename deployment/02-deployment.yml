@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/part-of: ecb-pitch
     app.kubernetes.io/managed-by: kubectl
 spec:
-  replicas: 5
+  replicas: 7
   selector:
     matchLabels:
       app: ${APP_NAME}
@@ -54,16 +54,18 @@ spec:
             httpGet:
               path: "/probes/healthz"
               port: 8000
-            initialDelaySeconds: 120
-            periodSeconds: 60
-            failureThreshold: 5
+            initialDelaySeconds: 240
+            periodSeconds: 240
+            timeoutSeconds: 3600
+            failureThreshold: 15
         readinessProbe:
           httpGet:
             path: "/probes/healthz"
             port: 8000
-          initialDelaySeconds: 120
-          periodSeconds: 60
-          failureThreshold: 5
+          initialDelaySeconds: 240
+          periodSeconds: 240
+          failureThreshold: 15
+          timeoutSeconds: 3600
         terminationMessagePath: /dev/stdout
         volumeMounts:
           - mountPath: /cache

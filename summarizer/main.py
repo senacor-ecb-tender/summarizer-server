@@ -22,8 +22,7 @@ app.include_router(readiness)
 app.include_router(authentication)
 
 origins = [
-    "*",
-    ":8080"
+    "*"
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -38,5 +37,6 @@ tracing.instrument_app(app)
 
 @app.on_event("startup")
 async def load_model():
+    """ Load ml model and download dictionaries at startup. """
     ModelManager.instance().fetch_model()
     download_dict()
