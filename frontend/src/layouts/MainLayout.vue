@@ -1,6 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
+      <!-- Header toolbar -->
       <q-toolbar>
         <q-btn
           aria-label="Menu"
@@ -21,7 +22,7 @@
             <q-tooltip>Login</q-tooltip>
           </q-btn>
           <q-btn v-if="isLoggedIn" color="white" icon="menu_book" label="Summarize" push size="sm"
-                 text-color="primary" @click="openDialog = true">
+                 text-color="primary" @click="showSummaryDialog = true">
             <q-tooltip>Run summarization</q-tooltip>
           </q-btn>
           <q-btn v-if="isLoggedIn" color="white" icon="logout" label="Logout" push size="sm"
@@ -34,6 +35,7 @@
       </q-toolbar>
     </q-header>
 
+    <!-- Left side menu -->
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
@@ -78,6 +80,7 @@
 
     </q-drawer>
 
+    <!-- Login dialog -->
     <q-dialog ref="login" v-model="showLogin">
       <div class="row">
         <q-card square bordered class="q-pa-lg shadow-1">
@@ -94,7 +97,8 @@
       </div>
     </q-dialog>
 
-    <q-dialog v-model="openDialog" full-height full-width @close="reset" @hide="reset">
+    <!-- Summary run dialog -->
+    <q-dialog v-model="showSummaryDialog" full-height full-width @close="reset" @hide="reset">
       <div class="row" style="overflow: auto; height: inherit;">
         <div class="col-3" style="background-color: white;">
           <q-card flat square style="overflow: auto;">
@@ -113,6 +117,14 @@
                 <q-tooltip>Close</q-tooltip>
               </q-btn>
             </q-card-actions>
+            <q-card-section>
+              <q-banner dense>
+                <template v-slot:avatar>
+                  <q-icon name="info" color="info" />
+                </template>
+              Creating the summarization will typically take 10-20 minutes and can take up to 60 minutes.
+              </q-banner>
+            </q-card-section>
             <q-card-section>
               <q-select
                 v-model="topicType"
@@ -230,6 +242,10 @@ import EssentialLink from 'components/EssentialLink.vue'
 import {ref} from 'vue'
 import {exportFile, useQuasar} from 'quasar'
 
+/**
+ * Link definitions for side menu
+ */
+
 const linksDataMain = [
   {
     title: 'Our Code',
@@ -286,17 +302,16 @@ const linksDataInfrastructure = [
   }
 ];
 
+// main component code
 export default {
   name: 'MainLayout',
   components: {EssentialLink},
   data() {
     return {
       leftDrawerOpen: false,
-
       linksDataMain: linksDataMain,
       linksDataFrameworks: linksDataFrameworks,
       linksDataInfrastructure: linksDataInfrastructure,
-
       optionsTopic: [
         {
           id: 'asset_quality',
@@ -325,17 +340,22 @@ export default {
           label: 'Short version (3-6 sentences)'
         }
       ],
+      // fields for summary dialog
+      showSummaryDialog: false,
       topicType: "",
       summaryType: "",
       fileSelected: false,
       summarization: "...",
-      openDialog: false,
       summaryVisible: false,
+
+      // fields for login dialoh
       showLogin: false,
       username: '',
       password: ''
     }
   },
+
+  // code for error message when backend-error occurs
   setup() {
     const $q = useQuasar()
     return {
@@ -348,6 +368,8 @@ export default {
       }
     }
   },
+
+  // comouted properties to see whether user ist logged in or summary run finished
   computed: {
     isComplete() {
       return this.topicType != "" && this.summaryType != "" && this.fileSelected;
@@ -358,6 +380,7 @@ export default {
     }
   },
   methods: {
+    // export summary as .txt-file
     exportSummary() {
       const $q = useQuasar()
 
@@ -376,12 +399,16 @@ export default {
         })
       }
     },
+
+    // file upploader status changes
     setFileSelected() {
       this.fileSelected = true
     },
     unsetFileSelected() {
       this.fileSelected = false
     },
+
+    // reset summary dialog
     reset() {
       this.summaryVisible = false
       this.summaryType = ""
@@ -389,9 +416,13 @@ export default {
       this.fileSelected = false
       this.$refs.uploader.reset()
     },
+
+    // close summary dialog
     close() {
-      this.openDialog = false
+      this.showSummaryDialog = false
     },
+
+    // call of upload-endpoint to start summary process on backend
     factoryFn(files) {
       return {
         url: process.env.API + '/upload',
@@ -400,6 +431,8 @@ export default {
         formFields: [{name: 'topic', value: this.topicType.id}, {name: 'summary_type', value: this.summaryType.id}]
       }
     },
+
+    // pre-process summary result for GUI
     summarize({files, xhr}) {
       let result;
       let text;
@@ -414,6 +447,8 @@ export default {
       this.summarization = text
       this.summaryVisible = true
     },
+
+    // login/logout logic
     login() {
       this.$refs.login.hide()
       this.$store.dispatch("authentication/login", {username: this.username, password: this.password})
