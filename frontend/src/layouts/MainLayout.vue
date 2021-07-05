@@ -13,7 +13,7 @@
         />
 
         <q-toolbar-title class="ecb-font-bold">
-          Text Summarizer
+          Text summariser
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap ecb-font-regular">
@@ -21,9 +21,9 @@
                  text-color="primary" @click="showLogin = true">
             <q-tooltip>Login</q-tooltip>
           </q-btn>
-          <q-btn v-if="isLoggedIn" color="white" icon="menu_book" label="Summarize" push size="sm"
+          <q-btn v-if="isLoggedIn" color="white" icon="menu_book" label="summarise" push size="sm"
                  text-color="primary" @click="showSummaryDialog = true">
-            <q-tooltip>Run summarization</q-tooltip>
+            <q-tooltip>Run summarisation</q-tooltip>
           </q-btn>
           <q-btn v-if="isLoggedIn" color="white" icon="logout" label="Logout" push size="sm"
                  text-color="primary" @click="logout">
@@ -106,9 +106,9 @@
               <div class="text-h6 text-primary">Setup</div>
             </q-card-section>
             <q-card-actions align="center">
-              <q-btn :disabled="!isComplete" color="primary" label="Summarize" size="sm" unelevated
+              <q-btn :disabled="!isComplete" color="primary" label="summarise" size="sm" unelevated
                      @click="$refs.uploader.upload()">
-                <q-tooltip>Run summarization</q-tooltip>
+                <q-tooltip>Run summarisation</q-tooltip>
               </q-btn>
               <q-btn color="primary" label="Reset" size="sm" unelevated @click="reset()">
                 <q-tooltip>Reset</q-tooltip>
@@ -122,7 +122,7 @@
                 <template v-slot:avatar>
                   <q-icon name="info" color="info" />
                 </template>
-              Creating the summarization will typically take 10-20 minutes and can take up to 60 minutes.
+              Creating the summarisation will typically take 10-20 minutes and can take up to 60 minutes.
               </q-banner>
             </q-card-section>
             <q-card-section>
@@ -170,7 +170,7 @@
                 @added="setFileSelected"
                 @failed="failed"
                 @removed="unsetFileSelected"
-                @uploaded="summarize"
+                @uploaded="summarise"
               />
             </q-card-section>
 
@@ -191,7 +191,7 @@
               </q-btn>
             </q-card-actions>
             <q-card-section>
-              <span v-html="summarization"></span>
+              <span v-html="summarisation"></span>
             </q-card-section>
           </q-card>
         </div>
@@ -251,7 +251,7 @@ const linksDataMain = [
     title: 'Our Code',
     caption: 'See code repository',
     icon: 'code',
-    link: 'https://github.com/senacor-ecb-tender/summarizer-server'
+    link: 'https://github.com/senacor-ecb-tender/summariser-server'
   }
 ];
 
@@ -345,7 +345,7 @@ export default {
       topicType: "",
       summaryType: "",
       fileSelected: false,
-      summarization: "...",
+      summarisation: "...",
       summaryVisible: false,
 
       // fields for login dialoh
@@ -363,7 +363,7 @@ export default {
       failed(info) {
         $q.notify({
           type: 'negative',
-          message: 'Call to Summarization API failed!'
+          message: 'Call to summarisation API failed!'
         })
       }
     }
@@ -384,7 +384,7 @@ export default {
     exportSummary() {
       const $q = useQuasar()
 
-      const status = exportFile('summary.txt', this.summarization.replaceAll("<br/>", "\n"), {
+      const status = exportFile('summary.txt', this.summarisation.replaceAll("<br/>", "\n"), {
         encoding: 'UTF-8',
         mimeType: 'text/plain;charset=UTF-8;'
       })
@@ -433,7 +433,7 @@ export default {
     },
 
     // pre-process summary result for GUI
-    summarize({files, xhr}) {
+    summarise({files, xhr}) {
       let result;
       let text;
       let lineNum = 1;
@@ -444,7 +444,7 @@ export default {
         lineNum = lineNum + 1
       })
 
-      this.summarization = text
+      this.summarisation = text
       this.summaryVisible = true
     },
 

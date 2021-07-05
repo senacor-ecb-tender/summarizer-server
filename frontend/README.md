@@ -1,8 +1,8 @@
-# ECB Text Summarizer GUI (front-server)
+# ECB Text Summariser GUI (front-server)
 
 INTRODUCTION:
 
-Fronend-Application for calling text summarization backend based
+Fronend-Application for calling text summarisation backend based
 on VueJS / Quasar Framework.
 
 USAGE:
@@ -17,12 +17,12 @@ The user/password is provided by Senacor team
 
 2) Running summary task
 
-By clicking on the button SUMMARIZE on the upper left you will
+By clicking on the button SUMMARISE on the upper left you will
    be able to setup your summary task.
    The application will show a dialog with input fields for topic / summary length
    and an file upload component.
 
-After entering the required data you can run the summarization task with the button SUMMARIZE
+After entering the required data you can run the summarisation task with the button SUMMARISE
 at the top of the dialog. After the backend processed your request the result will show up right to the Setup.
 
 You can download the result by clicking button DOWNLOAD to a local txt-file.

@@ -16,7 +16,7 @@
               <div align="center" class="text-h5">Setting up</div>
               <br>
               <div align="center" class="ecb-font-regular text-body2">Select the topic, summary length and your text
-                file you want to summarize
+                file you want to summarise
               </div>
             </q-card-section>
           </q-card>
@@ -25,10 +25,10 @@
           <q-card>
             <q-card-section>
               <q-avatar color="secondary" icon="double_arrow" size="sm" text-color="white"></q-avatar>
-              <div align="center" class="text-h5">Summarizing</div>
+              <div align="center" class="text-h5">Summarising</div>
               <br>
               <div align="center" class="ecb-font-regular text-body2">Run our
-                state-of-the-art summarization based on newest NLP algorithms
+                state-of-the-art summarisation based on newest NLP algorithms
               </div>
             </q-card-section>
           </q-card>
