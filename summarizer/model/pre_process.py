@@ -60,6 +60,14 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
     if len(sentences) <= min_sentences:
         return text
 
+    sentences_to_keep = _extract_similar_sentences(sentences, topic_idx, window_size, min_sentences)
+    sentences_to_keep += _extract_sentences_with_keywords(sentences, KEYWORDS[topic])
+    sentences_to_keep = sorted(list(set(sentences_to_keep)))
+
+    return " ".join((sentences[sentence_idx] for sentence_idx in sentences_to_keep))
+
+
+def _extract_similar_sentences(sentences: List[str], topic_idx: int, window_size: int, min_sentences: int) -> List[int]:
     windowed = [" ".join(win) for win in windows(sentences, window_size)]
     hashed = vectorizer.transform(windowed).toarray().astype(np.float32)
 
@@ -77,8 +85,9 @@ def filter_topic(text: str, topic: str, window_size: int = 5, min_sentences: int
         windows_to_keep = sorted(topic_indices[start_idx:int(k / 4 + 1)])
         sentences_to_keep.extend(set((window_idx + i for i in range(window_size)
                                       for window_idx in windows_to_keep)))
+    return sentences_to_keep
 
-    sentences_to_keep += [i for i, sentence in enumerate(sentences)
-                          if any(filter(lambda x: x in sentence.lower(), KEYWORDS))]
 
-    return " ".join((sentences[sentence_idx] for sentence_idx in sorted(sentences_to_keep)))
+def _extract_sentences_with_keywords(sentences: List[str], keywords: List[str]) -> List[int]:
+    return [i for i, sentence in enumerate(sentences)
+            if any(filter(lambda x: x in sentence.lower(), keywords))]
