@@ -381,7 +381,6 @@ export default {
       return this.topicType != "" && this.summaryType != "" && this.fileSelected;
     },
     isLoggedIn() {
-      console.log(this.$store.getters["authentication/isLoggedIn"])
       return this.$store.getters["authentication/isLoggedIn"]
     }
   },
