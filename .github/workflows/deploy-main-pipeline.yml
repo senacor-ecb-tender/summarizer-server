@@ -113,9 +113,14 @@ jobs:
       shell: bash -l {0}
 
     - name: Code Coverage
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_FLAG_NAME: summarizer-server
+        COVERALLS_PARALLEL: ${{ github.ref == 'refs/heads/master' }}
       run: |
         cd backend
         coverage report -m
+        coveralls --service=github
       shell: bash -l {0}
 
 
