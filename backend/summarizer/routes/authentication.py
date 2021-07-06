@@ -23,4 +23,5 @@ def check_user(credentials: HTTPBasicCredentials = Depends(security)):
 
 @authentication.get("/login")
 def login(username: str = Depends(check_user)):
+    """ Simple Login Request that returns the username if the user has logged in before """
     return {"username": username}
