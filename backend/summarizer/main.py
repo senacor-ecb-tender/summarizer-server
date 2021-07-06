@@ -9,6 +9,7 @@ from .model.post_process import download_dict
 from .routes.api import api
 from .routes.authentication import authentication
 from .routes.readiness import readiness
+from .routes.vue_router import vue_frontend
 from .utils import tracing
 
 logging.getLogger("uvicorn").propagate = False
@@ -17,6 +18,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 tracing.set_up()
 
 app = FastAPI()
+app.include_router(vue_frontend(__file__))
 app.include_router(api)
 app.include_router(readiness)
 app.include_router(authentication)

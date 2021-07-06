@@ -1,10 +1,19 @@
+FROM node:12-alpine as builder
+
+WORKDIR /frontend
+
+COPY frontend/ .
+RUN yarn global add @quasar/cli
+RUN yarn install --prefer-offline
+RUN yarn run build
+
 FROM continuumio/miniconda3:4.9.2-alpine
 
 WORKDIR /
 
 COPY environment.yml .
 COPY backend/summarizer /summarizer
-COPY backend/templates /templates
+COPY --from=builder /frontend/dist/spa /templates
 
 RUN conda env create -f environment.yml
 

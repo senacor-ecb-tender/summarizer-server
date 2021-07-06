@@ -6,9 +6,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      TENANT_ID: 52497ec2-0945-4f55-8021-79766363dd96
-      CLIENT_ID: 8a4869e5-5999-441f-a245-1bd852e2d1d0
-      CLIENT_SECRET: Jw1eFUsPI2.r._27S~r6w06ODaukm_5Xmk
+      TENANT_ID: 'REPLACE_ME_WITH_TENANT_ID_FROM_DOCU'
+      CLIENT_ID: 'REPLACE_ME_WITH_CLIENT_ID_FROM_DOCU'
+      CLIENT_SECRET: 'REPLACE_ME_WITH_CLIENT_SECRET_FROM_DOCU'
       MODEL_NAME: "led-ecb-lm-arxiv-sum"
       MODEL_VERSION: "10"
       NLTK_DATA: "cache"
+    volumes:
+      - CACHEDIR:/cache

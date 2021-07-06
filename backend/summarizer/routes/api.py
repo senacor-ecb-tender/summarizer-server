@@ -16,7 +16,7 @@ api = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 
-@api.get("/", response_class=HTMLResponse)
+@api.get("/debug", response_class=HTMLResponse)
 def index_html(request: Request):
     """  Delivers a debug ui in form of a static index html (not used in production)
 
