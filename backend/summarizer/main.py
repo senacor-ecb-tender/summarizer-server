@@ -18,10 +18,10 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 tracing.set_up()
 
 app = FastAPI()
-app.include_router(vue_frontend(__file__))
 app.include_router(api)
 app.include_router(readiness)
 app.include_router(authentication)
+app.include_router(vue_frontend(__file__))
 
 origins = [
     "*"
