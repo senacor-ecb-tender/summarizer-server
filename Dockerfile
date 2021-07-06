@@ -3,6 +3,7 @@ FROM node:12-alpine as builder
 WORKDIR /frontend
 
 COPY frontend/ .
+RUN cp local_docker_compose_quasar.conf.js quasar.conf.js
 RUN yarn global add @quasar/cli
 RUN yarn install --prefer-offline
 RUN yarn run build
