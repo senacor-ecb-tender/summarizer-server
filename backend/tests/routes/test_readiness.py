@@ -23,4 +23,3 @@ def test_that_readiness_works_using_routing_pattern(mocker, mock_model, get_app)
 
     response = client.get("/probes/healthz")
     assert response.ok
-
