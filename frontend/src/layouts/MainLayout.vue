@@ -120,13 +120,13 @@
             <q-card-section>
               <q-banner dense>
                 <template v-slot:avatar>
-                  <q-icon name="info" color="info" />
+                  <q-icon name="info" color="info"/>
                 </template>
-              Creating the summarisation will typically take 10-20 minutes and can take up to 60 minutes.
+                Creating the summarisation will typically take 10-20 minutes and can take up to 60 minutes.
               </q-banner>
               <q-banner dense>
                 <template v-slot:avatar>
-                  <q-icon name="warning" color="warning" />
+                  <q-icon name="warning" color="warning"/>
                 </template>
                 Please note that the uploaded text file has to be in English and UTF-8.
               </q-banner>
@@ -367,18 +367,10 @@ export default {
     return {
       ratingModel: ref(0),
       failed(info) {
-        if (info.xhr.status == 503) {
-          $q.notify({
-            type: 'warning',
-            message: 'Sorry, all summarization pods are currently busy. Please try again later.'
-          })
-        }
-        else {
         $q.notify({
-          type: 'negative',
-          message: 'Call to summarisation API failed!'
+          type: 'warning',
+          message: 'Sorry, all summarization pods seem to be currently busy. Please try again later.'
         })
-        }
       }
     }
   },
