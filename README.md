@@ -83,3 +83,4 @@ be in the docker group.
 13. Build the docker image with the command ``docker-compose build``. (This takes a few minutes)
 14. Start the docker image using the command ``docker-compose up``. 
 15. Open a browser and access the IP and port 8000 of the RHEL machine (or localhost on that machine): ``http://localhost:8000/``.
+
