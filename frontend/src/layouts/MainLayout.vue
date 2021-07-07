@@ -367,10 +367,18 @@ export default {
     return {
       ratingModel: ref(0),
       failed(info) {
+        if (info.xhr.status == 503) {
+          $q.notify({
+            type: 'warning',
+            message: 'Sorry, all summarization pods are currently busy. Please try again later.'
+          })
+        }
+        else {
         $q.notify({
           type: 'negative',
           message: 'Call to summarisation API failed!'
         })
+        }
       }
     }
   },
