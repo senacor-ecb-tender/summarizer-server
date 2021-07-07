@@ -13,6 +13,7 @@ The repository has the following folder structure:
 | frontend     | contains VueJS frontend code                                                     |
 | backend      | contains API code implemented in Python                                          |
 | deployment   | contains Kubernetes deployment descriptors using place holders for env variables |
+| notebooks    | contains the Jupyter notebook for training the machine-learning model            |
 
 The root folder contains the conda environment definition in the following file: 
 

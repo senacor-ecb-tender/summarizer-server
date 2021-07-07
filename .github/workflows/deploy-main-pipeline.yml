@@ -17,6 +17,7 @@ on:
       - '**/azure-static-web-apps-mango-stone-032a68f03.yml'
       - '**/deploy-main-pipeline.yml'
       - 'frontend/**'
+      - 'notebooks/**'
 
 
 env:
