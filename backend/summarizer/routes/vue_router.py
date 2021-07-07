@@ -18,7 +18,6 @@ def vue_frontend(main___file__: str) -> APIRouter:
 
     @router.get("/")
     def get_frontend():
-        print(pathlib.Path(main___file__).parent.parent / "templates" / "index.html")
         return _return_if_exists(pathlib.Path(main___file__).parent.parent / "templates" / "index.html")
 
     @router.get("/favicon.ico")

@@ -15,6 +15,7 @@ WORKDIR /
 COPY environment.yml .
 COPY backend/summarizer /summarizer
 COPY --from=builder /frontend/dist/spa /templates
+COPY backend/templates /templates
 
 RUN conda env create -f environment.yml
 

@@ -62,10 +62,10 @@ spec:
           httpGet:
             path: "/probes/healthz"
             port: 8000
-          initialDelaySeconds: 60
-          periodSeconds: 240
-          failureThreshold: 15
-          timeoutSeconds: 3600
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          failureThreshold: 1
+          timeoutSeconds: 1
         terminationMessagePath: /dev/stdout
         volumeMounts:
           - mountPath: /cache

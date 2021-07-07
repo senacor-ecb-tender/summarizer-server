@@ -25,7 +25,7 @@ def index_html(request: Request):
     :return:  TemplateResponse holding the index html and the request object.
     """
     logger.info('Debug request for basic ui.')
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("debug_index.html", {"request": request})
 
 
 @api.post("/upload")
