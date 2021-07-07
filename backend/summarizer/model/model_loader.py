@@ -68,6 +68,10 @@ class ModelManager:
 
     @traced
     def fetch_model(self, cfg: dict = None):
+        """ Load the configured model either from cache directory or from ml model registry
+
+        :param cfg: ModelSettings containing the name and version of the model.
+        """
         download_path = pathlib.Path(CACHE)
 
         if cfg is None:
