@@ -16,7 +16,15 @@ export function login({commit}, payload) {
         commit('auth_success')
       })
       .catch(err => {
-        commit('auth_error')
+        if (err.response) {
+          if (err.response.status == 401) {
+            commit('auth_error')
+          }
+          else {
+            commit('auth_error_other')
+          }
+        }
+
       })
   })
 }

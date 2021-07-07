@@ -12,6 +12,14 @@ export function auth_error(state){
   state.status = 'error'
 }
 
+export function auth_error_other(state){
+  Notify.create({
+    message: 'Login failed as all summarisation pods are busy',
+    type: 'negative'
+  })
+  state.status = 'error'
+}
+
 export function logout(state){
   state.status = ''
 }

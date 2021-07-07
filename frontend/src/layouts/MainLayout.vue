@@ -367,10 +367,18 @@ export default {
     return {
       ratingModel: ref(0),
       failed(info) {
-        $q.notify({
-          type: 'warning',
-          message: 'Sorry, all summarization pods seem to be currently busy. Please try again later.'
-        })
+        if (info.xhr.response.status == 503) {
+          $q.notify({
+            type: 'warning',
+            message: 'Sorry, all summarization pods seem to be currently busy. Please try again later.'
+          })
+        }
+        else {
+          $q.notify({
+            type: 'negative',
+            message: 'Call to Summarisation API failed!'
+          })
+        }
       }
     }
   },
@@ -429,8 +437,10 @@ export default {
 
     // call of upload-endpoint to start summary process on backend
     factoryFn(files) {
+      let baseUrl = this.$document_api.defaults.baseURL
+      console.log(baseUrl)
       return {
-        url: process.env.API + '/upload',
+        url: baseUrl + '/upload',
         method: 'POST',
         fieldName: 'file',
         formFields: [{name: 'topic', value: this.topicType.id}, {name: 'summary_type', value: this.summaryType.id}]
