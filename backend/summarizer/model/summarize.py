@@ -20,7 +20,7 @@ class GenerationSettings(BaseSettings):
     filter_topic: bool = False
     min_input_sentences: int = 20
     window_size: int = 7
-    fraction_to_keep: float = 0.33
+    fraction_to_keep: float = 0.40
 
     # Default beam search parameters
     num_beams: int = 3
@@ -76,8 +76,8 @@ class ShortSettings(_SpecificSettings):
 
 
 class LongSettings(_SpecificSettings):
-    min_length: int = 350
-    max_length: int = 600
+    min_length: int = 400
+    max_length: int = 650
 
     min_sentences: int = 9
     max_sentences: int = 15
