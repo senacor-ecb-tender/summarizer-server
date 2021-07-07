@@ -55,3 +55,31 @@ service to load a model from the Azure ML Workspace a working internet connectio
 To build and run the service locally execute the following commands in the root directory of this repo:
 
 ```$docker-compose up```
+
+## Hardware & Software Requirements
+
+We require a standard server machine equipped with 
+- a CPU of either Intel Intel Core™ i7-6700 or better or AMD Ryzen processor family
+- 32 GB of Ram
+- 50 GB of free hard disk space. 
+
+We require a RHEL installation, a non-root user with docker and docker-compose installed. The non-root user needs to 
+be in the docker group. 
+
+## Detailed Installation Instructions
+
+1. Install RHEL on the server. 
+2. Add a user to the system. 
+3. Install docker-ce and docker-compose following these [instructions](https://computingforgeeks.com/install-docker-and-docker-compose-on-rhel-8-centos-8/)
+4. Create a directory Workspace in the users home dir: ``/home/USER/Workspace``.
+5. Create a directory cache/ in the Workspace dir: ``/home/USER/Workspace/cache``.
+6. Create a directory led-ecb-lm-arxiv-sum/ in the Workspace dir: ``/home/USER/Workspace/cache/led-ecb-lm-arxiv-sum``.
+7. Create a directory 10/ in the led-ecb-lm-arxiv-sum dir: ``/home/USER/Workspace/cache/led-ecb-lm-arxiv-sum/10``.
+8. Create a directory led-ecb-lm-arxiv-sum/ in the led-ecb-lm-arxiv-sum/10/ dir: ``/home/USER/Workspace/cache/led-ecb-lm-arxiv-sum/10/led-ecb-lm-arxiv-sum``.
+9. Copy the model artefacts into ``/home/USER/Workspace/cache/led-ecb-lm-arxiv-sum/10/led-ecb-lm-arxiv-sum/``.
+10. Copy the directory summarizer-server/ from the DVD into the Workspace dir: ``/home/USER/Workspace/summarizer-server``.
+11. Open a bash console and change into the directory ``/home/USER/Workspace/summarizer-server``.
+12. Edit the file docker-compose.yml and replace the string CACHEDIR with ``/home/USER/Workspace/cache/``.
+13. Build the docker image with the command ``docker-compose build``. (This takes a few minutes)
+14. Start the docker image using the command ``docker-compose up``. 
+15. Open a browser and access the IP and port 8000 of the RHEL machine (or localhost on that machine): ``http://localhost:8000/``.
