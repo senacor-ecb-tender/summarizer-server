@@ -5,15 +5,14 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**/pr-pipeline.yml'
       - '**/azure-static-web-apps-mango-stone-032a68f03.yml'
       - 'frontend/**'
+      - 'notebooks/**'
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches:
       - main
     paths-ignore:
-      - 'base-image/**'
       - '**/azure-static-web-apps-mango-stone-032a68f03.yml'
       - '**/deploy-main-pipeline.yml'
       - 'frontend/**'
