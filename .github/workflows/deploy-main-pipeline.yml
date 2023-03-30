@@ -141,7 +141,7 @@ jobs:
         password: ${{ secrets.service_principal_password }}
 
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         NAME: ${{ env.APP_NAME}}
         CREATED: $(date +'%Y-%m-%dT%H:%M:%S')
